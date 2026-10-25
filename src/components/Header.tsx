@@ -107,11 +107,11 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-amiri font-bold text-2xl md:text-3xl text-[#f3e5ab] tracking-wide">
+                <h1 className="font-amiri font-bold text-2xl md:text-3xl text-[#f3e5ab] tracking-wide leading-tight">
                   {t.appName}
                 </h1>
               </div>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="text-xs text-slate-400 font-medium mt-1.5 pt-0.5">
                 {t.appSubtitle}
               </p>
             </div>
