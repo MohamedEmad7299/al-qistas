@@ -18,7 +18,8 @@ import {
   Calendar, 
   FileText,
   Navigation,
-  Sparkles
+  Sparkles,
+  ChevronDown
 } from 'lucide-react';
 
 interface Props {
@@ -169,17 +170,20 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
               <span>{t.prayers.locateMe}</span>
             </button>
 
-            <select
-              value={selectedCityIndex}
-              onChange={(e) => handleCityChange(Number(e.target.value))}
-              className="bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#c8a951]"
-            >
-              {MAJOR_WORLD_CITIES.map((c, i) => (
-                <option key={i} value={i}>
-                  {language === 'ar' ? c.nameAr : c.nameEn}
-                </option>
-              ))}
-            </select>
+            <div className="relative inline-flex items-center">
+              <select
+                value={selectedCityIndex}
+                onChange={(e) => handleCityChange(Number(e.target.value))}
+                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-xl ps-8 pe-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+              >
+                {MAJOR_WORLD_CITIES.map((c, i) => (
+                  <option key={i} value={i}>
+                    {language === 'ar' ? c.nameAr : c.nameEn}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute start-2.5 pointer-events-none" />
+            </div>
           </div>
         </div>
       </div>

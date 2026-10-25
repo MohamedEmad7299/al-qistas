@@ -10,7 +10,8 @@ import {
   FileText, 
   Wheat, 
   HelpCircle,
-  Gem
+  Gem,
+  ChevronDown
 } from 'lucide-react';
 
 interface Props {
@@ -146,17 +147,20 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
 
           <div className="flex items-center gap-2">
             <span className="text-xs text-[#e6cb7a]">{t.currency}:</span>
-            <select
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
-              className="bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#c8a951]"
-            >
-              {currencies.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+            <div className="relative inline-flex items-center">
+              <select
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-lg ps-8 pe-4 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+              >
+                {currencies.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute start-2.5 pointer-events-none" />
+            </div>
           </div>
         </div>
       </div>
