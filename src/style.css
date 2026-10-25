@@ -82,16 +82,61 @@ input[type="number"] {
   box-shadow: 0 0 20px rgba(200, 169, 81, 0.25);
 }
 
-/* Print styling for PDF / Print view */
+/* Print styling for PDF / Single-Page A4 Print view */
 @media print {
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
   }
+
+  /* Force background colors and borders to print properly with exact colors */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide entire page chrome, background, headers, footers and modals */
+  html, body {
+    background: #ffffff !important;
+    color: #1a202c !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  /* Only show the certificate element and its children */
+  #pdf-printable-certificate,
+  #pdf-printable-certificate * {
+    visibility: visible !important;
+  }
+
+  #pdf-printable-certificate {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 8mm !important;
+    box-shadow: none !important;
+    border: 3px double #0f3d2e !important;
+    background: #ffffff !important;
+    color: #1a202c !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
   .no-print {
     display: none !important;
-  }
-  .print-only {
-    display: block !important;
   }
 }
