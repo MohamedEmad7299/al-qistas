@@ -11,7 +11,7 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
   const t = translations[language];
 
   return (
-    <footer className="mt-20 border-t border-[#c8a951]/20 bg-[#041410] text-slate-400 py-12 px-4 relative z-10">
+    <footer className="mt-20 border-t border-[#c8a951]/20 bg-[#041410] text-slate-400 py-12 px-4 relative z-10 no-print">
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center space-y-6">
         {/* Bismillah Calligraphy */}
         <div className="font-amiri text-2xl md:text-3xl text-[#c8a951]">

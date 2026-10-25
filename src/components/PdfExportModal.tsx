@@ -33,7 +33,97 @@ export const PdfExportModal: React.FC<PdfModalProps> = ({
   };
 
   const handlePrint = () => {
-    window.print();
+    const cert = document.getElementById('pdf-printable-certificate');
+    if (!cert) {
+      window.print();
+      return;
+    }
+
+    // Create an isolated hidden iframe for clean 1-page printing
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    iframe.style.visibility = 'hidden';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow?.document;
+    if (!doc) {
+      window.print();
+      return;
+    }
+
+    // Collect all stylesheets and font links
+    const styleElements = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'));
+    let stylesHtml = '';
+    styleElements.forEach((el) => {
+      stylesHtml += el.outerHTML;
+    });
+
+    doc.open();
+    doc.write(`
+      <!DOCTYPE html>
+      <html dir="${language === 'ar' ? 'rtl' : 'ltr'}" lang="${language}">
+        <head>
+          <meta charset="UTF-8">
+          <title>${language === 'ar' ? 'التقرير الشرعي المعتمد - القسطاس' : 'Al-Qistas Official Shariah Certificate'}</title>
+          ${stylesHtml}
+          <style>
+            @page {
+              size: A4 portrait;
+              margin: 6mm;
+            }
+            *, *::before, *::after {
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+              box-sizing: border-box !important;
+            }
+            html, body {
+              margin: 0 !important;
+              padding: 0 !important;
+              background: #ffffff !important;
+              color: #1a202c !important;
+              width: 100% !important;
+              height: auto !important;
+            }
+            #pdf-printable-certificate {
+              margin: 0 auto !important;
+              width: 100% !important;
+              max-width: 100% !important;
+              padding: 6mm !important;
+              box-shadow: none !important;
+              border: 3px double #0f3d2e !important;
+              background: #ffffff !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+          </style>
+        </head>
+        <body style="background: #ffffff; padding: 0; margin: 0;">
+          ${cert.outerHTML}
+        </body>
+      </html>
+    `);
+    doc.close();
+
+    setTimeout(() => {
+      try {
+        iframe.contentWindow?.focus();
+        iframe.contentWindow?.print();
+      } catch (err) {
+        console.error('Print iframe error:', err);
+        window.print();
+      } finally {
+        setTimeout(() => {
+          if (document.body.contains(iframe)) {
+            document.body.removeChild(iframe);
+          }
+        }, 1500);
+      }
+    }, 300);
   };
 
   const currentDateGreg = new Date().toLocaleDateString(language === 'ar' ? 'ar-EG' : 'en-US', {
@@ -46,7 +136,7 @@ export const PdfExportModal: React.FC<PdfModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
       <div className="relative w-full max-w-4xl bg-[#09261e] border-2 border-[#c8a951] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-4 sm:my-8 flex flex-col max-h-[92vh]">
         {/* Modal Top Control Bar */}
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-[#07261d] border-b border-[#c8a951]/30 shrink-0">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-[#07261d] border-b border-[#c8a951]/30 shrink-0 no-print">
           <div className="flex items-center gap-2 text-[#f3e5ab] font-amiri text-base sm:text-lg font-bold">
             <Sparkles className="w-5 h-5 text-[#c8a951]" />
             <span>{language === 'ar' ? 'معاينة التقرير الشرعي للطباعة و PDF' : 'Official PDF Document Preview'}</span>

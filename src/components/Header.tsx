@@ -64,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#07261d]/90 backdrop-blur-md border-b border-[#c8a951]/20 shadow-lg">
+    <header className="sticky top-0 z-40 bg-[#07261d]/90 backdrop-blur-md border-b border-[#c8a951]/20 shadow-lg no-print">
       {/* Top Banner: Quranic motto & Live Dates */}
       <div className="bg-[#051a14]/80 border-b border-[#c8a951]/10 px-4 py-1.5 text-xs">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">

@@ -44,7 +44,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content Viewport */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8 relative z-10">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8 relative z-10 no-print">
         {activeTab === 'inheritance' && (
           <InheritanceCalculator language={language} onOpenPdfModal={handleOpenPdf} />
         )}
