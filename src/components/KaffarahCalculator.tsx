@@ -9,22 +9,27 @@ interface Props {
   onOpenPdfModal: (data: any) => void;
 }
 
+const cleanNumberInput = (val: string): string => {
+  if (!val) return '';
+  return val.replace(/^0+(?=\d)/, '');
+};
+
 export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
   const t = translations[language];
 
   const [type, setType] = useState<'oath' | 'fast_breach' | 'fidyah' | 'diyah'>('oath');
-  const [mealPrice, setMealPrice] = useState<number>(50);
-  const [missedDays, setMissedDays] = useState<number>(10);
-  const [goldPrice, setGoldPrice] = useState<number>(4100);
+  const [mealPrice, setMealPrice] = useState<number | string>(50);
+  const [missedDays, setMissedDays] = useState<number | string>('');
+  const [goldPrice, setGoldPrice] = useState<number | string>(4100);
   const [currency, setCurrency] = useState<string>('EGP');
 
   const result = useMemo(() => {
     return calculateKaffarah({
       type,
-      mealPrice,
-      missedDays,
+      mealPrice: Number(mealPrice) || 0,
+      missedDays: Number(missedDays) || 0,
       currency,
-      goldPricePerGram: goldPrice,
+      goldPricePerGram: Number(goldPrice) || 0,
     });
   }, [type, mealPrice, missedDays, currency, goldPrice]);
 
@@ -90,8 +95,9 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                   <input
                     type="number"
                     min="1"
-                    value={mealPrice}
-                    onChange={(e) => setMealPrice(Math.max(1, Number(e.target.value)))}
+                    value={mealPrice === '' ? '' : mealPrice}
+                    onChange={(e) => setMealPrice(cleanNumberInput(e.target.value))}
+                    placeholder="50"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>
@@ -105,8 +111,9 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                   <input
                     type="number"
                     min="1"
-                    value={missedDays}
-                    onChange={(e) => setMissedDays(Math.max(1, Number(e.target.value)))}
+                    value={missedDays === 0 || missedDays === '0' || missedDays === '' ? '' : missedDays}
+                    onChange={(e) => setMissedDays(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>
@@ -120,8 +127,9 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                   <input
                     type="number"
                     min="1"
-                    value={goldPrice}
-                    onChange={(e) => setGoldPrice(Math.max(1, Number(e.target.value)))}
+                    value={goldPrice === '' ? '' : goldPrice}
+                    onChange={(e) => setGoldPrice(cleanNumberInput(e.target.value))}
+                    placeholder="4100"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>

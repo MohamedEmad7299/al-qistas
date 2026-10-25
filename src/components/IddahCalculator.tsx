@@ -9,6 +9,11 @@ interface Props {
   onOpenPdfModal: (data: any) => void;
 }
 
+const cleanNumberInput = (val: string): string => {
+  if (!val) return '';
+  return val.replace(/^0+(?=\d)/, '');
+};
+
 export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
   const t = translations[language];
 
@@ -16,14 +21,14 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
   const [startDateStr, setStartDateStr] = useState<string>(
     new Date().toISOString().split('T')[0]
   );
-  const [cycleDays, setCycleDays] = useState<number>(28);
+  const [cycleDays, setCycleDays] = useState<number | string>(28);
   const [deliveryDateStr, setDeliveryDateStr] = useState<string>('');
 
   const result = useMemo(() => {
     return calculateIddah({
       type,
       startDateStr,
-      cycleLengthDays: cycleDays,
+      cycleLengthDays: Number(cycleDays) || 28,
       expectedDeliveryDateStr: deliveryDateStr,
     });
   }, [type, startDateStr, cycleDays, deliveryDateStr]);
@@ -101,8 +106,9 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     type="number"
                     min="20"
                     max="45"
-                    value={cycleDays}
-                    onChange={(e) => setCycleDays(Math.max(20, Number(e.target.value)))}
+                    value={cycleDays === '' ? '' : cycleDays}
+                    onChange={(e) => setCycleDays(cleanNumberInput(e.target.value))}
+                    placeholder="28"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>

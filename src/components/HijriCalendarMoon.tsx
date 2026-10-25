@@ -22,6 +22,11 @@ interface Props {
   language: Language;
 }
 
+const cleanNumberInput = (val: string): string => {
+  if (!val) return '';
+  return val.replace(/^0+(?=\d)/, '');
+};
+
 export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
   const t = translations[language];
 
@@ -31,9 +36,9 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
   );
 
   // Hijri to Gregorian input
-  const [hYearInput, setHYearInput] = useState<number>(1448);
+  const [hYearInput, setHYearInput] = useState<number | string>(1448);
   const [hMonthInput, setHMonthInput] = useState<number>(9); // Ramadan default
-  const [hDayInput, setHDayInput] = useState<number>(1);
+  const [hDayInput, setHDayInput] = useState<number | string>(1);
 
   const convertedHijri = useMemo(() => {
     const d = new Date(gregDateInput);
@@ -41,7 +46,7 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
   }, [gregDateInput]);
 
   const convertedGreg = useMemo(() => {
-    return hijriToGregorian(hYearInput, hMonthInput, hDayInput);
+    return hijriToGregorian(Number(hYearInput) || 1448, hMonthInput, Number(hDayInput) || 1);
   }, [hYearInput, hMonthInput, hDayInput]);
 
   // Current Moon Phase
@@ -166,10 +171,10 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
                   type="number"
                   min="1"
                   max="30"
-                  value={hDayInput}
-                  onChange={(e) => setHDayInput(Math.min(30, Math.max(1, Number(e.target.value))))}
+                  value={hDayInput === '' ? '' : hDayInput}
+                  onChange={(e) => setHDayInput(cleanNumberInput(e.target.value))}
                   className="bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2 py-1.5 text-center text-white font-bold text-xs"
-                  placeholder="اليوم"
+                  placeholder="1"
                 />
                 <select
                   value={hMonthInput}
@@ -186,10 +191,10 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
                   type="number"
                   min="1300"
                   max="1600"
-                  value={hYearInput}
-                  onChange={(e) => setHYearInput(Number(e.target.value))}
+                  value={hYearInput === '' ? '' : hYearInput}
+                  onChange={(e) => setHYearInput(cleanNumberInput(e.target.value))}
                   className="bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2 py-1.5 text-center text-white font-bold text-xs"
-                  placeholder="السنة"
+                  placeholder="1448"
                 />
               </div>
 

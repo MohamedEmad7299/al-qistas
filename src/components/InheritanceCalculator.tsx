@@ -19,6 +19,11 @@ interface Props {
   onOpenPdfModal: (data: { type: 'inheritance'; result: InheritanceResult; currency: string }) => void;
 }
 
+const cleanNumberInput = (val: string): string => {
+  if (!val) return '';
+  return val.replace(/^0+(?=\d)/, '');
+};
+
 export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
   const t = translations[language];
 
@@ -29,27 +34,27 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
   const [funeralExpenses, setFuneralExpenses] = useState<number | string>('');
   const [wasiyyah, setWasiyyah] = useState<number | string>('');
 
-  // Heirs state
-  const [wives, setWives] = useState<number>(1);
-  const [husband, setHusband] = useState<boolean>(true);
-  const [sons, setSons] = useState<number>(2);
-  const [daughters, setDaughters] = useState<number>(1);
-  const [grandsons, setGrandsons] = useState<number>(0);
-  const [granddaughters, setGranddaughters] = useState<number>(0);
-  const [father, setFather] = useState<boolean>(true);
-  const [mother, setMother] = useState<boolean>(true);
+  // Heirs state - default to 0 / false so fields start clean and blank
+  const [wives, setWives] = useState<number>(0);
+  const [husband, setHusband] = useState<boolean>(false);
+  const [sons, setSons] = useState<number | string>('');
+  const [daughters, setDaughters] = useState<number | string>('');
+  const [grandsons, setGrandsons] = useState<number | string>('');
+  const [granddaughters, setGranddaughters] = useState<number | string>('');
+  const [father, setFather] = useState<boolean>(false);
+  const [mother, setMother] = useState<boolean>(false);
   const [paternalGrandfather, setPaternalGrandfather] = useState<boolean>(false);
   const [paternalGrandmother, setPaternalGrandmother] = useState<boolean>(false);
   const [maternalGrandmother, setMaternalGrandmother] = useState<boolean>(false);
-  const [fullBrothers, setFullBrothers] = useState<number>(0);
-  const [fullSisters, setFullSisters] = useState<number>(0);
-  const [paternalBrothers, setPaternalBrothers] = useState<number>(0);
-  const [paternalSisters, setPaternalSisters] = useState<number>(0);
-  const [maternalBrothers, setMaternalBrothers] = useState<number>(0);
-  const [maternalSisters, setMaternalSisters] = useState<number>(0);
-  const [nephewsFull, setNephewsFull] = useState<number>(0);
-  const [unclesFull, setUnclesFull] = useState<number>(0);
-  const [cousinsFull, setCousinsFull] = useState<number>(0);
+  const [fullBrothers, setFullBrothers] = useState<number | string>('');
+  const [fullSisters, setFullSisters] = useState<number | string>('');
+  const [paternalBrothers, setPaternalBrothers] = useState<number | string>('');
+  const [paternalSisters, setPaternalSisters] = useState<number | string>('');
+  const [maternalBrothers, setMaternalBrothers] = useState<number | string>('');
+  const [maternalSisters, setMaternalSisters] = useState<number | string>('');
+  const [nephewsFull, setNephewsFull] = useState<number | string>('');
+  const [unclesFull, setUnclesFull] = useState<number | string>('');
+  const [cousinsFull, setCousinsFull] = useState<number | string>('');
 
   const [activeTabSection, setActiveTabSection] = useState<'descendants' | 'ascendants' | 'siblings' | 'extended'>('descendants');
 
@@ -63,24 +68,24 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
       heirs: {
         husband: deceasedGender === 'female' ? husband : false,
         wives: deceasedGender === 'male' ? wives : 0,
-        sons,
-        daughters,
-        grandsons,
-        granddaughters,
+        sons: Number(sons) || 0,
+        daughters: Number(daughters) || 0,
+        grandsons: Number(grandsons) || 0,
+        granddaughters: Number(granddaughters) || 0,
         father,
         mother,
         paternalGrandfather,
         paternalGrandmother,
         maternalGrandmother,
-        fullBrothers,
-        fullSisters,
-        paternalBrothers,
-        paternalSisters,
-        maternalBrothers,
-        maternalSisters,
-        nephewsFull,
-        unclesFull,
-        cousinsFull,
+        fullBrothers: Number(fullBrothers) || 0,
+        fullSisters: Number(fullSisters) || 0,
+        paternalBrothers: Number(paternalBrothers) || 0,
+        paternalSisters: Number(paternalSisters) || 0,
+        maternalBrothers: Number(maternalBrothers) || 0,
+        maternalSisters: Number(maternalSisters) || 0,
+        nephewsFull: Number(nephewsFull) || 0,
+        unclesFull: Number(unclesFull) || 0,
+        cousinsFull: Number(cousinsFull) || 0,
       },
     };
   }, [
@@ -206,8 +211,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                 <input
                   type="number"
                   min="0"
-                  value={estateValue}
-                  onChange={(e) => setEstateValue(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))}
+                  value={estateValue === 0 || estateValue === '0' || estateValue === '' ? '' : estateValue}
+                  onChange={(e) => setEstateValue(cleanNumberInput(e.target.value))}
                   placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold focus:outline-none focus:border-[#c8a951] text-sm"
                 />
@@ -221,8 +226,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   <input
                     type="number"
                     min="0"
-                    value={debts}
-                    onChange={(e) => setDebts(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))}
+                    value={debts === 0 || debts === '0' || debts === '' ? '' : debts}
+                    onChange={(e) => setDebts(cleanNumberInput(e.target.value))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#c8a951]"
                   />
@@ -234,8 +239,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   <input
                     type="number"
                     min="0"
-                    value={funeralExpenses}
-                    onChange={(e) => setFuneralExpenses(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))}
+                    value={funeralExpenses === 0 || funeralExpenses === '0' || funeralExpenses === '' ? '' : funeralExpenses}
+                    onChange={(e) => setFuneralExpenses(cleanNumberInput(e.target.value))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#c8a951]"
                   />
@@ -254,8 +259,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                 <input
                   type="number"
                   min="0"
-                  value={wasiyyah}
-                  onChange={(e) => setWasiyyah(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))}
+                  value={wasiyyah === 0 || wasiyyah === '0' || wasiyyah === '' ? '' : wasiyyah}
+                  onChange={(e) => setWasiyyah(cleanNumberInput(e.target.value))}
                   placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#c8a951]"
                 />
@@ -345,8 +350,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                         type="number"
                         min="0"
                         max="20"
-                        value={sons}
-                        onChange={(e) => setSons(Math.max(0, Number(e.target.value)))}
+                        value={sons === 0 || sons === '0' || sons === '' ? '' : sons}
+                        onChange={(e) => setSons(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2.5 py-1 text-center font-bold text-white text-sm"
                       />
                     </div>
@@ -356,8 +362,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                         type="number"
                         min="0"
                         max="20"
-                        value={daughters}
-                        onChange={(e) => setDaughters(Math.max(0, Number(e.target.value)))}
+                        value={daughters === 0 || daughters === '0' || daughters === '' ? '' : daughters}
+                        onChange={(e) => setDaughters(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2.5 py-1 text-center font-bold text-white text-sm"
                       />
                     </div>
@@ -370,8 +377,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                         type="number"
                         min="0"
                         max="20"
-                        value={grandsons}
-                        onChange={(e) => setGrandsons(Math.max(0, Number(e.target.value)))}
+                        value={grandsons === 0 || grandsons === '0' || grandsons === '' ? '' : grandsons}
+                        onChange={(e) => setGrandsons(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2.5 py-1 text-center font-bold text-white text-sm"
                       />
                     </div>
@@ -381,8 +389,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                         type="number"
                         min="0"
                         max="20"
-                        value={granddaughters}
-                        onChange={(e) => setGranddaughters(Math.max(0, Number(e.target.value)))}
+                        value={granddaughters === 0 || granddaughters === '0' || granddaughters === '' ? '' : granddaughters}
+                        onChange={(e) => setGranddaughters(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2.5 py-1 text-center font-bold text-white text-sm"
                       />
                     </div>
@@ -455,8 +464,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        value={fullBrothers}
-                        onChange={(e) => setFullBrothers(Math.max(0, Number(e.target.value)))}
+                        value={fullBrothers === 0 || fullBrothers === '0' || fullBrothers === '' ? '' : fullBrothers}
+                        onChange={(e) => setFullBrothers(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
                     </div>
@@ -465,8 +475,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        value={fullSisters}
-                        onChange={(e) => setFullSisters(Math.max(0, Number(e.target.value)))}
+                        value={fullSisters === 0 || fullSisters === '0' || fullSisters === '' ? '' : fullSisters}
+                        onChange={(e) => setFullSisters(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
                     </div>
@@ -478,8 +489,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        value={paternalBrothers}
-                        onChange={(e) => setPaternalBrothers(Math.max(0, Number(e.target.value)))}
+                        value={paternalBrothers === 0 || paternalBrothers === '0' || paternalBrothers === '' ? '' : paternalBrothers}
+                        onChange={(e) => setPaternalBrothers(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
                     </div>
@@ -488,8 +500,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        value={paternalSisters}
-                        onChange={(e) => setPaternalSisters(Math.max(0, Number(e.target.value)))}
+                        value={paternalSisters === 0 || paternalSisters === '0' || paternalSisters === '' ? '' : paternalSisters}
+                        onChange={(e) => setPaternalSisters(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
                     </div>
@@ -501,8 +514,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        value={maternalBrothers}
-                        onChange={(e) => setMaternalBrothers(Math.max(0, Number(e.target.value)))}
+                        value={maternalBrothers === 0 || maternalBrothers === '0' || maternalBrothers === '' ? '' : maternalBrothers}
+                        onChange={(e) => setMaternalBrothers(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
                     </div>
@@ -511,8 +525,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        value={maternalSisters}
-                        onChange={(e) => setMaternalSisters(Math.max(0, Number(e.target.value)))}
+                        value={maternalSisters === 0 || maternalSisters === '0' || maternalSisters === '' ? '' : maternalSisters}
+                        onChange={(e) => setMaternalSisters(cleanNumberInput(e.target.value))}
+                        placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
                     </div>
@@ -528,8 +543,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     <input
                       type="number"
                       min="0"
-                      value={nephewsFull}
-                      onChange={(e) => setNephewsFull(Math.max(0, Number(e.target.value)))}
+                      value={nephewsFull === 0 || nephewsFull === '0' || nephewsFull === '' ? '' : nephewsFull}
+                      onChange={(e) => setNephewsFull(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-16 bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
                   </div>
@@ -539,8 +555,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     <input
                       type="number"
                       min="0"
-                      value={unclesFull}
-                      onChange={(e) => setUnclesFull(Math.max(0, Number(e.target.value)))}
+                      value={unclesFull === 0 || unclesFull === '0' || unclesFull === '' ? '' : unclesFull}
+                      onChange={(e) => setUnclesFull(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-16 bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
                   </div>
@@ -550,8 +567,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     <input
                       type="number"
                       min="0"
-                      value={cousinsFull}
-                      onChange={(e) => setCousinsFull(Math.max(0, Number(e.target.value)))}
+                      value={cousinsFull === 0 || cousinsFull === '0' || cousinsFull === '' ? '' : cousinsFull}
+                      onChange={(e) => setCousinsFull(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-16 bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
                   </div>

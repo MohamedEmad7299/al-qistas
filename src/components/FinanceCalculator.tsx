@@ -13,34 +13,39 @@ interface Props {
   onOpenPdfModal: (data: any) => void;
 }
 
+const cleanNumberInput = (val: string): string => {
+  if (!val) return '';
+  return val.replace(/^0+(?=\d)/, '');
+};
+
 export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
   const t = translations[language];
 
   const [contractType, setContractType] = useState<'mudarabah' | 'musharakah' | 'murabaha'>('mudarabah');
   const [currency, setCurrency] = useState('EGP');
 
-  // Mudarabah state
-  const [mudarabahCapital, setMudarabahCapital] = useState<number>(50000);
-  const [mudarabahProfitOrLoss, setMudarabahProfitOrLoss] = useState<number>(15000);
+  // Mudarabah state - default blank
+  const [mudarabahCapital, setMudarabahCapital] = useState<number | string>('');
+  const [mudarabahProfitOrLoss, setMudarabahProfitOrLoss] = useState<number | string>('');
   const [mudarabahIsLoss, setMudarabahIsLoss] = useState<boolean>(false);
   const [rabbAlMalRatio, setRabbAlMalRatio] = useState<number>(70);
 
-  // Musharakah state
-  const [capitalA, setCapitalA] = useState<number>(60000);
-  const [capitalB, setCapitalB] = useState<number>(40000);
+  // Musharakah state - default blank
+  const [capitalA, setCapitalA] = useState<number | string>('');
+  const [capitalB, setCapitalB] = useState<number | string>('');
   const [profitRatioA, setProfitRatioA] = useState<number>(60);
-  const [musharakahProfitOrLoss, setMusharakahProfitOrLoss] = useState<number>(20000);
+  const [musharakahProfitOrLoss, setMusharakahProfitOrLoss] = useState<number | string>('');
   const [musharakahIsLoss, setMusharakahIsLoss] = useState<boolean>(false);
 
-  // Murabaha state
-  const [assetCost, setAssetCost] = useState<number>(30000);
-  const [marginPct, setMarginPct] = useState<number>(12);
-  const [tenorMonths, setTenorMonths] = useState<number>(24);
+  // Murabaha state - default blank
+  const [assetCost, setAssetCost] = useState<number | string>('');
+  const [marginPct, setMarginPct] = useState<number | string>('');
+  const [tenorMonths, setTenorMonths] = useState<number | string>('');
 
   const mudarabahResult = useMemo(() => {
     return calculateMudarabah({
-      capital: mudarabahCapital,
-      profitOrLoss: mudarabahProfitOrLoss,
+      capital: Number(mudarabahCapital) || 0,
+      profitOrLoss: Number(mudarabahProfitOrLoss) || 0,
       isLoss: mudarabahIsLoss,
       rabbAlMalRatioPct: rabbAlMalRatio,
     });
@@ -48,19 +53,19 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
 
   const musharakahResult = useMemo(() => {
     return calculateMusharakah({
-      capitalA,
-      capitalB,
+      capitalA: Number(capitalA) || 0,
+      capitalB: Number(capitalB) || 0,
       profitRatioA,
-      profitOrLoss: musharakahProfitOrLoss,
+      profitOrLoss: Number(musharakahProfitOrLoss) || 0,
       isLoss: musharakahIsLoss,
     });
   }, [capitalA, capitalB, profitRatioA, musharakahProfitOrLoss, musharakahIsLoss]);
 
   const murabahaResult = useMemo(() => {
     return calculateMurabaha({
-      assetCost,
-      marginPct,
-      tenorMonths,
+      assetCost: Number(assetCost) || 0,
+      marginPct: Number(marginPct) || 0,
+      tenorMonths: Number(tenorMonths) || 0,
     });
   }, [assetCost, marginPct, tenorMonths]);
 
@@ -125,8 +130,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                   <input
                     type="number"
                     min="1"
-                    value={mudarabahCapital}
-                    onChange={(e) => setMudarabahCapital(Math.max(1, Number(e.target.value)))}
+                    value={mudarabahCapital === 0 || mudarabahCapital === '0' || mudarabahCapital === '' ? '' : mudarabahCapital}
+                    onChange={(e) => setMudarabahCapital(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>
@@ -185,8 +191,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                   <input
                     type="number"
                     min="0"
-                    value={mudarabahProfitOrLoss}
-                    onChange={(e) => setMudarabahProfitOrLoss(Math.max(0, Number(e.target.value)))}
+                    value={mudarabahProfitOrLoss === 0 || mudarabahProfitOrLoss === '0' || mudarabahProfitOrLoss === '' ? '' : mudarabahProfitOrLoss}
+                    onChange={(e) => setMudarabahProfitOrLoss(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>
@@ -208,8 +215,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     <input
                       type="number"
                       min="1"
-                      value={capitalA}
-                      onChange={(e) => setCapitalA(Math.max(1, Number(e.target.value)))}
+                      value={capitalA === 0 || capitalA === '0' || capitalA === '' ? '' : capitalA}
+                      onChange={(e) => setCapitalA(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2.5 py-1.5 text-white font-bold text-xs"
                     />
                   </div>
@@ -218,8 +226,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     <input
                       type="number"
                       min="1"
-                      value={capitalB}
-                      onChange={(e) => setCapitalB(Math.max(1, Number(e.target.value)))}
+                      value={capitalB === 0 || capitalB === '0' || capitalB === '' ? '' : capitalB}
+                      onChange={(e) => setCapitalB(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2.5 py-1.5 text-white font-bold text-xs"
                     />
                   </div>
@@ -270,8 +279,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                   <input
                     type="number"
                     min="0"
-                    value={musharakahProfitOrLoss}
-                    onChange={(e) => setMusharakahProfitOrLoss(Math.max(0, Number(e.target.value)))}
+                    value={musharakahProfitOrLoss === 0 || musharakahProfitOrLoss === '0' || musharakahProfitOrLoss === '' ? '' : musharakahProfitOrLoss}
+                    onChange={(e) => setMusharakahProfitOrLoss(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>
@@ -294,8 +304,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                   <input
                     type="number"
                     min="1"
-                    value={assetCost}
-                    onChange={(e) => setAssetCost(Math.max(1, Number(e.target.value)))}
+                    value={assetCost === 0 || assetCost === '0' || assetCost === '' ? '' : assetCost}
+                    onChange={(e) => setAssetCost(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>
@@ -308,8 +319,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     type="number"
                     min="1"
                     max="100"
-                    value={marginPct}
-                    onChange={(e) => setMarginPct(Math.max(1, Number(e.target.value)))}
+                    value={marginPct === 0 || marginPct === '0' || marginPct === '' ? '' : marginPct}
+                    onChange={(e) => setMarginPct(cleanNumberInput(e.target.value))}
+                    placeholder="12"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>
@@ -322,8 +334,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     type="number"
                     min="1"
                     max="120"
-                    value={tenorMonths}
-                    onChange={(e) => setTenorMonths(Math.max(1, Number(e.target.value)))}
+                    value={tenorMonths === 0 || tenorMonths === '0' || tenorMonths === '' ? '' : tenorMonths}
+                    onChange={(e) => setTenorMonths(cleanNumberInput(e.target.value))}
+                    placeholder="24"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>

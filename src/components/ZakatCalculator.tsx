@@ -19,77 +19,82 @@ interface Props {
   onOpenPdfModal: (data: { type: 'zakat'; result: ZakatResult; currency: string }) => void;
 }
 
+const cleanNumberInput = (val: string): string => {
+  if (!val) return '';
+  return val.replace(/^0+(?=\d)/, '');
+};
+
 export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
   const t = translations[language];
 
   const [activeCategory, setActiveCategory] = useState<'mal' | 'fitr' | 'crops' | 'livestock' | 'rikaz' | 'stocks'>('mal');
   const [currency, setCurrency] = useState('EGP');
-  const [goldPrice, setGoldPrice] = useState<number>(4100);
-  const [silverPrice, setSilverPrice] = useState<number>(55);
+  const [goldPrice, setGoldPrice] = useState<number | string>(4100);
+  const [silverPrice, setSilverPrice] = useState<number | string>(55);
   const [nisabStandard, setNisabStandard] = useState<'gold' | 'silver'>('gold');
   const [isHawlCompleted, setIsHawlCompleted] = useState<boolean>(true);
   const [useSolarCalendar, setUseSolarCalendar] = useState<boolean>(false);
 
-  // Wealth & Cash
-  const [cashOnHand, setCashOnHand] = useState<number>(50000);
-  const [bankDeposits, setBankDeposits] = useState<number>(150000);
-  const [gold24k, setGold24k] = useState<number>(50);
-  const [gold21k, setGold21k] = useState<number>(0);
-  const [gold18k, setGold18k] = useState<number>(0);
-  const [silverGrams, setSilverGrams] = useState<number>(0);
-  const [tradeGoods, setTradeGoods] = useState<number>(100000);
-  const [receivables, setReceivables] = useState<number>(20000);
-  const [deductibleDebts, setDeductibleDebts] = useState<number>(10000);
+  // Wealth & Cash - default blank
+  const [cashOnHand, setCashOnHand] = useState<number | string>('');
+  const [bankDeposits, setBankDeposits] = useState<number | string>('');
+  const [gold24k, setGold24k] = useState<number | string>('');
+  const [gold21k, setGold21k] = useState<number | string>('');
+  const [gold18k, setGold18k] = useState<number | string>('');
+  const [silverGrams, setSilverGrams] = useState<number | string>('');
+  const [tradeGoods, setTradeGoods] = useState<number | string>('');
+  const [receivables, setReceivables] = useState<number | string>('');
+  const [deductibleDebts, setDeductibleDebts] = useState<number | string>('');
 
   // Fitr
-  const [fitrMembers, setFitrMembers] = useState<number>(4);
-  const [fitrPricePerSaa, setFitrPricePerSaa] = useState<number>(35);
+  const [fitrMembers, setFitrMembers] = useState<number | string>('');
+  const [fitrPricePerSaa, setFitrPricePerSaa] = useState<number | string>('');
 
   // Crops
-  const [cropYieldKg, setCropYieldKg] = useState<number>(1000);
+  const [cropYieldKg, setCropYieldKg] = useState<number | string>('');
   const [cropIrrigation, setCropIrrigation] = useState<'natural' | 'artificial' | 'mixed'>('natural');
-  const [cropPricePerKg, setCropPricePerKg] = useState<number>(1.5);
+  const [cropPricePerKg, setCropPricePerKg] = useState<number | string>('');
 
   // Livestock
-  const [camels, setCamels] = useState<number>(0);
-  const [cattle, setCattle] = useState<number>(0);
-  const [sheep, setSheep] = useState<number>(0);
+  const [camels, setCamels] = useState<number | string>('');
+  const [cattle, setCattle] = useState<number | string>('');
+  const [sheep, setSheep] = useState<number | string>('');
 
   // Rikaz
-  const [rikazValue, setRikazValue] = useState<number>(0);
+  const [rikazValue, setRikazValue] = useState<number | string>('');
 
   // Stocks
-  const [stocksTradingValue, setStocksTradingValue] = useState<number>(0);
-  const [stocksInvestmentDividends, setStocksInvestmentDividends] = useState<number>(0);
+  const [stocksTradingValue, setStocksTradingValue] = useState<number | string>('');
+  const [stocksInvestmentDividends, setStocksInvestmentDividends] = useState<number | string>('');
 
   const zakatInput: ZakatInput = useMemo(() => {
     return {
       currency,
-      goldPricePerGram: goldPrice,
-      silverPricePerGram: silverPrice,
+      goldPricePerGram: Number(goldPrice) || 0,
+      silverPricePerGram: Number(silverPrice) || 0,
       nisabStandard,
-      cashOnHand,
-      bankDeposits,
-      gold24k,
-      gold21k,
-      gold18k,
-      silverGrams,
-      tradeGoods,
-      receivables,
-      deductibleDebts,
+      cashOnHand: Number(cashOnHand) || 0,
+      bankDeposits: Number(bankDeposits) || 0,
+      gold24k: Number(gold24k) || 0,
+      gold21k: Number(gold21k) || 0,
+      gold18k: Number(gold18k) || 0,
+      silverGrams: Number(silverGrams) || 0,
+      tradeGoods: Number(tradeGoods) || 0,
+      receivables: Number(receivables) || 0,
+      deductibleDebts: Number(deductibleDebts) || 0,
       isHawlCompleted,
       useSolarCalendar,
-      fitrMembers,
-      fitrPricePerSaa,
-      cropYieldKg,
+      fitrMembers: Number(fitrMembers) || 0,
+      fitrPricePerSaa: Number(fitrPricePerSaa) || 0,
+      cropYieldKg: Number(cropYieldKg) || 0,
       cropIrrigation,
-      cropPricePerKg,
-      camels,
-      cattle,
-      sheep,
-      rikazValue,
-      stocksTradingValue,
-      stocksInvestmentDividends,
+      cropPricePerKg: Number(cropPricePerKg) || 0,
+      camels: Number(camels) || 0,
+      cattle: Number(cattle) || 0,
+      sheep: Number(sheep) || 0,
+      rikazValue: Number(rikazValue) || 0,
+      stocksTradingValue: Number(stocksTradingValue) || 0,
+      stocksInvestmentDividends: Number(stocksInvestmentDividends) || 0,
     };
   }, [
     currency,
@@ -212,8 +217,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                 <input
                   type="number"
                   min="0"
-                  value={goldPrice}
-                  onChange={(e) => setGoldPrice(Math.max(0, Number(e.target.value)))}
+                  value={goldPrice === '' ? '' : goldPrice}
+                  onChange={(e) => setGoldPrice(cleanNumberInput(e.target.value))}
+                  placeholder="4100"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white font-bold text-xs"
                 />
               </div>
@@ -224,8 +230,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   type="number"
                   min="0"
                   step="0.1"
-                  value={silverPrice}
-                  onChange={(e) => setSilverPrice(Math.max(0, Number(e.target.value)))}
+                  value={silverPrice === '' ? '' : silverPrice}
+                  onChange={(e) => setSilverPrice(cleanNumberInput(e.target.value))}
+                  placeholder="55"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white font-bold text-xs"
                 />
               </div>
@@ -267,8 +274,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={cashOnHand}
-                    onChange={(e) => setCashOnHand(Math.max(0, Number(e.target.value)))}
+                    value={cashOnHand === 0 || cashOnHand === '0' || cashOnHand === '' ? '' : cashOnHand}
+                    onChange={(e) => setCashOnHand(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
                 </div>
@@ -278,8 +286,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={bankDeposits}
-                    onChange={(e) => setBankDeposits(Math.max(0, Number(e.target.value)))}
+                    value={bankDeposits === 0 || bankDeposits === '0' || bankDeposits === '' ? '' : bankDeposits}
+                    onChange={(e) => setBankDeposits(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
                 </div>
@@ -289,8 +298,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={tradeGoods}
-                    onChange={(e) => setTradeGoods(Math.max(0, Number(e.target.value)))}
+                    value={tradeGoods === 0 || tradeGoods === '0' || tradeGoods === '' ? '' : tradeGoods}
+                    onChange={(e) => setTradeGoods(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
                 </div>
@@ -300,24 +310,26 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={receivables}
-                    onChange={(e) => setReceivables(Math.max(0, Number(e.target.value)))}
+                    value={receivables === 0 || receivables === '0' || receivables === '' ? '' : receivables}
+                    onChange={(e) => setReceivables(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
                 </div>
               </div>
 
-              {/* Gold by Karats */}
+              {/* Gold & Silver by Karats / Weight */}
               <div className="p-3 rounded-xl bg-[#07261d]/70 border border-[#c8a951]/20 space-y-2">
                 <span className="text-xs font-semibold text-[#e6cb7a] block">{t.zakat.goldWeights}</span>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   <div>
                     <label className="block text-[11px] text-slate-300 mb-1">{t.zakat.gold24}</label>
                     <input
                       type="number"
                       min="0"
-                      value={gold24k}
-                      onChange={(e) => setGold24k(Math.max(0, Number(e.target.value)))}
+                      value={gold24k === 0 || gold24k === '0' || gold24k === '' ? '' : gold24k}
+                      onChange={(e) => setGold24k(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
                   </div>
@@ -326,8 +338,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     <input
                       type="number"
                       min="0"
-                      value={gold21k}
-                      onChange={(e) => setGold21k(Math.max(0, Number(e.target.value)))}
+                      value={gold21k === 0 || gold21k === '0' || gold21k === '' ? '' : gold21k}
+                      onChange={(e) => setGold21k(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
                   </div>
@@ -336,8 +349,20 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     <input
                       type="number"
                       min="0"
-                      value={gold18k}
-                      onChange={(e) => setGold18k(Math.max(0, Number(e.target.value)))}
+                      value={gold18k === 0 || gold18k === '0' || gold18k === '' ? '' : gold18k}
+                      onChange={(e) => setGold18k(cleanNumberInput(e.target.value))}
+                      placeholder="0"
+                      className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] text-slate-300 mb-1">{language === 'ar' ? 'فضة (جرام)' : 'Silver (g)'}</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={silverGrams === 0 || silverGrams === '0' || silverGrams === '' ? '' : silverGrams}
+                      onChange={(e) => setSilverGrams(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
                   </div>
@@ -351,8 +376,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={deductibleDebts}
-                    onChange={(e) => setDeductibleDebts(Math.max(0, Number(e.target.value)))}
+                    value={deductibleDebts === 0 || deductibleDebts === '0' || deductibleDebts === '' ? '' : deductibleDebts}
+                    onChange={(e) => setDeductibleDebts(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-rose-500/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
                 </div>
@@ -395,8 +421,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="1"
-                    value={fitrMembers}
-                    onChange={(e) => setFitrMembers(Math.max(1, Number(e.target.value)))}
+                    value={fitrMembers === 0 || fitrMembers === '0' || fitrMembers === '' ? '' : fitrMembers}
+                    onChange={(e) => setFitrMembers(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                   />
                 </div>
@@ -407,8 +434,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     type="number"
                     min="0"
                     step="0.5"
-                    value={fitrPricePerSaa}
-                    onChange={(e) => setFitrPricePerSaa(Math.max(0, Number(e.target.value)))}
+                    value={fitrPricePerSaa === 0 || fitrPricePerSaa === '0' || fitrPricePerSaa === '' ? '' : fitrPricePerSaa}
+                    onChange={(e) => setFitrPricePerSaa(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                   />
                 </div>
@@ -436,8 +464,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     <input
                       type="number"
                       min="0"
-                      value={cropYieldKg}
-                      onChange={(e) => setCropYieldKg(Math.max(0, Number(e.target.value)))}
+                      value={cropYieldKg === 0 || cropYieldKg === '0' || cropYieldKg === '' ? '' : cropYieldKg}
+                      onChange={(e) => setCropYieldKg(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                     />
                   </div>
@@ -450,8 +479,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                       type="number"
                       min="0"
                       step="0.1"
-                      value={cropPricePerKg}
-                      onChange={(e) => setCropPricePerKg(Math.max(0, Number(e.target.value)))}
+                      value={cropPricePerKg === 0 || cropPricePerKg === '0' || cropPricePerKg === '' ? '' : cropPricePerKg}
+                      onChange={(e) => setCropPricePerKg(cleanNumberInput(e.target.value))}
+                      placeholder="0"
                       className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                     />
                   </div>
@@ -490,8 +520,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={camels}
-                    onChange={(e) => setCamels(Math.max(0, Number(e.target.value)))}
+                    value={camels === 0 || camels === '0' || camels === '' ? '' : camels}
+                    onChange={(e) => setCamels(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-sm"
                   />
                   <span className="text-[10px] text-slate-400 block mt-1 text-center">النصاب: 5 إبل</span>
@@ -502,8 +533,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={cattle}
-                    onChange={(e) => setCattle(Math.max(0, Number(e.target.value)))}
+                    value={cattle === 0 || cattle === '0' || cattle === '' ? '' : cattle}
+                    onChange={(e) => setCattle(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-sm"
                   />
                   <span className="text-[10px] text-slate-400 block mt-1 text-center">النصاب: 30 بقرة</span>
@@ -514,8 +546,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={sheep}
-                    onChange={(e) => setSheep(Math.max(0, Number(e.target.value)))}
+                    value={sheep === 0 || sheep === '0' || sheep === '' ? '' : sheep}
+                    onChange={(e) => setSheep(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-sm"
                   />
                   <span className="text-[10px] text-slate-400 block mt-1 text-center">النصاب: 40 شاة</span>
@@ -536,8 +569,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                 <input
                   type="number"
                   min="0"
-                  value={rikazValue}
-                  onChange={(e) => setRikazValue(Math.max(0, Number(e.target.value)))}
+                  value={rikazValue === 0 || rikazValue === '0' || rikazValue === '' ? '' : rikazValue}
+                  onChange={(e) => setRikazValue(cleanNumberInput(e.target.value))}
+                  placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                 />
               </div>
@@ -561,8 +595,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={stocksTradingValue}
-                    onChange={(e) => setStocksTradingValue(Math.max(0, Number(e.target.value)))}
+                    value={stocksTradingValue === 0 || stocksTradingValue === '0' || stocksTradingValue === '' ? '' : stocksTradingValue}
+                    onChange={(e) => setStocksTradingValue(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                   />
                   <span className="text-[10px] text-slate-400 block mt-0.5">تُزكى بالقيمة السوقية كاملة كعروض تجارة (2.5%)</span>
@@ -573,8 +608,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
-                    value={stocksInvestmentDividends}
-                    onChange={(e) => setStocksInvestmentDividends(Math.max(0, Number(e.target.value)))}
+                    value={stocksInvestmentDividends === 0 || stocksInvestmentDividends === '0' || stocksInvestmentDividends === '' ? '' : stocksInvestmentDividends}
+                    onChange={(e) => setStocksInvestmentDividends(cleanNumberInput(e.target.value))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                   />
                   <span className="text-[10px] text-slate-400 block mt-0.5">تُزكى بنسبة 10% على صافي الأرباح الموزعة وفق قرار مجمع الفقه الإسلامي</span>
