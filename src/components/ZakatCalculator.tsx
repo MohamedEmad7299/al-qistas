@@ -19,9 +19,17 @@ interface Props {
   onOpenPdfModal: (data: { type: 'zakat'; result: ZakatResult; currency: string }) => void;
 }
 
-const cleanNumberInput = (val: string): string => {
+const cleanNumberInput = (val: string, maxDigits = 12): string => {
   if (!val) return '';
-  return val.replace(/^0+(?=\d)/, '');
+  const cleaned = val.replace(/^0+(?=\d)/, '');
+  const parts = cleaned.split('.');
+  if (parts[0].length > maxDigits) {
+    parts[0] = parts[0].slice(0, maxDigits);
+  }
+  if (parts.length > 1) {
+    return parts[0] + '.' + parts.slice(1).join('').slice(0, 2);
+  }
+  return parts[0];
 };
 
 export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
@@ -217,8 +225,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                 <input
                   type="number"
                   min="0"
+                  max="999999"
                   value={goldPrice === '' ? '' : goldPrice}
-                  onChange={(e) => setGoldPrice(cleanNumberInput(e.target.value))}
+                  onChange={(e) => setGoldPrice(cleanNumberInput(e.target.value, 7))}
                   placeholder="4100"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white font-bold text-xs"
                 />
@@ -229,9 +238,10 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                 <input
                   type="number"
                   min="0"
+                  max="999999"
                   step="0.1"
                   value={silverPrice === '' ? '' : silverPrice}
-                  onChange={(e) => setSilverPrice(cleanNumberInput(e.target.value))}
+                  onChange={(e) => setSilverPrice(cleanNumberInput(e.target.value, 7))}
                   placeholder="55"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white font-bold text-xs"
                 />
@@ -253,9 +263,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
             </div>
 
             {/* Nisab Value readout */}
-            <div className="p-3 rounded-xl bg-[#07261d]/90 border border-[#c8a951]/20 flex items-center justify-between text-xs">
-              <span className="text-slate-300">{language === 'ar' ? 'قيمة النصاب بالعملة الحالية:' : 'Current Nisab Value:'}</span>
-              <span className="font-amiri font-bold text-base text-[#f3e5ab]">
+            <div className="p-3 rounded-xl bg-[#07261d]/90 border border-[#c8a951]/20 flex items-center justify-between text-xs min-w-0 overflow-hidden">
+              <span className="text-slate-300 shrink-0">{language === 'ar' ? 'قيمة النصاب بالعملة الحالية:' : 'Current Nisab Value:'}</span>
+              <span className="font-amiri font-bold text-base text-[#f3e5ab] truncate" title={`${Math.round(result.nisabThreshold).toLocaleString()} ${currency}`}>
                 {Math.round(result.nisabThreshold).toLocaleString()} {currency}
               </span>
             </div>
@@ -274,8 +284,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={cashOnHand === 0 || cashOnHand === '0' || cashOnHand === '' ? '' : cashOnHand}
-                    onChange={(e) => setCashOnHand(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setCashOnHand(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
@@ -286,8 +297,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={bankDeposits === 0 || bankDeposits === '0' || bankDeposits === '' ? '' : bankDeposits}
-                    onChange={(e) => setBankDeposits(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setBankDeposits(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
@@ -298,8 +310,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={tradeGoods === 0 || tradeGoods === '0' || tradeGoods === '' ? '' : tradeGoods}
-                    onChange={(e) => setTradeGoods(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setTradeGoods(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
@@ -310,8 +323,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={receivables === 0 || receivables === '0' || receivables === '' ? '' : receivables}
-                    onChange={(e) => setReceivables(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setReceivables(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
@@ -327,8 +341,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     <input
                       type="number"
                       min="0"
+                      max="999999"
                       value={gold24k === 0 || gold24k === '0' || gold24k === '' ? '' : gold24k}
-                      onChange={(e) => setGold24k(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setGold24k(cleanNumberInput(e.target.value, 7))}
                       placeholder="0"
                       className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
@@ -338,8 +353,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     <input
                       type="number"
                       min="0"
+                      max="999999"
                       value={gold21k === 0 || gold21k === '0' || gold21k === '' ? '' : gold21k}
-                      onChange={(e) => setGold21k(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setGold21k(cleanNumberInput(e.target.value, 7))}
                       placeholder="0"
                       className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
@@ -349,8 +365,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     <input
                       type="number"
                       min="0"
+                      max="999999"
                       value={gold18k === 0 || gold18k === '0' || gold18k === '' ? '' : gold18k}
-                      onChange={(e) => setGold18k(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setGold18k(cleanNumberInput(e.target.value, 7))}
                       placeholder="0"
                       className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
@@ -360,8 +377,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     <input
                       type="number"
                       min="0"
+                      max="999999"
                       value={silverGrams === 0 || silverGrams === '0' || silverGrams === '' ? '' : silverGrams}
-                      onChange={(e) => setSilverGrams(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setSilverGrams(cleanNumberInput(e.target.value, 7))}
                       placeholder="0"
                       className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
@@ -376,8 +394,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={deductibleDebts === 0 || deductibleDebts === '0' || deductibleDebts === '' ? '' : deductibleDebts}
-                    onChange={(e) => setDeductibleDebts(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setDeductibleDebts(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-rose-500/30 rounded-xl px-3 py-2 text-white font-semibold text-xs"
                   />
@@ -421,8 +440,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="1"
+                    max="999"
                     value={fitrMembers === 0 || fitrMembers === '0' || fitrMembers === '' ? '' : fitrMembers}
-                    onChange={(e) => setFitrMembers(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setFitrMembers(cleanNumberInput(e.target.value, 3))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                   />
@@ -433,9 +453,10 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="99999"
                     step="0.5"
                     value={fitrPricePerSaa === 0 || fitrPricePerSaa === '0' || fitrPricePerSaa === '' ? '' : fitrPricePerSaa}
-                    onChange={(e) => setFitrPricePerSaa(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setFitrPricePerSaa(cleanNumberInput(e.target.value, 5))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                   />
@@ -464,8 +485,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     <input
                       type="number"
                       min="0"
+                      max="99999999"
                       value={cropYieldKg === 0 || cropYieldKg === '0' || cropYieldKg === '' ? '' : cropYieldKg}
-                      onChange={(e) => setCropYieldKg(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setCropYieldKg(cleanNumberInput(e.target.value, 8))}
                       placeholder="0"
                       className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                     />
@@ -478,9 +500,10 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     <input
                       type="number"
                       min="0"
+                      max="99999"
                       step="0.1"
                       value={cropPricePerKg === 0 || cropPricePerKg === '0' || cropPricePerKg === '' ? '' : cropPricePerKg}
-                      onChange={(e) => setCropPricePerKg(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setCropPricePerKg(cleanNumberInput(e.target.value, 5))}
                       placeholder="0"
                       className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                     />
@@ -520,8 +543,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="99999"
                     value={camels === 0 || camels === '0' || camels === '' ? '' : camels}
-                    onChange={(e) => setCamels(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setCamels(cleanNumberInput(e.target.value, 5))}
                     placeholder="0"
                     className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-sm"
                   />
@@ -533,8 +557,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="99999"
                     value={cattle === 0 || cattle === '0' || cattle === '' ? '' : cattle}
-                    onChange={(e) => setCattle(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setCattle(cleanNumberInput(e.target.value, 5))}
                     placeholder="0"
                     className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-sm"
                   />
@@ -546,8 +571,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="99999"
                     value={sheep === 0 || sheep === '0' || sheep === '' ? '' : sheep}
-                    onChange={(e) => setSheep(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setSheep(cleanNumberInput(e.target.value, 5))}
                     placeholder="0"
                     className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-sm"
                   />
@@ -569,8 +595,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                 <input
                   type="number"
                   min="0"
+                  max="999999999999"
                   value={rikazValue === 0 || rikazValue === '0' || rikazValue === '' ? '' : rikazValue}
-                  onChange={(e) => setRikazValue(cleanNumberInput(e.target.value))}
+                  onChange={(e) => setRikazValue(cleanNumberInput(e.target.value, 12))}
                   placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                 />
@@ -595,8 +622,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={stocksTradingValue === 0 || stocksTradingValue === '0' || stocksTradingValue === '' ? '' : stocksTradingValue}
-                    onChange={(e) => setStocksTradingValue(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setStocksTradingValue(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                   />
@@ -608,8 +636,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={stocksInvestmentDividends === 0 || stocksInvestmentDividends === '0' || stocksInvestmentDividends === '' ? '' : stocksInvestmentDividends}
-                    onChange={(e) => setStocksInvestmentDividends(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setStocksInvestmentDividends(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                   />
@@ -656,75 +685,81 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
             </div>
 
             {/* Key Figures */}
-            <div className="space-y-2.5 text-xs">
-              <div className="flex justify-between py-1.5 border-b border-[#c8a951]/10 text-slate-300">
-                <span>{t.zakat.totalEligibleWealth}:</span>
-                <span className="font-bold text-white">
+            <div className="space-y-2.5 text-xs min-w-0">
+              <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-slate-300 gap-2 min-w-0">
+                <span className="shrink-0">{t.zakat.totalEligibleWealth}:</span>
+                <span className="font-bold text-white truncate text-right" title={`${Math.round(result.totalGrossWealth).toLocaleString()} ${currency}`}>
                   {Math.round(result.totalGrossWealth).toLocaleString()} {currency}
                 </span>
               </div>
 
-              <div className="flex justify-between py-1.5 border-b border-[#c8a951]/10 text-rose-300">
-                <span>{t.zakat.totalDeductions}:</span>
-                <span className="font-bold">
+              <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-rose-300 gap-2 min-w-0">
+                <span className="shrink-0">{t.zakat.totalDeductions}:</span>
+                <span className="font-bold truncate text-right" title={`-${Math.round(result.totalDeductions).toLocaleString()} ${currency}`}>
                   -{Math.round(result.totalDeductions).toLocaleString()} {currency}
                 </span>
               </div>
 
-              <div className="flex justify-between py-1.5 border-b border-[#c8a951]/10 text-slate-200">
-                <span>{t.zakat.netWealth}:</span>
-                <span className="font-bold text-[#e6cb7a]">
+              <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-slate-200 gap-2 min-w-0">
+                <span className="shrink-0">{t.zakat.netWealth}:</span>
+                <span className="font-bold text-[#e6cb7a] truncate text-right" title={`${Math.round(result.netZakatWealth).toLocaleString()} ${currency}`}>
                   {Math.round(result.netZakatWealth).toLocaleString()} {currency}
                 </span>
               </div>
 
-              <div className="flex justify-between py-1.5 border-b border-[#c8a951]/10 text-slate-300">
-                <span>{t.zakat.rateApplied}:</span>
-                <span className="font-bold text-white">{(result.rateApplied * 100).toFixed(3)}%</span>
+              <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-slate-300 gap-2 min-w-0">
+                <span className="shrink-0">{t.zakat.rateApplied}:</span>
+                <span className="font-bold text-white truncate text-right">{(result.rateApplied * 100).toFixed(3)}%</span>
               </div>
 
-              <div className="flex justify-between py-1.5 border-b border-[#c8a951]/10 text-emerald-300 font-semibold">
-                <span>{t.zakat.zakatDue} (زكاة المال):</span>
-                <span className="font-bold text-sm">
+              <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-emerald-300 font-semibold gap-2 min-w-0">
+                <span className="shrink-0">{t.zakat.zakatDue} (زكاة المال):</span>
+                <span className="font-bold text-sm truncate text-right" title={`${Math.round(result.zakatMalDue).toLocaleString()} ${currency}`}>
                   {Math.round(result.zakatMalDue).toLocaleString()} {currency}
                 </span>
               </div>
 
               {/* Fitr Amount if any */}
               {result.fitrDueAmount > 0 && (
-                <div className="flex justify-between py-1.5 border-b border-[#c8a951]/10 text-[#f3e5ab]">
-                  <span>{t.zakat.fitrResult} ({result.fitrTotalSaa} صاع):</span>
-                  <span className="font-bold">{Math.round(result.fitrDueAmount).toLocaleString()} {currency}</span>
+                <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-[#f3e5ab] gap-2 min-w-0">
+                  <span className="shrink-0">{t.zakat.fitrResult} ({result.fitrTotalSaa} صاع):</span>
+                  <span className="font-bold truncate text-right" title={`${Math.round(result.fitrDueAmount).toLocaleString()} ${currency}`}>
+                    {Math.round(result.fitrDueAmount).toLocaleString()} {currency}
+                  </span>
                 </div>
               )}
 
               {/* Crops Amount if any */}
               {result.cropsDueKg > 0 && (
-                <div className="flex justify-between py-1.5 border-b border-[#c8a951]/10 text-emerald-300">
-                  <span>زكاة الزروع ({Math.round(result.cropsDueKg)} كجم):</span>
-                  <span className="font-bold">{Math.round(result.cropsDueValue).toLocaleString()} {currency}</span>
+                <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-emerald-300 gap-2 min-w-0">
+                  <span className="shrink-0">زكاة الزروع ({Math.round(result.cropsDueKg)} كجم):</span>
+                  <span className="font-bold truncate text-right" title={`${Math.round(result.cropsDueValue).toLocaleString()} ${currency}`}>
+                    {Math.round(result.cropsDueValue).toLocaleString()} {currency}
+                  </span>
                 </div>
               )}
 
               {/* Rikaz if any */}
               {result.rikazDue > 0 && (
-                <div className="flex justify-between py-1.5 border-b border-[#c8a951]/10 text-amber-300">
-                  <span>زكاة الركاز (الخمس 20%):</span>
-                  <span className="font-bold">{Math.round(result.rikazDue).toLocaleString()} {currency}</span>
+                <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-amber-300 gap-2 min-w-0">
+                  <span className="shrink-0">زكاة الركاز (الخمس 20%):</span>
+                  <span className="font-bold truncate text-right" title={`${Math.round(result.rikazDue).toLocaleString()} ${currency}`}>
+                    {Math.round(result.rikazDue).toLocaleString()} {currency}
+                  </span>
                 </div>
               )}
             </div>
 
             {/* Livestock Specific Obligations */}
             {result.livestockObligations.length > 0 && (
-              <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 space-y-2">
+              <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 space-y-2 min-w-0 overflow-hidden">
                 <span className="text-xs font-bold text-[#e6cb7a] block">زكاة الأنعام الواجبة عيناً:</span>
                 {result.livestockObligations.map((o, idx) => (
-                  <div key={idx} className="text-xs text-slate-200 bg-[#051a14]/60 p-2 rounded-lg border border-[#c8a951]/10">
-                    <span className="font-bold text-[#f3e5ab]">
+                  <div key={idx} className="text-xs text-slate-200 bg-[#051a14]/60 p-2 rounded-lg border border-[#c8a951]/10 min-w-0">
+                    <span className="font-bold text-[#f3e5ab] block truncate">
                       {language === 'ar' ? o.obligationAr : o.obligationEn}
                     </span>
-                    <span className="text-[11px] text-slate-400 block mt-0.5">
+                    <span className="text-[11px] text-slate-400 block mt-0.5 truncate">
                       {language === 'ar' ? o.descriptionAr : o.descriptionEn}
                     </span>
                   </div>
@@ -733,11 +768,14 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
             )}
 
             {/* Grand Total Card */}
-            <div className="p-4 rounded-xl bg-gradient-to-r from-[#c8a951]/20 to-[#07261d] border border-[#c8a951] text-center">
+            <div className="p-4 rounded-xl bg-gradient-to-r from-[#c8a951]/20 to-[#07261d] border border-[#c8a951] text-center min-w-0 overflow-hidden">
               <span className="text-xs text-[#e6cb7a] block uppercase font-bold tracking-wider">
                 {language === 'ar' ? 'إجمالي الزكاة النقدية المستحقة' : 'Total Monetary Zakat Payable'}
               </span>
-              <p className="font-amiri text-3xl font-extrabold text-[#f3e5ab] mt-1">
+              <p
+                className="font-amiri text-2xl sm:text-3xl font-extrabold text-[#f3e5ab] mt-1 truncate"
+                title={`${Math.round(result.grandTotalZakat).toLocaleString()} ${currency}`}
+              >
                 {Math.round(result.grandTotalZakat).toLocaleString()} <span className="text-sm font-sans">{currency}</span>
               </p>
             </div>

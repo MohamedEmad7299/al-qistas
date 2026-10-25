@@ -13,9 +13,17 @@ interface Props {
   onOpenPdfModal: (data: any) => void;
 }
 
-const cleanNumberInput = (val: string): string => {
+const cleanNumberInput = (val: string, maxDigits = 12): string => {
   if (!val) return '';
-  return val.replace(/^0+(?=\d)/, '');
+  const cleaned = val.replace(/^0+(?=\d)/, '');
+  const parts = cleaned.split('.');
+  if (parts[0].length > maxDigits) {
+    parts[0] = parts[0].slice(0, maxDigits);
+  }
+  if (parts.length > 1) {
+    return parts[0] + '.' + parts.slice(1).join('').slice(0, 2);
+  }
+  return parts[0];
 };
 
 export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
@@ -130,8 +138,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                   <input
                     type="number"
                     min="1"
+                    max="999999999999"
                     value={mudarabahCapital === 0 || mudarabahCapital === '0' || mudarabahCapital === '' ? '' : mudarabahCapital}
-                    onChange={(e) => setMudarabahCapital(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setMudarabahCapital(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
@@ -191,8 +200,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={mudarabahProfitOrLoss === 0 || mudarabahProfitOrLoss === '0' || mudarabahProfitOrLoss === '' ? '' : mudarabahProfitOrLoss}
-                    onChange={(e) => setMudarabahProfitOrLoss(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setMudarabahProfitOrLoss(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
@@ -215,8 +225,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     <input
                       type="number"
                       min="1"
+                      max="999999999999"
                       value={capitalA === 0 || capitalA === '0' || capitalA === '' ? '' : capitalA}
-                      onChange={(e) => setCapitalA(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setCapitalA(cleanNumberInput(e.target.value, 12))}
                       placeholder="0"
                       className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2.5 py-1.5 text-white font-bold text-xs"
                     />
@@ -226,8 +237,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     <input
                       type="number"
                       min="1"
+                      max="999999999999"
                       value={capitalB === 0 || capitalB === '0' || capitalB === '' ? '' : capitalB}
-                      onChange={(e) => setCapitalB(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setCapitalB(cleanNumberInput(e.target.value, 12))}
                       placeholder="0"
                       className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2.5 py-1.5 text-white font-bold text-xs"
                     />
@@ -279,8 +291,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={musharakahProfitOrLoss === 0 || musharakahProfitOrLoss === '0' || musharakahProfitOrLoss === '' ? '' : musharakahProfitOrLoss}
-                    onChange={(e) => setMusharakahProfitOrLoss(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setMusharakahProfitOrLoss(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
@@ -304,8 +317,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                   <input
                     type="number"
                     min="1"
+                    max="999999999999"
                     value={assetCost === 0 || assetCost === '0' || assetCost === '' ? '' : assetCost}
-                    onChange={(e) => setAssetCost(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setAssetCost(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
@@ -320,7 +334,7 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     min="1"
                     max="100"
                     value={marginPct === 0 || marginPct === '0' || marginPct === '' ? '' : marginPct}
-                    onChange={(e) => setMarginPct(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setMarginPct(cleanNumberInput(e.target.value, 3))}
                     placeholder="12"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
@@ -333,9 +347,9 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                   <input
                     type="number"
                     min="1"
-                    max="120"
+                    max="360"
                     value={tenorMonths === 0 || tenorMonths === '0' || tenorMonths === '' ? '' : tenorMonths}
-                    onChange={(e) => setTenorMonths(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setTenorMonths(cleanNumberInput(e.target.value, 3))}
                     placeholder="24"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
@@ -367,22 +381,28 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
             {contractType === 'mudarabah' && (
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center">
-                    <span className="text-[11px] text-slate-400 block">{language === 'ar' ? 'عائد رب المال' : 'Rabb al-Mal Total Payout'}</span>
-                    <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-1 block">
+                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center min-w-0 overflow-hidden">
+                    <span className="text-[11px] text-slate-400 block truncate">{language === 'ar' ? 'عائد رب المال' : 'Rabb al-Mal Total Payout'}</span>
+                    <span
+                      className="font-amiri text-xl sm:text-2xl font-bold text-[#f3e5ab] mt-1 block truncate"
+                      title={`${Math.round(mudarabahResult.rabbAlMalTotalPayout).toLocaleString()} ${currency}`}
+                    >
                       {Math.round(mudarabahResult.rabbAlMalTotalPayout).toLocaleString()} {currency}
                     </span>
-                    <span className="text-[10px] text-emerald-300 block mt-0.5">
+                    <span className="text-[10px] text-emerald-300 block mt-0.5 truncate">
                       {mudarabahResult.isLoss ? 'بعد خصم الخسارة' : `ربح: +${Math.round(mudarabahResult.rabbAlMalReturn).toLocaleString()}`}
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center">
-                    <span className="text-[11px] text-slate-400 block">{language === 'ar' ? 'عائد المضارب بالعمل' : 'Mudarib (Manager) Share'}</span>
-                    <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-1 block">
+                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center min-w-0 overflow-hidden">
+                    <span className="text-[11px] text-slate-400 block truncate">{language === 'ar' ? 'عائد المضارب بالعمل' : 'Mudarib (Manager) Share'}</span>
+                    <span
+                      className="font-amiri text-xl sm:text-2xl font-bold text-[#f3e5ab] mt-1 block truncate"
+                      title={`${Math.round(mudarabahResult.mudaribReturn).toLocaleString()} ${currency}`}
+                    >
                       {Math.round(mudarabahResult.mudaribReturn).toLocaleString()} {currency}
                     </span>
-                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                    <span className="text-[10px] text-slate-400 block mt-0.5 truncate">
                       {mudarabahResult.isLoss ? 'خسارة الجهد فقط' : `${Math.round(mudarabahResult.mudaribProfitRatio)}% من الأرباح`}
                     </span>
                   </div>
@@ -404,22 +424,28 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
             {contractType === 'musharakah' && (
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center">
-                    <span className="text-[11px] text-slate-400 block">{language === 'ar' ? 'عائد الطرف (أ)' : 'Party A Payout'}</span>
-                    <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-1 block">
+                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center min-w-0 overflow-hidden">
+                    <span className="text-[11px] text-slate-400 block truncate">{language === 'ar' ? 'عائد الطرف (أ)' : 'Party A Payout'}</span>
+                    <span
+                      className="font-amiri text-xl sm:text-2xl font-bold text-[#f3e5ab] mt-1 block truncate"
+                      title={`${Math.round(musharakahResult.payoutA).toLocaleString()} ${currency}`}
+                    >
                       {Math.round(musharakahResult.payoutA).toLocaleString()} {currency}
                     </span>
-                    <span className="text-[10px] text-slate-300 block mt-0.5">
+                    <span className="text-[10px] text-slate-300 block mt-0.5 truncate">
                       {musharakahResult.isLoss ? `تحمل خسارة: ${Math.round(musharakahResult.shareA).toLocaleString()}` : `ربح: +${Math.round(musharakahResult.shareA).toLocaleString()}`}
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center">
-                    <span className="text-[11px] text-slate-400 block">{language === 'ar' ? 'عائد الطرف (ب)' : 'Party B Payout'}</span>
-                    <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-1 block">
+                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center min-w-0 overflow-hidden">
+                    <span className="text-[11px] text-slate-400 block truncate">{language === 'ar' ? 'عائد الطرف (ب)' : 'Party B Payout'}</span>
+                    <span
+                      className="font-amiri text-xl sm:text-2xl font-bold text-[#f3e5ab] mt-1 block truncate"
+                      title={`${Math.round(musharakahResult.payoutB).toLocaleString()} ${currency}`}
+                    >
                       {Math.round(musharakahResult.payoutB).toLocaleString()} {currency}
                     </span>
-                    <span className="text-[10px] text-slate-300 block mt-0.5">
+                    <span className="text-[10px] text-slate-300 block mt-0.5 truncate">
                       {musharakahResult.isLoss ? `تحمل خسارة: ${Math.round(musharakahResult.shareB).toLocaleString()}` : `ربح: +${Math.round(musharakahResult.shareB).toLocaleString()}`}
                     </span>
                   </div>
@@ -441,23 +467,32 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
             {contractType === 'murabaha' && (
               <div className="space-y-4">
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 text-center">
-                    <span className="text-[10px] text-slate-400 block">{language === 'ar' ? 'إجمالي الثمن' : 'Selling Price'}</span>
-                    <span className="font-amiri text-xl font-bold text-[#f3e5ab] mt-0.5 block">
+                  <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 text-center min-w-0 overflow-hidden">
+                    <span className="text-[10px] text-slate-400 block truncate">{language === 'ar' ? 'إجمالي الثمن' : 'Selling Price'}</span>
+                    <span
+                      className="font-amiri text-lg sm:text-xl font-bold text-[#f3e5ab] mt-0.5 block truncate"
+                      title={`${Math.round(murabahaResult.totalSellingPrice).toLocaleString()} ${currency}`}
+                    >
                       {Math.round(murabahaResult.totalSellingPrice).toLocaleString()} {currency}
                     </span>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 text-center">
-                    <span className="text-[10px] text-slate-400 block">{language === 'ar' ? 'مبلغ الربح المعلوم' : 'Profit Amount'}</span>
-                    <span className="font-amiri text-xl font-bold text-emerald-300 mt-0.5 block">
+                  <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 text-center min-w-0 overflow-hidden">
+                    <span className="text-[10px] text-slate-400 block truncate">{language === 'ar' ? 'مبلغ الربح المعلوم' : 'Profit Amount'}</span>
+                    <span
+                      className="font-amiri text-lg sm:text-xl font-bold text-emerald-300 mt-0.5 block truncate"
+                      title={`${Math.round(murabahaResult.profitAmount).toLocaleString()} ${currency}`}
+                    >
                       {Math.round(murabahaResult.profitAmount).toLocaleString()} {currency}
                     </span>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 text-center">
-                    <span className="text-[10px] text-slate-400 block">{language === 'ar' ? 'القسط الشهري' : 'Monthly Payment'}</span>
-                    <span className="font-amiri text-xl font-bold text-[#e6cb7a] mt-0.5 block">
+                  <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 text-center min-w-0 overflow-hidden">
+                    <span className="text-[10px] text-slate-400 block truncate">{language === 'ar' ? 'القسط الشهري' : 'Monthly Payment'}</span>
+                    <span
+                      className="font-amiri text-lg sm:text-xl font-bold text-[#e6cb7a] mt-0.5 block truncate"
+                      title={`${Math.round(murabahaResult.monthlyInstallment).toLocaleString()} ${currency}`}
+                    >
                       {Math.round(murabahaResult.monthlyInstallment).toLocaleString()} {currency}
                     </span>
                   </div>

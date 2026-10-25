@@ -19,9 +19,17 @@ interface Props {
   onOpenPdfModal: (data: { type: 'inheritance'; result: InheritanceResult; currency: string }) => void;
 }
 
-const cleanNumberInput = (val: string): string => {
+const cleanNumberInput = (val: string, maxDigits = 12): string => {
   if (!val) return '';
-  return val.replace(/^0+(?=\d)/, '');
+  const cleaned = val.replace(/^0+(?=\d)/, '');
+  const parts = cleaned.split('.');
+  if (parts[0].length > maxDigits) {
+    parts[0] = parts[0].slice(0, maxDigits);
+  }
+  if (parts.length > 1) {
+    return parts[0] + '.' + parts.slice(1).join('').slice(0, 2);
+  }
+  return parts[0];
 };
 
 export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
@@ -211,8 +219,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                 <input
                   type="number"
                   min="0"
+                  max="999999999999"
                   value={estateValue === 0 || estateValue === '0' || estateValue === '' ? '' : estateValue}
-                  onChange={(e) => setEstateValue(cleanNumberInput(e.target.value))}
+                  onChange={(e) => setEstateValue(cleanNumberInput(e.target.value, 12))}
                   placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold focus:outline-none focus:border-[#c8a951] text-sm"
                 />
@@ -226,8 +235,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={debts === 0 || debts === '0' || debts === '' ? '' : debts}
-                    onChange={(e) => setDebts(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setDebts(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#c8a951]"
                   />
@@ -239,8 +249,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   <input
                     type="number"
                     min="0"
+                    max="999999999999"
                     value={funeralExpenses === 0 || funeralExpenses === '0' || funeralExpenses === '' ? '' : funeralExpenses}
-                    onChange={(e) => setFuneralExpenses(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setFuneralExpenses(cleanNumberInput(e.target.value, 12))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#c8a951]"
                   />
@@ -259,8 +270,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                 <input
                   type="number"
                   min="0"
+                  max="999999999999"
                   value={wasiyyah === 0 || wasiyyah === '0' || wasiyyah === '' ? '' : wasiyyah}
-                  onChange={(e) => setWasiyyah(cleanNumberInput(e.target.value))}
+                  onChange={(e) => setWasiyyah(cleanNumberInput(e.target.value, 12))}
                   placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#c8a951]"
                 />
@@ -349,9 +361,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        max="20"
+                        max="50"
                         value={sons === 0 || sons === '0' || sons === '' ? '' : sons}
-                        onChange={(e) => setSons(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setSons(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2.5 py-1 text-center font-bold text-white text-sm"
                       />
@@ -361,9 +373,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        max="20"
+                        max="50"
                         value={daughters === 0 || daughters === '0' || daughters === '' ? '' : daughters}
-                        onChange={(e) => setDaughters(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setDaughters(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2.5 py-1 text-center font-bold text-white text-sm"
                       />
@@ -376,9 +388,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        max="20"
+                        max="50"
                         value={grandsons === 0 || grandsons === '0' || grandsons === '' ? '' : grandsons}
-                        onChange={(e) => setGrandsons(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setGrandsons(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2.5 py-1 text-center font-bold text-white text-sm"
                       />
@@ -388,9 +400,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
-                        max="20"
+                        max="50"
                         value={granddaughters === 0 || granddaughters === '0' || granddaughters === '' ? '' : granddaughters}
-                        onChange={(e) => setGranddaughters(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setGranddaughters(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2.5 py-1 text-center font-bold text-white text-sm"
                       />
@@ -464,8 +476,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
+                        max="50"
                         value={fullBrothers === 0 || fullBrothers === '0' || fullBrothers === '' ? '' : fullBrothers}
-                        onChange={(e) => setFullBrothers(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setFullBrothers(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
@@ -475,8 +488,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
+                        max="50"
                         value={fullSisters === 0 || fullSisters === '0' || fullSisters === '' ? '' : fullSisters}
-                        onChange={(e) => setFullSisters(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setFullSisters(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
@@ -489,8 +503,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
+                        max="50"
                         value={paternalBrothers === 0 || paternalBrothers === '0' || paternalBrothers === '' ? '' : paternalBrothers}
-                        onChange={(e) => setPaternalBrothers(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setPaternalBrothers(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
@@ -500,8 +515,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
+                        max="50"
                         value={paternalSisters === 0 || paternalSisters === '0' || paternalSisters === '' ? '' : paternalSisters}
-                        onChange={(e) => setPaternalSisters(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setPaternalSisters(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
@@ -514,8 +530,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
+                        max="50"
                         value={maternalBrothers === 0 || maternalBrothers === '0' || maternalBrothers === '' ? '' : maternalBrothers}
-                        onChange={(e) => setMaternalBrothers(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setMaternalBrothers(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
@@ -525,8 +542,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       <input
                         type="number"
                         min="0"
+                        max="50"
                         value={maternalSisters === 0 || maternalSisters === '0' || maternalSisters === '' ? '' : maternalSisters}
-                        onChange={(e) => setMaternalSisters(cleanNumberInput(e.target.value))}
+                        onChange={(e) => setMaternalSisters(cleanNumberInput(e.target.value, 2))}
                         placeholder="0"
                         className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                       />
@@ -543,8 +561,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     <input
                       type="number"
                       min="0"
+                      max="50"
                       value={nephewsFull === 0 || nephewsFull === '0' || nephewsFull === '' ? '' : nephewsFull}
-                      onChange={(e) => setNephewsFull(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setNephewsFull(cleanNumberInput(e.target.value, 2))}
                       placeholder="0"
                       className="w-16 bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
@@ -555,8 +574,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     <input
                       type="number"
                       min="0"
+                      max="50"
                       value={unclesFull === 0 || unclesFull === '0' || unclesFull === '' ? '' : unclesFull}
-                      onChange={(e) => setUnclesFull(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setUnclesFull(cleanNumberInput(e.target.value, 2))}
                       placeholder="0"
                       className="w-16 bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
@@ -567,8 +587,9 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     <input
                       type="number"
                       min="0"
+                      max="50"
                       value={cousinsFull === 0 || cousinsFull === '0' || cousinsFull === '' ? '' : cousinsFull}
-                      onChange={(e) => setCousinsFull(cleanNumberInput(e.target.value))}
+                      onChange={(e) => setCousinsFull(cleanNumberInput(e.target.value, 2))}
                       placeholder="0"
                       className="w-16 bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-xs"
                     />
@@ -583,34 +604,39 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
         <div className="lg:col-span-7 space-y-6">
           {/* Key Metric Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0b3d2e] to-[#07261d] border border-[#c8a951]/30">
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0b3d2e] to-[#07261d] border border-[#c8a951]/30 min-w-0 overflow-hidden">
               <span className="text-[11px] text-[#e6cb7a] block">{t.inheritance.netEstate}</span>
-              <p className="font-amiri text-2xl font-bold text-white mt-1">
+              <p
+                className="font-amiri text-xl sm:text-2xl font-bold text-white mt-1 truncate"
+                title={`${Math.round(result.netEstate).toLocaleString()} ${currency}`}
+              >
                 {Math.round(result.netEstate).toLocaleString()} <span className="text-xs text-[#c8a951]">{currency}</span>
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0b3d2e] to-[#07261d] border border-[#c8a951]/30">
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0b3d2e] to-[#07261d] border border-[#c8a951]/30 min-w-0 overflow-hidden">
               <span className="text-[11px] text-[#e6cb7a] block">{t.inheritance.baseDenominator}</span>
-              <div className="flex items-baseline gap-2 mt-1">
-                <span className="font-amiri text-2xl font-bold text-white">{result.baseDenominator}</span>
+              <div className="flex items-baseline gap-2 mt-1 truncate">
+                <span className="font-amiri text-xl sm:text-2xl font-bold text-white">{result.baseDenominator}</span>
                 {result.adjustmentType !== 'none' && (
-                  <span className="text-xs text-amber-300 font-semibold">
+                  <span className="text-xs text-amber-300 font-semibold truncate">
                     ({result.adjustmentType === 'awl' ? `عالت إلى ${result.adjustedDenominator}` : 'ردية'})
                   </span>
                 )}
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0b3d2e] to-[#07261d] border border-[#c8a951]/30">
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0b3d2e] to-[#07261d] border border-[#c8a951]/30 min-w-0 overflow-hidden">
               <span className="text-[11px] text-[#e6cb7a] block">{t.inheritance.adjustmentType}</span>
-              <p className="text-xs font-semibold text-emerald-300 mt-2 flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#c8a951]" />
-                {result.adjustmentType === 'awl'
-                  ? t.inheritance.awlDistribution
-                  : result.adjustmentType === 'radd'
-                  ? t.inheritance.raddDistribution
-                  : t.inheritance.fairDistribution}
+              <p className="text-xs font-semibold text-emerald-300 mt-2 flex items-center gap-1 truncate">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#c8a951] shrink-0" />
+                <span className="truncate">
+                  {result.adjustmentType === 'awl'
+                    ? t.inheritance.awlDistribution
+                    : result.adjustmentType === 'radd'
+                    ? t.inheritance.raddDistribution
+                    : t.inheritance.fairDistribution}
+                </span>
               </p>
             </div>
           </div>
@@ -643,14 +669,14 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                 {result.heirsShares.map((share, idx) => (
                   <div
                     key={idx}
-                    className="p-3.5 rounded-xl bg-[#07261d]/90 border border-[#c8a951]/20 space-y-2 hover:border-[#c8a951]/40 transition"
+                    className="p-3.5 rounded-xl bg-[#07261d]/90 border border-[#c8a951]/20 space-y-2 hover:border-[#c8a951]/40 transition min-w-0 overflow-hidden"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-[#0b3d2e] text-[#e6cb7a] flex items-center justify-center text-xs font-bold border border-[#c8a951]/30">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="w-6 h-6 rounded-full bg-[#0b3d2e] text-[#e6cb7a] flex items-center justify-center text-xs font-bold border border-[#c8a951]/30 shrink-0">
                           {idx + 1}
                         </span>
-                        <div>
+                        <div className="min-w-0">
                           <span className="font-amiri font-bold text-base text-white">
                             {language === 'ar' ? share.titleAr : share.titleEn}
                           </span>
@@ -660,11 +686,14 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                         </div>
                       </div>
 
-                      <div className="text-right">
-                        <span className="font-amiri font-bold text-lg text-[#f3e5ab]">
+                      <div className="text-right min-w-0 max-w-[50%]">
+                        <span
+                          className="font-amiri font-bold text-base sm:text-lg text-[#f3e5ab] truncate block"
+                          title={`${Math.round(share.totalAmount).toLocaleString()} ${currency}`}
+                        >
                           {Math.round(share.totalAmount).toLocaleString()} <span className="text-xs">{currency}</span>
                         </span>
-                        <span className="text-[11px] text-slate-400 block">
+                        <span className="text-[11px] text-slate-400 block truncate">
                           ({share.sharePercent.toFixed(1)}%)
                         </span>
                       </div>
@@ -672,9 +701,12 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
 
                     {/* Per individual if multiple */}
                     {share.count > 1 && (
-                      <div className="text-xs text-slate-300 bg-[#051a14]/60 px-2.5 py-1 rounded-lg border border-[#c8a951]/10 flex items-center justify-between">
-                        <span>{t.inheritance.individualShare}:</span>
-                        <span className="font-bold text-[#e6cb7a]">
+                      <div className="text-xs text-slate-300 bg-[#051a14]/60 px-2.5 py-1 rounded-lg border border-[#c8a951]/10 flex items-center justify-between min-w-0 overflow-hidden">
+                        <span className="shrink-0">{t.inheritance.individualShare}:</span>
+                        <span
+                          className="font-bold text-[#e6cb7a] truncate max-w-[65%]"
+                          title={`${Math.round(share.amountPerHeir).toLocaleString()} ${currency}`}
+                        >
                           {Math.round(share.amountPerHeir).toLocaleString()} {currency}
                         </span>
                       </div>

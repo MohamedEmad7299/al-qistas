@@ -9,9 +9,10 @@ interface Props {
   onOpenPdfModal: (data: any) => void;
 }
 
-const cleanNumberInput = (val: string): string => {
+const cleanNumberInput = (val: string, maxDigits = 2): string => {
   if (!val) return '';
-  return val.replace(/^0+(?=\d)/, '');
+  const cleaned = val.replace(/^0+(?=\d)/, '');
+  return cleaned.slice(0, maxDigits);
 };
 
 export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {

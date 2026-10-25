@@ -9,9 +9,17 @@ interface Props {
   onOpenPdfModal: (data: any) => void;
 }
 
-const cleanNumberInput = (val: string): string => {
+const cleanNumberInput = (val: string, maxDigits = 12): string => {
   if (!val) return '';
-  return val.replace(/^0+(?=\d)/, '');
+  const cleaned = val.replace(/^0+(?=\d)/, '');
+  const parts = cleaned.split('.');
+  if (parts[0].length > maxDigits) {
+    parts[0] = parts[0].slice(0, maxDigits);
+  }
+  if (parts.length > 1) {
+    return parts[0] + '.' + parts.slice(1).join('').slice(0, 2);
+  }
+  return parts[0];
 };
 
 export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
@@ -95,8 +103,9 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                   <input
                     type="number"
                     min="1"
+                    max="999999"
                     value={mealPrice === '' ? '' : mealPrice}
-                    onChange={(e) => setMealPrice(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setMealPrice(cleanNumberInput(e.target.value, 6))}
                     placeholder="50"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
@@ -111,8 +120,9 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                   <input
                     type="number"
                     min="1"
+                    max="9999"
                     value={missedDays === 0 || missedDays === '0' || missedDays === '' ? '' : missedDays}
-                    onChange={(e) => setMissedDays(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setMissedDays(cleanNumberInput(e.target.value, 4))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
@@ -127,8 +137,9 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                   <input
                     type="number"
                     min="1"
+                    max="999999"
                     value={goldPrice === '' ? '' : goldPrice}
-                    onChange={(e) => setGoldPrice(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setGoldPrice(cleanNumberInput(e.target.value, 6))}
                     placeholder="4100"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
@@ -169,22 +180,25 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
             {/* Key figures grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {result.mealsCount > 0 && (
-                <div className="p-3 rounded-xl bg-[#051a14]/80 border border-[#c8a951]/20 text-center">
-                  <span className="text-[10px] text-slate-400 block">{language === 'ar' ? 'عدد الوجبات' : 'Meals Count'}</span>
-                  <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-0.5 block">{result.mealsCount}</span>
+                <div className="p-3 rounded-xl bg-[#051a14]/80 border border-[#c8a951]/20 text-center min-w-0 overflow-hidden">
+                  <span className="text-[10px] text-slate-400 block truncate">{language === 'ar' ? 'عدد الوجبات' : 'Meals Count'}</span>
+                  <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-0.5 block truncate">{result.mealsCount}</span>
                 </div>
               )}
 
               {result.foodQuantityKg > 0 && (
-                <div className="p-3 rounded-xl bg-[#051a14]/80 border border-[#c8a951]/20 text-center">
-                  <span className="text-[10px] text-slate-400 block">{language === 'ar' ? 'كمية الحبوب' : 'Staples Weight'}</span>
-                  <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-0.5 block">{result.foodQuantityKg} {language === 'ar' ? 'كجم' : 'kg'}</span>
+                <div className="p-3 rounded-xl bg-[#051a14]/80 border border-[#c8a951]/20 text-center min-w-0 overflow-hidden">
+                  <span className="text-[10px] text-slate-400 block truncate">{language === 'ar' ? 'كمية الحبوب' : 'Staples Weight'}</span>
+                  <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-0.5 block truncate">{result.foodQuantityKg} {language === 'ar' ? 'كجم' : 'kg'}</span>
                 </div>
               )}
 
-              <div className="p-3 rounded-xl bg-[#051a14]/80 border border-[#c8a951]/20 text-center">
-                <span className="text-[10px] text-slate-400 block">{language === 'ar' ? 'التقدير النقدي' : 'Cash Value'}</span>
-                <span className="font-amiri text-2xl font-bold text-emerald-300 mt-0.5 block">
+              <div className="p-3 rounded-xl bg-[#051a14]/80 border border-[#c8a951]/20 text-center min-w-0 overflow-hidden">
+                <span className="text-[10px] text-slate-400 block truncate">{language === 'ar' ? 'التقدير النقدي' : 'Cash Value'}</span>
+                <span
+                  className="font-amiri text-2xl font-bold text-emerald-300 mt-0.5 block truncate"
+                  title={`${Math.round(result.estimatedCost).toLocaleString()} ${currency}`}
+                >
                   {Math.round(result.estimatedCost).toLocaleString()} <span className="text-xs font-sans">{currency}</span>
                 </span>
               </div>
