@@ -36,10 +36,10 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
   const result = useMemo(() => {
     return calculateKaffarah({
       type,
-      mealPrice: Number(mealPrice) || 50,
+      mealPrice: Number(mealPrice) || 0,
       missedDays: Number(missedDays) || 0,
       currency,
-      goldPricePerGram: Number(goldPrice) || 4100,
+      goldPricePerGram: Number(goldPrice) || 0,
     });
   }, [type, mealPrice, missedDays, currency, goldPrice]);
 
@@ -126,7 +126,7 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                     max="999999"
                     value={mealPrice === 0 || mealPrice === '0' || mealPrice === '' ? '' : mealPrice}
                     onChange={(e) => setMealPrice(cleanNumberInput(e.target.value, 6))}
-                    placeholder="50"
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>
@@ -160,7 +160,7 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                     max="999999"
                     value={goldPrice === 0 || goldPrice === '0' || goldPrice === '' ? '' : goldPrice}
                     onChange={(e) => setGoldPrice(cleanNumberInput(e.target.value, 6))}
-                    placeholder="4100"
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>

@@ -109,7 +109,7 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     max="45"
                     value={cycleDays === 0 || cycleDays === '0' || cycleDays === '' ? '' : cycleDays}
                     onChange={(e) => setCycleDays(cleanNumberInput(e.target.value))}
-                    placeholder="28"
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />
                 </div>

@@ -37,8 +37,8 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
 
   const [activeCategory, setActiveCategory] = useState<'mal' | 'fitr' | 'crops' | 'livestock' | 'rikaz' | 'stocks'>('mal');
   const [currency, setCurrency] = useState('EGP');
-  const [goldPrice, setGoldPrice] = useState<number | string>(4100);
-  const [silverPrice, setSilverPrice] = useState<number | string>(55);
+  const [goldPrice, setGoldPrice] = useState<number | string>('');
+  const [silverPrice, setSilverPrice] = useState<number | string>('');
   const [nisabStandard, setNisabStandard] = useState<'gold' | 'silver'>('gold');
   const [isHawlCompleted, setIsHawlCompleted] = useState<boolean>(true);
   const [useSolarCalendar, setUseSolarCalendar] = useState<boolean>(false);
@@ -226,9 +226,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   type="number"
                   min="0"
                   max="999999"
-                  value={goldPrice === '' ? '' : goldPrice}
+                  value={goldPrice === 0 || goldPrice === '0' || goldPrice === '' ? '' : goldPrice}
                   onChange={(e) => setGoldPrice(cleanNumberInput(e.target.value, 7))}
-                  placeholder="4100"
+                  placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white font-bold text-xs"
                 />
               </div>
@@ -240,9 +240,9 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   min="0"
                   max="999999"
                   step="0.1"
-                  value={silverPrice === '' ? '' : silverPrice}
+                  value={silverPrice === 0 || silverPrice === '0' || silverPrice === '' ? '' : silverPrice}
                   onChange={(e) => setSilverPrice(cleanNumberInput(e.target.value, 7))}
-                  placeholder="55"
+                  placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white font-bold text-xs"
                 />
               </div>
