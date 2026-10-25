@@ -1,0 +1,469 @@
+import React, { useState, useMemo } from 'react';
+import { Language } from '../types';
+import { translations } from '../translations/translations';
+import { 
+  calculateMudarabah, 
+  calculateMusharakah, 
+  calculateMurabaha 
+} from '../utils/financeEngine';
+import { TrendingUp, Sparkles, CheckCircle2, AlertCircle, FileText, Scale } from 'lucide-react';
+
+interface Props {
+  language: Language;
+  onOpenPdfModal: (data: any) => void;
+}
+
+export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
+  const t = translations[language];
+
+  const [contractType, setContractType] = useState<'mudarabah' | 'musharakah' | 'murabaha'>('mudarabah');
+  const [currency, setCurrency] = useState('USD');
+
+  // Mudarabah state
+  const [mudarabahCapital, setMudarabahCapital] = useState<number>(50000);
+  const [mudarabahProfitOrLoss, setMudarabahProfitOrLoss] = useState<number>(15000);
+  const [mudarabahIsLoss, setMudarabahIsLoss] = useState<boolean>(false);
+  const [rabbAlMalRatio, setRabbAlMalRatio] = useState<number>(70);
+
+  // Musharakah state
+  const [capitalA, setCapitalA] = useState<number>(60000);
+  const [capitalB, setCapitalB] = useState<number>(40000);
+  const [profitRatioA, setProfitRatioA] = useState<number>(60);
+  const [musharakahProfitOrLoss, setMusharakahProfitOrLoss] = useState<number>(20000);
+  const [musharakahIsLoss, setMusharakahIsLoss] = useState<boolean>(false);
+
+  // Murabaha state
+  const [assetCost, setAssetCost] = useState<number>(30000);
+  const [marginPct, setMarginPct] = useState<number>(12);
+  const [tenorMonths, setTenorMonths] = useState<number>(24);
+
+  const mudarabahResult = useMemo(() => {
+    return calculateMudarabah({
+      capital: mudarabahCapital,
+      profitOrLoss: mudarabahProfitOrLoss,
+      isLoss: mudarabahIsLoss,
+      rabbAlMalRatioPct: rabbAlMalRatio,
+    });
+  }, [mudarabahCapital, mudarabahProfitOrLoss, mudarabahIsLoss, rabbAlMalRatio]);
+
+  const musharakahResult = useMemo(() => {
+    return calculateMusharakah({
+      capitalA,
+      capitalB,
+      profitRatioA,
+      profitOrLoss: musharakahProfitOrLoss,
+      isLoss: musharakahIsLoss,
+    });
+  }, [capitalA, capitalB, profitRatioA, musharakahProfitOrLoss, musharakahIsLoss]);
+
+  const murabahaResult = useMemo(() => {
+    return calculateMurabaha({
+      assetCost,
+      marginPct,
+      tenorMonths,
+    });
+  }, [assetCost, marginPct, tenorMonths]);
+
+  return (
+    <div className="space-y-8">
+      {/* Title Header */}
+      <div className="emerald-card rounded-2xl p-6 md:p-8 text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-[#c8a951]/10 rounded-full blur-2xl" />
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-[#e6cb7a] text-xs font-semibold uppercase tracking-wider">
+              <Sparkles className="w-4 h-4 text-[#c8a951]" />
+              <span>{language === 'ar' ? 'فقه المعاملات المالية والشراكات' : 'Islamic Financial Contracts'}</span>
+            </div>
+            <h2 className="font-amiri text-2xl md:text-3xl font-bold text-[#f3e5ab] mt-1">
+              {t.finance.title}
+            </h2>
+            <p className="text-slate-300 text-xs md:text-sm mt-1 max-w-2xl leading-relaxed">
+              {t.finance.subtitle}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Contract Category Selection */}
+      <div className="flex border-b border-[#c8a951]/20 gap-2 pb-2">
+        {[
+          { id: 'mudarabah', label: t.finance.mudarabah },
+          { id: 'musharakah', label: t.finance.musharakah },
+          { id: 'murabaha', label: t.finance.murabaha },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setContractType(tab.id as any)}
+            className={`px-4 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition cursor-pointer ${
+              contractType === tab.id
+                ? 'bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] font-bold shadow-md'
+                : 'bg-[#0b3d2e]/60 text-slate-300 hover:text-white border border-[#c8a951]/20'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Left Inputs (5 cols) */}
+        <div className="lg:col-span-5 space-y-6">
+          {/* Mudarabah Inputs */}
+          {contractType === 'mudarabah' && (
+            <div className="bg-[#0b3d2e]/80 border border-[#c8a951]/25 rounded-2xl p-5 space-y-4 shadow-lg backdrop-blur-sm">
+              <h3 className="font-amiri font-bold text-lg text-[#f3e5ab] border-b border-[#c8a951]/20 pb-2">
+                {t.finance.mudarabah}
+              </h3>
+
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-xs text-slate-300 mb-1">
+                    {language === 'ar' ? 'رأس مال رب المال' : 'Capital Provided by Rabb al-Mal'} ({currency})
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={mudarabahCapital}
+                    onChange={(e) => setMudarabahCapital(Math.max(1, Number(e.target.value)))}
+                    className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-xs text-slate-300 mb-1">
+                    <span>{language === 'ar' ? 'نسبة ربح رب المال' : 'Rabb al-Mal Profit Ratio'}:</span>
+                    <span className="font-bold text-[#e6cb7a]">{rabbAlMalRatio}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max="99"
+                    value={rabbAlMalRatio}
+                    onChange={(e) => setRabbAlMalRatio(Number(e.target.value))}
+                    className="w-full accent-[#c8a951]"
+                  />
+                  <div className="flex justify-between text-[10px] text-slate-400">
+                    <span>{language === 'ar' ? 'رب المال' : 'Capital'}: {rabbAlMalRatio}%</span>
+                    <span>{language === 'ar' ? 'المضارب بالعمل' : 'Manager'}: {100 - rabbAlMalRatio}%</span>
+                  </div>
+                </div>
+
+                {/* Profit or Loss Toggle */}
+                <div className="pt-2">
+                  <div className="grid grid-cols-2 gap-2 mb-2">
+                    <button
+                      type="button"
+                      onClick={() => setMudarabahIsLoss(false)}
+                      className={`py-1.5 rounded-lg text-xs font-bold border transition ${
+                        !mudarabahIsLoss
+                          ? 'bg-emerald-600 text-white border-emerald-500'
+                          : 'bg-[#07261d] text-slate-400 border-[#c8a951]/20'
+                      }`}
+                    >
+                      {language === 'ar' ? 'تحقيق ربح' : 'Profit Incurred'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setMudarabahIsLoss(true)}
+                      className={`py-1.5 rounded-lg text-xs font-bold border transition ${
+                        mudarabahIsLoss
+                          ? 'bg-rose-600 text-white border-rose-500'
+                          : 'bg-[#07261d] text-slate-400 border-[#c8a951]/20'
+                      }`}
+                    >
+                      {language === 'ar' ? 'تحقيق خسارة' : 'Loss Incurred'}
+                    </button>
+                  </div>
+
+                  <label className="block text-xs text-slate-300 mb-1">
+                    {mudarabahIsLoss
+                      ? language === 'ar' ? 'مبلغ الخسارة' : 'Loss Amount'
+                      : language === 'ar' ? 'مبلغ الربح المحقق' : 'Profit Amount'} ({currency})
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={mudarabahProfitOrLoss}
+                    onChange={(e) => setMudarabahProfitOrLoss(Math.max(0, Number(e.target.value)))}
+                    className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Musharakah Inputs */}
+          {contractType === 'musharakah' && (
+            <div className="bg-[#0b3d2e]/80 border border-[#c8a951]/25 rounded-2xl p-5 space-y-4 shadow-lg backdrop-blur-sm">
+              <h3 className="font-amiri font-bold text-lg text-[#f3e5ab] border-b border-[#c8a951]/20 pb-2">
+                {t.finance.musharakah}
+              </h3>
+
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-[11px] text-slate-300 mb-1">{t.finance.capitalA}</label>
+                    <input
+                      type="number"
+                      min="1"
+                      value={capitalA}
+                      onChange={(e) => setCapitalA(Math.max(1, Number(e.target.value)))}
+                      className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2.5 py-1.5 text-white font-bold text-xs"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] text-slate-300 mb-1">{t.finance.capitalB}</label>
+                    <input
+                      type="number"
+                      min="1"
+                      value={capitalB}
+                      onChange={(e) => setCapitalB(Math.max(1, Number(e.target.value)))}
+                      className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2.5 py-1.5 text-white font-bold text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-xs text-slate-300 mb-1">
+                    <span>{t.finance.agreedProfitRatio}:</span>
+                    <span className="font-bold text-[#e6cb7a]">{profitRatioA}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max="99"
+                    value={profitRatioA}
+                    onChange={(e) => setProfitRatioA(Number(e.target.value))}
+                    className="w-full accent-[#c8a951]"
+                  />
+                </div>
+
+                {/* Profit or Loss Toggle */}
+                <div className="pt-2">
+                  <div className="grid grid-cols-2 gap-2 mb-2">
+                    <button
+                      type="button"
+                      onClick={() => setMusharakahIsLoss(false)}
+                      className={`py-1.5 rounded-lg text-xs font-bold border transition ${
+                        !musharakahIsLoss
+                          ? 'bg-emerald-600 text-white border-emerald-500'
+                          : 'bg-[#07261d] text-slate-400 border-[#c8a951]/20'
+                      }`}
+                    >
+                      {language === 'ar' ? 'ربح' : 'Profit'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setMusharakahIsLoss(true)}
+                      className={`py-1.5 rounded-lg text-xs font-bold border transition ${
+                        musharakahIsLoss
+                          ? 'bg-rose-600 text-white border-rose-500'
+                          : 'bg-[#07261d] text-slate-400 border-[#c8a951]/20'
+                      }`}
+                    >
+                      {language === 'ar' ? 'خسارة' : 'Loss'}
+                    </button>
+                  </div>
+
+                  <input
+                    type="number"
+                    min="0"
+                    value={musharakahProfitOrLoss}
+                    onChange={(e) => setMusharakahProfitOrLoss(Math.max(0, Number(e.target.value)))}
+                    className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Murabaha Inputs */}
+          {contractType === 'murabaha' && (
+            <div className="bg-[#0b3d2e]/80 border border-[#c8a951]/25 rounded-2xl p-5 space-y-4 shadow-lg backdrop-blur-sm">
+              <h3 className="font-amiri font-bold text-lg text-[#f3e5ab] border-b border-[#c8a951]/20 pb-2">
+                {t.finance.murabaha}
+              </h3>
+
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-xs text-slate-300 mb-1">
+                    {language === 'ar' ? 'تكلفة شراء السلعة الأصلية' : 'Asset Purchase Cost'} ({currency})
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={assetCost}
+                    onChange={(e) => setAssetCost(Math.max(1, Number(e.target.value)))}
+                    className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs text-slate-300 mb-1">
+                    {language === 'ar' ? 'هامش الربح المتفق عليه (%)' : 'Agreed Profit Margin (%)'}
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={marginPct}
+                    onChange={(e) => setMarginPct(Math.max(1, Number(e.target.value)))}
+                    className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs text-slate-300 mb-1">
+                    {language === 'ar' ? 'مدة التقسيط (بالأشهر)' : 'Installment Tenor (Months)'}
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="120"
+                    value={tenorMonths}
+                    onChange={(e) => setTenorMonths(Math.max(1, Number(e.target.value)))}
+                    className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right Output Results (7 cols) */}
+        <div className="lg:col-span-7 space-y-6">
+          <div className="bg-[#0b3d2e]/90 border border-[#c8a951]/30 rounded-2xl p-6 shadow-xl space-y-5 backdrop-blur-sm">
+            <div className="flex items-center justify-between border-b border-[#c8a951]/20 pb-3">
+              <h3 className="font-amiri font-bold text-xl text-[#f3e5ab]">
+                {language === 'ar' ? 'نتائج التوزيع والعوائد' : 'Contract Financial Breakdown'}
+              </h3>
+
+              <button
+                type="button"
+                onClick={() => onOpenPdfModal({ type: 'finance', contractType, result: contractType === 'mudarabah' ? mudarabahResult : contractType === 'musharakah' ? musharakahResult : murabahaResult, currency })}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 transition cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+                <span>{t.exportPdf}</span>
+              </button>
+            </div>
+
+            {/* Mudarabah Result Cards */}
+            {contractType === 'mudarabah' && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center">
+                    <span className="text-[11px] text-slate-400 block">{language === 'ar' ? 'عائد رب المال' : 'Rabb al-Mal Total Payout'}</span>
+                    <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-1 block">
+                      {Math.round(mudarabahResult.rabbAlMalTotalPayout).toLocaleString()} {currency}
+                    </span>
+                    <span className="text-[10px] text-emerald-300 block mt-0.5">
+                      {mudarabahResult.isLoss ? 'بعد خصم الخسارة' : `ربح: +${Math.round(mudarabahResult.rabbAlMalReturn).toLocaleString()}`}
+                    </span>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center">
+                    <span className="text-[11px] text-slate-400 block">{language === 'ar' ? 'عائد المضارب بالعمل' : 'Mudarib (Manager) Share'}</span>
+                    <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-1 block">
+                      {Math.round(mudarabahResult.mudaribReturn).toLocaleString()} {currency}
+                    </span>
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      {mudarabahResult.isLoss ? 'خسارة الجهد فقط' : `${Math.round(mudarabahResult.mudaribProfitRatio)}% من الأرباح`}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-2 text-xs text-slate-300">
+                  <span className="font-bold text-[#e6cb7a] block">{t.notes}:</span>
+                  {(language === 'ar' ? mudarabahResult.notesAr : mudarabahResult.notesEn).map((n, i) => (
+                    <div key={i} className="flex items-start gap-2 bg-[#07261d]/60 p-2.5 rounded-lg border border-[#c8a951]/10">
+                      <span className="text-[#c8a951] font-bold">•</span>
+                      <p className="leading-relaxed">{n}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Musharakah Result Cards */}
+            {contractType === 'musharakah' && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center">
+                    <span className="text-[11px] text-slate-400 block">{language === 'ar' ? 'عائد الطرف (أ)' : 'Party A Payout'}</span>
+                    <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-1 block">
+                      {Math.round(musharakahResult.payoutA).toLocaleString()} {currency}
+                    </span>
+                    <span className="text-[10px] text-slate-300 block mt-0.5">
+                      {musharakahResult.isLoss ? `تحمل خسارة: ${Math.round(musharakahResult.shareA).toLocaleString()}` : `ربح: +${Math.round(musharakahResult.shareA).toLocaleString()}`}
+                    </span>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-[#07261d] border border-[#c8a951]/25 text-center">
+                    <span className="text-[11px] text-slate-400 block">{language === 'ar' ? 'عائد الطرف (ب)' : 'Party B Payout'}</span>
+                    <span className="font-amiri text-2xl font-bold text-[#f3e5ab] mt-1 block">
+                      {Math.round(musharakahResult.payoutB).toLocaleString()} {currency}
+                    </span>
+                    <span className="text-[10px] text-slate-300 block mt-0.5">
+                      {musharakahResult.isLoss ? `تحمل خسارة: ${Math.round(musharakahResult.shareB).toLocaleString()}` : `ربح: +${Math.round(musharakahResult.shareB).toLocaleString()}`}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-2 text-xs text-slate-300">
+                  <span className="font-bold text-[#e6cb7a] block">{t.notes}:</span>
+                  {(language === 'ar' ? musharakahResult.notesAr : musharakahResult.notesEn).map((n, i) => (
+                    <div key={i} className="flex items-start gap-2 bg-[#07261d]/60 p-2.5 rounded-lg border border-[#c8a951]/10">
+                      <span className="text-[#c8a951] font-bold">•</span>
+                      <p className="leading-relaxed">{n}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Murabaha Result Cards */}
+            {contractType === 'murabaha' && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 text-center">
+                    <span className="text-[10px] text-slate-400 block">{language === 'ar' ? 'إجمالي الثمن' : 'Selling Price'}</span>
+                    <span className="font-amiri text-xl font-bold text-[#f3e5ab] mt-0.5 block">
+                      {Math.round(murabahaResult.totalSellingPrice).toLocaleString()} {currency}
+                    </span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 text-center">
+                    <span className="text-[10px] text-slate-400 block">{language === 'ar' ? 'مبلغ الربح المعلوم' : 'Profit Amount'}</span>
+                    <span className="font-amiri text-xl font-bold text-emerald-300 mt-0.5 block">
+                      {Math.round(murabahaResult.profitAmount).toLocaleString()} {currency}
+                    </span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[#07261d] border border-[#c8a951]/20 text-center">
+                    <span className="text-[10px] text-slate-400 block">{language === 'ar' ? 'القسط الشهري' : 'Monthly Payment'}</span>
+                    <span className="font-amiri text-xl font-bold text-[#e6cb7a] mt-0.5 block">
+                      {Math.round(murabahaResult.monthlyInstallment).toLocaleString()} {currency}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-2 text-xs text-slate-300">
+                  <span className="font-bold text-[#e6cb7a] block">{t.notes}:</span>
+                  {(language === 'ar' ? murabahaResult.notesAr : murabahaResult.notesEn).map((n, i) => (
+                    <div key={i} className="flex items-start gap-2 bg-[#07261d]/60 p-2.5 rounded-lg border border-[#c8a951]/10">
+                      <span className="text-[#c8a951] font-bold">•</span>
+                      <p className="leading-relaxed">{n}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
