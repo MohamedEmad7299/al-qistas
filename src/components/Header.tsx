@@ -110,9 +110,6 @@ export const Header: React.FC<HeaderProps> = ({
                 <h1 className="font-amiri font-bold text-2xl md:text-3xl text-[#f3e5ab] tracking-wide">
                   {t.appName}
                 </h1>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-[#c8a951]/20 text-[#e6cb7a] border border-[#c8a951]/30 font-semibold">
-                  100% Free & Open
-                </span>
               </div>
               <p className="text-xs text-slate-400 font-medium">
                 {t.appSubtitle}
