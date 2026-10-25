@@ -23,27 +23,27 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
   const t = translations[language];
 
   const [activeCategory, setActiveCategory] = useState<'mal' | 'fitr' | 'crops' | 'livestock' | 'rikaz' | 'stocks'>('mal');
-  const [currency, setCurrency] = useState('USD');
-  const [goldPrice, setGoldPrice] = useState<number>(85);
-  const [silverPrice, setSilverPrice] = useState<number>(1.1);
+  const [currency, setCurrency] = useState('EGP');
+  const [goldPrice, setGoldPrice] = useState<number>(4100);
+  const [silverPrice, setSilverPrice] = useState<number>(55);
   const [nisabStandard, setNisabStandard] = useState<'gold' | 'silver'>('gold');
   const [isHawlCompleted, setIsHawlCompleted] = useState<boolean>(true);
   const [useSolarCalendar, setUseSolarCalendar] = useState<boolean>(false);
 
   // Wealth & Cash
-  const [cashOnHand, setCashOnHand] = useState<number>(5000);
-  const [bankDeposits, setBankDeposits] = useState<number>(15000);
+  const [cashOnHand, setCashOnHand] = useState<number>(50000);
+  const [bankDeposits, setBankDeposits] = useState<number>(150000);
   const [gold24k, setGold24k] = useState<number>(50);
   const [gold21k, setGold21k] = useState<number>(0);
   const [gold18k, setGold18k] = useState<number>(0);
   const [silverGrams, setSilverGrams] = useState<number>(0);
-  const [tradeGoods, setTradeGoods] = useState<number>(10000);
-  const [receivables, setReceivables] = useState<number>(2000);
-  const [deductibleDebts, setDeductibleDebts] = useState<number>(1000);
+  const [tradeGoods, setTradeGoods] = useState<number>(100000);
+  const [receivables, setReceivables] = useState<number>(20000);
+  const [deductibleDebts, setDeductibleDebts] = useState<number>(10000);
 
   // Fitr
   const [fitrMembers, setFitrMembers] = useState<number>(4);
-  const [fitrPricePerSaa, setFitrPricePerSaa] = useState<number>(8);
+  const [fitrPricePerSaa, setFitrPricePerSaa] = useState<number>(35);
 
   // Crops
   const [cropYieldKg, setCropYieldKg] = useState<number>(1000);
@@ -124,7 +124,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
     return calculateZakat(zakatInput);
   }, [zakatInput]);
 
-  const currencies = ['USD', 'EGP', 'SAR', 'AED', 'EUR', 'GBP', 'KWD', 'QAR', 'MAD', 'TRY', 'IDR'];
+  const currencies = ['EGP', 'USD', 'SAR', 'AED', 'EUR', 'GBP', 'KWD', 'QAR', 'MAD', 'TRY', 'IDR'];
 
   return (
     <div className="space-y-8">

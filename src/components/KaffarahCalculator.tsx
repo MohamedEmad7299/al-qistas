@@ -13,10 +13,10 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
   const t = translations[language];
 
   const [type, setType] = useState<'oath' | 'fast_breach' | 'fidyah' | 'diyah'>('oath');
-  const [mealPrice, setMealPrice] = useState<number>(6);
+  const [mealPrice, setMealPrice] = useState<number>(50);
   const [missedDays, setMissedDays] = useState<number>(10);
-  const [goldPrice, setGoldPrice] = useState<number>(85);
-  const [currency, setCurrency] = useState<string>('USD');
+  const [goldPrice, setGoldPrice] = useState<number>(4100);
+  const [currency, setCurrency] = useState<string>('EGP');
 
   const result = useMemo(() => {
     return calculateKaffarah({

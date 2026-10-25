@@ -17,7 +17,7 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
   const t = translations[language];
 
   const [contractType, setContractType] = useState<'mudarabah' | 'musharakah' | 'murabaha'>('mudarabah');
-  const [currency, setCurrency] = useState('USD');
+  const [currency, setCurrency] = useState('EGP');
 
   // Mudarabah state
   const [mudarabahCapital, setMudarabahCapital] = useState<number>(50000);

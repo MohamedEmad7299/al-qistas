@@ -22,7 +22,7 @@ interface Props {
 export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
   const t = translations[language];
 
-  const [currency, setCurrency] = useState('USD');
+  const [currency, setCurrency] = useState('EGP');
   const [deceasedGender, setDeceasedGender] = useState<'male' | 'female'>('male');
   const [estateValue, setEstateValue] = useState<number>(100000);
   const [debts, setDebts] = useState<number>(0);
@@ -115,7 +115,7 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
     return calculateInheritance(inheritanceInput);
   }, [inheritanceInput]);
 
-  const currencies = ['USD', 'EGP', 'SAR', 'AED', 'EUR', 'GBP', 'KWD', 'QAR', 'MAD', 'TRY', 'IDR'];
+  const currencies = ['EGP', 'USD', 'SAR', 'AED', 'EUR', 'GBP', 'KWD', 'QAR', 'MAD', 'TRY', 'IDR'];
 
   return (
     <div className="space-y-8">
