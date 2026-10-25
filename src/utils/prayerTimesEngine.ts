@@ -75,7 +75,7 @@ export function calculatePrayerTimes(params: PrayerCalcParams): {
   nextPrayer: PrayerTimeItem;
   fastingDurationMinutes: number;
 } {
-  const { lat, lng, timezoneOffsetHours, date, method = 'MWL', asrJuristic = 'standard' } = params;
+  const { lat, lng, timezoneOffsetHours, date, method = 'Egypt', asrJuristic = 'standard' } = params;
   const jd = getJulianDay(date);
   const solar = computeSolarPosition(jd);
   const decl = solar.declination;
@@ -231,9 +231,9 @@ export function calculateQibla(userLat: number, userLng: number): QiblaInfo {
 }
 
 export const MAJOR_WORLD_CITIES = [
+  { nameAr: 'القاهرة (مصر)', nameEn: 'Cairo, Egypt', lat: 30.0444, lng: 31.2357, tz: 3 },
   { nameAr: 'مكة المكرمة (السعودية)', nameEn: 'Makkah, Saudi Arabia', lat: 21.4225, lng: 39.8262, tz: 3 },
   { nameAr: 'المدينة المنورة (السعودية)', nameEn: 'Madinah, Saudi Arabia', lat: 24.5247, lng: 39.5692, tz: 3 },
-  { nameAr: 'القاهرة (مصر)', nameEn: 'Cairo, Egypt', lat: 30.0444, lng: 31.2357, tz: 3 },
   { nameAr: 'الرياض (السعودية)', nameEn: 'Riyadh, Saudi Arabia', lat: 24.7136, lng: 46.6753, tz: 3 },
   { nameAr: 'القدس الشريف (فلسطين)', nameEn: 'Jerusalem, Palestine', lat: 31.7683, lng: 35.2137, tz: 3 },
   { nameAr: 'دبي (الإمارات)', nameEn: 'Dubai, UAE', lat: 25.2048, lng: 55.2708, tz: 4 },

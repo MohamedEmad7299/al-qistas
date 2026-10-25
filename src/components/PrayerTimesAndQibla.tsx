@@ -36,7 +36,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
   const [timezoneOffset, setTimezoneOffset] = useState<number>(MAJOR_WORLD_CITIES[0].tz);
   const [cityName, setCityName] = useState<string>(MAJOR_WORLD_CITIES[0].nameAr);
 
-  const [method, setMethod] = useState<'MWL' | 'Egypt' | 'UmmAlQura' | 'ISNA' | 'Karachi'>('UmmAlQura');
+  const [method, setMethod] = useState<'MWL' | 'Egypt' | 'UmmAlQura' | 'ISNA' | 'Karachi'>('Egypt');
   const [asrJuristic, setAsrJuristic] = useState<'standard' | 'hanafi'>('standard');
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
   const [deviceHeading, setDeviceHeading] = useState<number | null>(null);
