@@ -98,9 +98,9 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Main Bar: Logo & Navigation */}
       <div className="max-w-7xl mx-auto px-4 py-3">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
           {/* Logo & Platform Name */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <div className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#0b3d2e] to-[#051a14] border-2 border-[#c8a951] shadow-[0_0_15px_rgba(200,169,81,0.3)]">
               {/* Ornate Rub-el-Hizb */}
               <span className="font-amiri text-2xl text-[#f3e5ab] select-none">۞</span>
@@ -117,8 +117,8 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
 
-          {/* Nav Tabs */}
-          <nav className="flex items-center gap-1 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+          {/* Nav Tabs - flex-wrap ensures no tabs are cut off on any screen size */}
+          <nav className="flex flex-wrap items-center gap-1.5 md:gap-2 justify-start xl:justify-end py-1">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -126,13 +126,13 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs md:text-sm font-medium transition whitespace-nowrap cursor-pointer ${
+                  className={`flex items-center shrink-0 gap-2 px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition whitespace-nowrap cursor-pointer ${
                     isActive
                       ? 'bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] font-bold shadow-md shadow-[#c8a951]/20'
                       : 'text-slate-300 hover:text-white hover:bg-[#0b3d2e]/60'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
+                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
                   <span>{item.label}</span>
                 </button>
               );

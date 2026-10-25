@@ -162,7 +162,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
       </div>
 
       {/* Category Tabs */}
-      <div className="flex border-b border-[#c8a951]/20 overflow-x-auto gap-2 pb-2 scrollbar-none">
+      <div className="flex flex-wrap border-b border-[#c8a951]/20 gap-2 pb-2">
         {[
           { id: 'mal', label: t.zakat.tabs.mal, icon: Coins },
           { id: 'fitr', label: t.zakat.tabs.fitr, icon: Gem },
