@@ -24,10 +24,10 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
 
   const [currency, setCurrency] = useState('EGP');
   const [deceasedGender, setDeceasedGender] = useState<'male' | 'female'>('male');
-  const [estateValue, setEstateValue] = useState<number>(100000);
-  const [debts, setDebts] = useState<number>(0);
-  const [funeralExpenses, setFuneralExpenses] = useState<number>(0);
-  const [wasiyyah, setWasiyyah] = useState<number>(0);
+  const [estateValue, setEstateValue] = useState<number | string>('');
+  const [debts, setDebts] = useState<number | string>('');
+  const [funeralExpenses, setFuneralExpenses] = useState<number | string>('');
+  const [wasiyyah, setWasiyyah] = useState<number | string>('');
 
   // Heirs state
   const [wives, setWives] = useState<number>(1);
@@ -56,10 +56,10 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
   const inheritanceInput: InheritanceInput = useMemo(() => {
     return {
       deceasedGender,
-      estateValue,
-      debts,
-      funeralExpenses,
-      wasiyyah,
+      estateValue: Number(estateValue) || 0,
+      debts: Number(debts) || 0,
+      funeralExpenses: Number(funeralExpenses) || 0,
+      wasiyyah: Number(wasiyyah) || 0,
       heirs: {
         husband: deceasedGender === 'female' ? husband : false,
         wives: deceasedGender === 'male' ? wives : 0,
@@ -207,7 +207,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   type="number"
                   min="0"
                   value={estateValue}
-                  onChange={(e) => setEstateValue(Math.max(0, Number(e.target.value)))}
+                  onChange={(e) => setEstateValue(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))}
+                  placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-semibold focus:outline-none focus:border-[#c8a951] text-sm"
                 />
               </div>
@@ -221,7 +222,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     type="number"
                     min="0"
                     value={debts}
-                    onChange={(e) => setDebts(Math.max(0, Number(e.target.value)))}
+                    onChange={(e) => setDebts(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#c8a951]"
                   />
                 </div>
@@ -233,7 +235,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     type="number"
                     min="0"
                     value={funeralExpenses}
-                    onChange={(e) => setFuneralExpenses(Math.max(0, Number(e.target.value)))}
+                    onChange={(e) => setFuneralExpenses(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))}
+                    placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#c8a951]"
                   />
                 </div>
@@ -245,14 +248,15 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     {t.inheritance.wasiyyah} (Max 1/3)
                   </label>
                   <span className="text-[10px] text-[#e6cb7a]">
-                    Max: {Math.round(Math.max(0, estateValue - debts - funeralExpenses) / 3).toLocaleString()} {currency}
+                    Max: {Math.round(Math.max(0, (Number(estateValue) || 0) - (Number(debts) || 0) - (Number(funeralExpenses) || 0)) / 3).toLocaleString()} {currency}
                   </span>
                 </div>
                 <input
                   type="number"
                   min="0"
                   value={wasiyyah}
-                  onChange={(e) => setWasiyyah(Math.max(0, Number(e.target.value)))}
+                  onChange={(e) => setWasiyyah(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))}
+                  placeholder="0"
                   className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#c8a951]"
                 />
               </div>
