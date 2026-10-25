@@ -22,7 +22,7 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
   const [startDateStr, setStartDateStr] = useState<string>(
     new Date().toISOString().split('T')[0]
   );
-  const [cycleDays, setCycleDays] = useState<number | string>(28);
+  const [cycleDays, setCycleDays] = useState<number | string>('');
   const [deliveryDateStr, setDeliveryDateStr] = useState<string>('');
 
   const result = useMemo(() => {
@@ -74,7 +74,7 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   key={opt.id}
                   type="button"
                   onClick={() => setType(opt.id as any)}
-                  className={`w-full p-3 rounded-xl text-xs md:text-sm font-semibold border transition text-left cursor-pointer flex items-center justify-between ${
+                  className={`w-full p-3 rounded-xl text-xs md:text-sm font-semibold border transition text-start cursor-pointer flex items-center justify-between ${
                     type === opt.id
                       ? 'bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] border-[#c8a951] font-bold shadow-md'
                       : 'bg-[#07261d] text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/40'
@@ -107,7 +107,7 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     type="number"
                     min="20"
                     max="45"
-                    value={cycleDays === '' ? '' : cycleDays}
+                    value={cycleDays === 0 || cycleDays === '0' || cycleDays === '' ? '' : cycleDays}
                     onChange={(e) => setCycleDays(cleanNumberInput(e.target.value))}
                     placeholder="28"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
@@ -203,7 +203,7 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
             </div>
 
             {/* Quranic evidence */}
-            <div className="p-4 rounded-xl bg-[#051a14]/90 border-l-4 border-[#c8a951] font-amiri text-sm text-[#f3e5ab] leading-relaxed">
+            <div className="p-4 rounded-xl bg-[#051a14]/90 border-s-4 border-[#c8a951] font-amiri text-sm text-[#f3e5ab] leading-relaxed">
               {language === 'ar' ? result.quranicEvidenceAr : result.quranicEvidenceEn}
             </div>
 

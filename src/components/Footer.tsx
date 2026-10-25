@@ -63,7 +63,7 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
               Mohamed Emad
             </span>
 
-            <div className="flex items-center gap-2 pr-1 rtl:pr-0 rtl:pl-1 border-r rtl:border-r-0 rtl:border-l border-[#c8a951]/20">
+            <div className="flex items-center gap-2 pe-1 border-e border-[#c8a951]/20">
               {/* Telephone */}
               <a
                 href="tel:+201020766525"

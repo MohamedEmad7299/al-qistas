@@ -173,7 +173,7 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
                   type="number"
                   min="1"
                   max="30"
-                  value={hDayInput === '' ? '' : hDayInput}
+                  value={hDayInput === 0 || hDayInput === '0' || hDayInput === '' ? '' : hDayInput}
                   onChange={(e) => setHDayInput(cleanNumberInput(e.target.value, 2))}
                   className="bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2 py-1.5 text-center text-white font-bold text-xs"
                   placeholder="1"
@@ -196,7 +196,7 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
                   type="number"
                   min="1300"
                   max="1600"
-                  value={hYearInput === '' ? '' : hYearInput}
+                  value={hYearInput === 0 || hYearInput === '0' || hYearInput === '' ? '' : hYearInput}
                   onChange={(e) => setHYearInput(cleanNumberInput(e.target.value, 4))}
                   className="bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2 py-1.5 text-center text-white font-bold text-xs"
                   placeholder="1448"
@@ -229,7 +229,7 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
               <span className="text-xs text-[#e6cb7a] font-normal">عام {convertedHijri.year} هـ</span>
             </h3>
 
-            <div className="space-y-3 max-h-[620px] overflow-y-auto pr-1">
+            <div className="space-y-3 max-h-[620px] overflow-y-auto pe-1">
               {occasions.map((occ) => (
                 <div
                   key={occ.id}

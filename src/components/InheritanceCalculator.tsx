@@ -328,7 +328,7 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
             </div>
 
             {/* Heirs Category Tabs */}
-            <div className="flex border-b border-[#c8a951]/20 text-xs gap-1 pb-1">
+            <div className="flex flex-wrap border-b border-[#c8a951]/20 text-xs gap-1 pb-1">
               {[
                 { id: 'descendants', label: language === 'ar' ? 'الفروع' : 'Descendants' },
                 { id: 'ascendants', label: language === 'ar' ? 'الأصول' : 'Ascendants' },
@@ -686,7 +686,7 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                         </div>
                       </div>
 
-                      <div className="text-right min-w-0 max-w-[50%]">
+                      <div className="text-end min-w-0 max-w-[50%]">
                         <span
                           className="font-amiri font-bold text-base sm:text-lg text-[#f3e5ab] truncate block"
                           title={`${Math.round(share.totalAmount).toLocaleString()} ${currency}`}
@@ -713,7 +713,7 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                     )}
 
                     {/* Textual Quranic evidence */}
-                    <div className="text-[11px] text-emerald-300/90 font-amiri bg-[#051a14]/40 p-2 rounded-lg border-l-2 border-[#c8a951] leading-relaxed">
+                    <div className="text-[11px] text-emerald-300/90 font-amiri bg-[#051a14]/40 p-2 rounded-lg border-s-2 border-[#c8a951] leading-relaxed">
                       {language === 'ar' ? share.evidenceAr : share.evidenceEn}
                     </div>
                   </div>

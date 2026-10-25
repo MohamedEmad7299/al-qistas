@@ -8,6 +8,7 @@
     --islamic-gold-light: #e6cb7a;
     --islamic-sand: #fdfbf7;
     --islamic-cream: #f4ede0;
+    color-scheme: dark;
   }
 }
 
@@ -18,6 +19,17 @@ body {
   padding: 0;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
+}
+
+/* Hide number input spinners for clean numeric fields */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .font-amiri {

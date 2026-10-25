@@ -694,33 +694,33 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
             <div className="space-y-2.5 text-xs min-w-0">
               <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-slate-300 gap-2 min-w-0">
                 <span className="shrink-0">{t.zakat.totalEligibleWealth}:</span>
-                <span className="font-bold text-white truncate text-right" title={`${Math.round(result.totalGrossWealth).toLocaleString()} ${currency}`}>
+                <span className="font-bold text-white truncate text-end" title={`${Math.round(result.totalGrossWealth).toLocaleString()} ${currency}`}>
                   {Math.round(result.totalGrossWealth).toLocaleString()} {currency}
                 </span>
               </div>
 
               <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-rose-300 gap-2 min-w-0">
                 <span className="shrink-0">{t.zakat.totalDeductions}:</span>
-                <span className="font-bold truncate text-right" title={`-${Math.round(result.totalDeductions).toLocaleString()} ${currency}`}>
+                <span className="font-bold truncate text-end" title={`-${Math.round(result.totalDeductions).toLocaleString()} ${currency}`}>
                   -{Math.round(result.totalDeductions).toLocaleString()} {currency}
                 </span>
               </div>
 
               <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-slate-200 gap-2 min-w-0">
                 <span className="shrink-0">{t.zakat.netWealth}:</span>
-                <span className="font-bold text-[#e6cb7a] truncate text-right" title={`${Math.round(result.netZakatWealth).toLocaleString()} ${currency}`}>
+                <span className="font-bold text-[#e6cb7a] truncate text-end" title={`${Math.round(result.netZakatWealth).toLocaleString()} ${currency}`}>
                   {Math.round(result.netZakatWealth).toLocaleString()} {currency}
                 </span>
               </div>
 
               <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-slate-300 gap-2 min-w-0">
                 <span className="shrink-0">{t.zakat.rateApplied}:</span>
-                <span className="font-bold text-white truncate text-right">{(result.rateApplied * 100).toFixed(3)}%</span>
+                <span className="font-bold text-white truncate text-end">{(result.rateApplied * 100).toFixed(3)}%</span>
               </div>
 
               <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-emerald-300 font-semibold gap-2 min-w-0">
                 <span className="shrink-0">{t.zakat.zakatDue} (زكاة المال):</span>
-                <span className="font-bold text-sm truncate text-right" title={`${Math.round(result.zakatMalDue).toLocaleString()} ${currency}`}>
+                <span className="font-bold text-sm truncate text-end" title={`${Math.round(result.zakatMalDue).toLocaleString()} ${currency}`}>
                   {Math.round(result.zakatMalDue).toLocaleString()} {currency}
                 </span>
               </div>
@@ -729,7 +729,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
               {result.fitrDueAmount > 0 && (
                 <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-[#f3e5ab] gap-2 min-w-0">
                   <span className="shrink-0">{t.zakat.fitrResult} ({result.fitrTotalSaa} صاع):</span>
-                  <span className="font-bold truncate text-right" title={`${Math.round(result.fitrDueAmount).toLocaleString()} ${currency}`}>
+                  <span className="font-bold truncate text-end" title={`${Math.round(result.fitrDueAmount).toLocaleString()} ${currency}`}>
                     {Math.round(result.fitrDueAmount).toLocaleString()} {currency}
                   </span>
                 </div>
@@ -739,7 +739,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
               {result.cropsDueKg > 0 && (
                 <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-emerald-300 gap-2 min-w-0">
                   <span className="shrink-0">زكاة الزروع ({Math.round(result.cropsDueKg)} كجم):</span>
-                  <span className="font-bold truncate text-right" title={`${Math.round(result.cropsDueValue).toLocaleString()} ${currency}`}>
+                  <span className="font-bold truncate text-end" title={`${Math.round(result.cropsDueValue).toLocaleString()} ${currency}`}>
                     {Math.round(result.cropsDueValue).toLocaleString()} {currency}
                   </span>
                 </div>
@@ -749,7 +749,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
               {result.rikazDue > 0 && (
                 <div className="flex justify-between items-center py-1.5 border-b border-[#c8a951]/10 text-amber-300 gap-2 min-w-0">
                   <span className="shrink-0">زكاة الركاز (الخمس 20%):</span>
-                  <span className="font-bold truncate text-right" title={`${Math.round(result.rikazDue).toLocaleString()} ${currency}`}>
+                  <span className="font-bold truncate text-end" title={`${Math.round(result.rikazDue).toLocaleString()} ${currency}`}>
                     {Math.round(result.rikazDue).toLocaleString()} {currency}
                   </span>
                 </div>

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Language } from '../types';
 import { translations } from '../translations/translations';
 import { calculateKaffarah } from '../utils/kaffarahEngine';
-import { ShieldAlert, Sparkles, CheckCircle2, FileText, Coins } from 'lucide-react';
+import { ShieldAlert, Sparkles, CheckCircle2, FileText, Coins, ChevronDown } from 'lucide-react';
 
 interface Props {
   language: Language;
@@ -26,18 +26,20 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
   const t = translations[language];
 
   const [type, setType] = useState<'oath' | 'fast_breach' | 'fidyah' | 'diyah'>('oath');
-  const [mealPrice, setMealPrice] = useState<number | string>(50);
+  const [mealPrice, setMealPrice] = useState<number | string>('');
   const [missedDays, setMissedDays] = useState<number | string>('');
-  const [goldPrice, setGoldPrice] = useState<number | string>(4100);
+  const [goldPrice, setGoldPrice] = useState<number | string>('');
   const [currency, setCurrency] = useState<string>('EGP');
+
+  const currencies = ['EGP', 'USD', 'SAR', 'AED', 'EUR', 'GBP', 'KWD', 'QAR', 'MAD', 'TRY', 'IDR'];
 
   const result = useMemo(() => {
     return calculateKaffarah({
       type,
-      mealPrice: Number(mealPrice) || 0,
+      mealPrice: Number(mealPrice) || 50,
       missedDays: Number(missedDays) || 0,
       currency,
-      goldPricePerGram: Number(goldPrice) || 0,
+      goldPricePerGram: Number(goldPrice) || 4100,
     });
   }, [type, mealPrice, missedDays, currency, goldPrice]);
 
@@ -58,6 +60,24 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
             <p className="text-slate-300 text-xs md:text-sm mt-1 max-w-2xl leading-relaxed">
               {t.kaffarah.subtitle}
             </p>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs text-[#e6cb7a]">{t.currency}:</span>
+            <div className="relative inline-flex items-center">
+              <select
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-lg ps-3.5 pe-8 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+              >
+                {currencies.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute end-3 pointer-events-none" />
+            </div>
           </div>
         </div>
       </div>
@@ -81,7 +101,7 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                   key={opt.id}
                   type="button"
                   onClick={() => setType(opt.id as any)}
-                  className={`w-full p-3 rounded-xl text-xs md:text-sm font-semibold border transition text-left cursor-pointer flex items-center justify-between ${
+                  className={`w-full p-3 rounded-xl text-xs md:text-sm font-semibold border transition text-start cursor-pointer flex items-center justify-between ${
                     type === opt.id
                       ? 'bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] border-[#c8a951] font-bold shadow-md'
                       : 'bg-[#07261d] text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/40'
@@ -104,7 +124,7 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                     type="number"
                     min="1"
                     max="999999"
-                    value={mealPrice === '' ? '' : mealPrice}
+                    value={mealPrice === 0 || mealPrice === '0' || mealPrice === '' ? '' : mealPrice}
                     onChange={(e) => setMealPrice(cleanNumberInput(e.target.value, 6))}
                     placeholder="50"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
@@ -138,7 +158,7 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                     type="number"
                     min="1"
                     max="999999"
-                    value={goldPrice === '' ? '' : goldPrice}
+                    value={goldPrice === 0 || goldPrice === '0' || goldPrice === '' ? '' : goldPrice}
                     onChange={(e) => setGoldPrice(cleanNumberInput(e.target.value, 6))}
                     placeholder="4100"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
@@ -205,7 +225,7 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
             </div>
 
             {/* Quranic reference quote */}
-            <div className="p-4 rounded-xl bg-[#051a14]/90 border-l-4 border-[#c8a951] font-amiri text-sm text-[#f3e5ab] leading-relaxed">
+            <div className="p-4 rounded-xl bg-[#051a14]/90 border-s-4 border-[#c8a951] font-amiri text-sm text-[#f3e5ab] leading-relaxed">
               {language === 'ar' ? result.quranicRefAr : result.quranicRefEn}
             </div>
 

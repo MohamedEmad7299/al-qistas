@@ -144,23 +144,23 @@ export const PdfExportModal: React.FC<PdfModalProps> = ({
                   <table className="w-full border-collapse border border-[#0f3d2e]/30 text-xs mt-4">
                     <thead>
                       <tr className="bg-[#0f3d2e] text-white">
-                        <th className="border border-[#0f3d2e]/30 p-2 text-right">الوارث</th>
+                        <th className="border border-[#0f3d2e]/30 p-2 text-start">الوارث</th>
                         <th className="border border-[#0f3d2e]/30 p-2 text-center">العدد</th>
                         <th className="border border-[#0f3d2e]/30 p-2 text-center">الفرض المقدر</th>
                         <th className="border border-[#0f3d2e]/30 p-2 text-center">النسبة</th>
-                        <th className="border border-[#0f3d2e]/30 p-2 text-left">نصيب الفرد</th>
-                        <th className="border border-[#0f3d2e]/30 p-2 text-left">إجمالي النصيب</th>
+                        <th className="border border-[#0f3d2e]/30 p-2 text-end">نصيب الفرد</th>
+                        <th className="border border-[#0f3d2e]/30 p-2 text-end">إجمالي النصيب</th>
                       </tr>
                     </thead>
                     <tbody>
                       {modalData.result.heirsShares.map((s: any, idx: number) => (
                         <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-[#faf8f2]'}>
-                          <td className="border border-slate-300 p-2 font-bold text-[#0f3d2e]">{language === 'ar' ? s.titleAr : s.titleEn}</td>
+                          <td className="border border-slate-300 p-2 font-bold text-[#0f3d2e] text-start">{language === 'ar' ? s.titleAr : s.titleEn}</td>
                           <td className="border border-slate-300 p-2 text-center">{s.count}</td>
                           <td className="border border-slate-300 p-2 text-center font-mono font-bold">{s.shareFraction}</td>
                           <td className="border border-slate-300 p-2 text-center">{s.sharePercent.toFixed(1)}%</td>
-                          <td className="border border-slate-300 p-2 text-left">{Math.round(s.amountPerHeir).toLocaleString()}</td>
-                          <td className="border border-slate-300 p-2 text-left font-bold text-[#0f3d2e]">{Math.round(s.totalAmount).toLocaleString()} {modalData.currency}</td>
+                          <td className="border border-slate-300 p-2 text-end">{Math.round(s.amountPerHeir).toLocaleString()}</td>
+                          <td className="border border-slate-300 p-2 text-end font-bold text-[#0f3d2e]">{Math.round(s.totalAmount).toLocaleString()} {modalData.currency}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -277,7 +277,7 @@ export const PdfExportModal: React.FC<PdfModalProps> = ({
                     </div>
                   </div>
 
-                  <div className="p-3 bg-slate-50 border-r-4 border-[#0f3d2e] text-[11px] text-slate-700 font-amiri leading-relaxed">
+                  <div className="p-3 bg-slate-50 border-s-4 border-[#0f3d2e] text-[11px] text-slate-700 font-amiri leading-relaxed">
                     {modalData.result.quranicRefAr}
                   </div>
                 </div>

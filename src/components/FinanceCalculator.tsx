@@ -6,7 +6,7 @@ import {
   calculateMusharakah, 
   calculateMurabaha 
 } from '../utils/financeEngine';
-import { TrendingUp, Sparkles, CheckCircle2, AlertCircle, FileText, Scale } from 'lucide-react';
+import { TrendingUp, Sparkles, CheckCircle2, AlertCircle, FileText, Scale, ChevronDown } from 'lucide-react';
 
 interface Props {
   language: Language;
@@ -77,6 +77,8 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
     });
   }, [assetCost, marginPct, tenorMonths]);
 
+  const currencies = ['EGP', 'USD', 'SAR', 'AED', 'EUR', 'GBP', 'KWD', 'QAR', 'MAD', 'TRY', 'IDR'];
+
   return (
     <div className="space-y-8">
       {/* Title Header */}
@@ -95,11 +97,29 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
               {t.finance.subtitle}
             </p>
           </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs text-[#e6cb7a]">{t.currency}:</span>
+            <div className="relative inline-flex items-center">
+              <select
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-lg ps-3.5 pe-8 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+              >
+                {currencies.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute end-3 pointer-events-none" />
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Contract Category Selection */}
-      <div className="flex border-b border-[#c8a951]/20 gap-2 pb-2">
+      <div className="flex flex-wrap border-b border-[#c8a951]/20 gap-2 pb-2">
         {[
           { id: 'mudarabah', label: t.finance.mudarabah },
           { id: 'musharakah', label: t.finance.musharakah },
