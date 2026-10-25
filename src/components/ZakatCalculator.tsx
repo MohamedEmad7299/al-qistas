@@ -164,7 +164,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-lg ps-8 pe-4 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-lg ps-3.5 pe-8 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
               >
                 {currencies.map((c) => (
                   <option key={c} value={c}>
@@ -172,7 +172,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute start-2.5 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute end-3 pointer-events-none" />
             </div>
           </div>
         </div>
@@ -251,14 +251,17 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                 <label className="block text-[11px] text-slate-300 mb-1">
                   {language === 'ar' ? 'معيار النصاب' : 'Nisab Standard'}
                 </label>
-                <select
-                  value={nisabStandard}
-                  onChange={(e) => setNisabStandard(e.target.value as any)}
-                  className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2 py-1.5 text-white font-bold text-xs"
-                >
-                  <option value="gold">{language === 'ar' ? 'نصاب الذهب (85 جم)' : 'Gold (85g)'}</option>
-                  <option value="silver">{language === 'ar' ? 'نصاب الفضة (595 جم)' : 'Silver (595g)'}</option>
-                </select>
+                <div className="relative flex items-center">
+                  <select
+                    value={nisabStandard}
+                    onChange={(e) => setNisabStandard(e.target.value as any)}
+                    className="w-full appearance-none bg-[#07261d] border border-[#c8a951]/30 rounded-xl ps-3.5 pe-9 py-2 text-white font-bold text-xs focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+                  >
+                    <option value="gold">{language === 'ar' ? 'نصاب الذهب (85 جم)' : 'Gold (85g)'}</option>
+                    <option value="silver">{language === 'ar' ? 'نصاب الفضة (595 جم)' : 'Silver (595g)'}</option>
+                  </select>
+                  <ChevronDown className="w-4 h-4 text-[#c8a951] absolute end-3 pointer-events-none" />
+                </div>
               </div>
             </div>
 
@@ -512,15 +515,18 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
 
                 <div>
                   <label className="block text-xs text-slate-300 mb-1">{t.zakat.irrigationType}</label>
-                  <select
-                    value={cropIrrigation}
-                    onChange={(e) => setCropIrrigation(e.target.value as any)}
-                    className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
-                  >
-                    <option value="natural">{t.zakat.rainIrrigated}</option>
-                    <option value="artificial">{t.zakat.artificialIrrigated}</option>
-                    <option value="mixed">{t.zakat.mixedIrrigated}</option>
-                  </select>
+                  <div className="relative flex items-center">
+                    <select
+                      value={cropIrrigation}
+                      onChange={(e) => setCropIrrigation(e.target.value as any)}
+                      className="w-full appearance-none bg-[#07261d] border border-[#c8a951]/30 rounded-xl ps-3.5 pe-9 py-2 text-white font-bold text-xs focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+                    >
+                      <option value="natural">{t.zakat.rainIrrigated}</option>
+                      <option value="artificial">{t.zakat.artificialIrrigated}</option>
+                      <option value="mixed">{t.zakat.mixedIrrigated}</option>
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-[#c8a951] absolute end-3 pointer-events-none" />
+                  </div>
                 </div>
 
                 <div className="text-[11px] text-[#e6cb7a] bg-[#07261d]/80 p-2.5 rounded-xl border border-[#c8a951]/20">

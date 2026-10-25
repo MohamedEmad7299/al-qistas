@@ -155,7 +155,7 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-lg ps-8 pe-4 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-lg ps-3.5 pe-8 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
               >
                 {currencies.map((c) => (
                   <option key={c} value={c}>
@@ -163,7 +163,7 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute start-2.5 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute end-3 pointer-events-none" />
             </div>
           </div>
         </div>

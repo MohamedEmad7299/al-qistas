@@ -174,7 +174,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
               <select
                 value={selectedCityIndex}
                 onChange={(e) => handleCityChange(Number(e.target.value))}
-                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-xl ps-8 pe-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+                className="appearance-none bg-[#07261d] border border-[#c8a951]/40 text-[#f3e5ab] text-xs font-bold rounded-xl ps-3.5 pe-9 py-2 focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
               >
                 {MAJOR_WORLD_CITIES.map((c, i) => (
                   <option key={i} value={i}>
@@ -182,7 +182,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute start-2.5 pointer-events-none" />
+              <ChevronDown className="w-4 h-4 text-[#c8a951] absolute end-3 pointer-events-none" />
             </div>
           </div>
         </div>
@@ -268,29 +268,35 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-slate-300 mb-1">{t.prayers.calcMethod}</label>
-                <select
-                  value={method}
-                  onChange={(e) => setMethod(e.target.value as any)}
-                  className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2.5 py-1.5 text-white font-semibold text-xs"
-                >
-                  <option value="UmmAlQura">جامعة أم القرى (مكة المكرمة)</option>
-                  <option value="Egypt">الهيئة المصرية العامة للمساحة</option>
-                  <option value="MWL">رابطة العالم الإسلامي (MWL)</option>
-                  <option value="ISNA">الجمعية الإسلامية بأمريكا الشمالية (ISNA)</option>
-                  <option value="Karachi">جامعة العلوم الإسلامية بكراتشي</option>
-                </select>
+                <div className="relative flex items-center">
+                  <select
+                    value={method}
+                    onChange={(e) => setMethod(e.target.value as any)}
+                    className="w-full appearance-none bg-[#07261d] border border-[#c8a951]/30 rounded-xl ps-3.5 pe-9 py-2 text-white font-semibold text-xs focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+                  >
+                    <option value="UmmAlQura">جامعة أم القرى (مكة المكرمة)</option>
+                    <option value="Egypt">الهيئة المصرية العامة للمساحة</option>
+                    <option value="MWL">رابطة العالم الإسلامي (MWL)</option>
+                    <option value="ISNA">الجمعية الإسلامية بأمريكا الشمالية (ISNA)</option>
+                    <option value="Karachi">جامعة العلوم الإسلامية بكراتشي</option>
+                  </select>
+                  <ChevronDown className="w-4 h-4 text-[#c8a951] absolute end-3 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-slate-300 mb-1">{t.prayers.asrMethod}</label>
-                <select
-                  value={asrJuristic}
-                  onChange={(e) => setAsrJuristic(e.target.value as any)}
-                  className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2.5 py-1.5 text-white font-semibold text-xs"
-                >
-                  <option value="standard">{t.prayers.shafiMethod}</option>
-                  <option value="hanafi">{t.prayers.hanafiMethod}</option>
-                </select>
+                <div className="relative flex items-center">
+                  <select
+                    value={asrJuristic}
+                    onChange={(e) => setAsrJuristic(e.target.value as any)}
+                    className="w-full appearance-none bg-[#07261d] border border-[#c8a951]/30 rounded-xl ps-3.5 pe-9 py-2 text-white font-semibold text-xs focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+                  >
+                    <option value="standard">{t.prayers.shafiMethod}</option>
+                    <option value="hanafi">{t.prayers.hanafiMethod}</option>
+                  </select>
+                  <ChevronDown className="w-4 h-4 text-[#c8a951] absolute end-3 pointer-events-none" />
+                </div>
               </div>
             </div>
           </div>

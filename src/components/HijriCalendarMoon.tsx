@@ -15,7 +15,8 @@ import {
   ArrowLeftRight, 
   Sparkles, 
   Clock, 
-  CheckCircle 
+  CheckCircle,
+  ChevronDown
 } from 'lucide-react';
 
 interface Props {
@@ -177,17 +178,20 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
                   className="bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2 py-1.5 text-center text-white font-bold text-xs"
                   placeholder="1"
                 />
-                <select
-                  value={hMonthInput}
-                  onChange={(e) => setHMonthInput(Number(e.target.value))}
-                  className="bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-1 py-1.5 text-white font-bold text-xs text-center"
-                >
-                  {(language === 'ar' ? HIJRI_MONTHS_AR : HIJRI_MONTHS_EN).map((m, i) => (
-                    <option key={i + 1} value={i + 1}>
-                      {m}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative flex items-center">
+                  <select
+                    value={hMonthInput}
+                    onChange={(e) => setHMonthInput(Number(e.target.value))}
+                    className="w-full appearance-none bg-[#07261d] border border-[#c8a951]/30 rounded-xl ps-2 pe-7 py-1.5 text-white font-bold text-xs text-center focus:outline-none focus:ring-1 focus:ring-[#c8a951] cursor-pointer"
+                  >
+                    {(language === 'ar' ? HIJRI_MONTHS_AR : HIJRI_MONTHS_EN).map((m, i) => (
+                      <option key={i + 1} value={i + 1}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="w-3.5 h-3.5 text-[#c8a951] absolute end-2 pointer-events-none" />
+                </div>
                 <input
                   type="number"
                   min="1300"
