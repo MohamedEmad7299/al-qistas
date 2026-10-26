@@ -580,16 +580,16 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
           ) : (
             /* UNLOCKED INTERACTIVE QIBLA COMPASS */
             <div className="qibla-unlocked-card bg-[#0b3d2e]/80 border border-[#c8a951]/30 rounded-2xl p-6 shadow-xl space-y-5 text-center relative overflow-hidden backdrop-blur-sm">
-              <div className="flex items-center justify-between border-b border-[#c8a951]/20 pb-3">
-                <span className="font-amiri font-bold text-lg text-[#f3e5ab] flex items-center gap-2">
-                  <Compass className="w-5 h-5 text-[#c8a951]" />
-                  <span>{language === 'ar' ? 'بوصلة اتجاه القبلة (GPS دقيق)' : 'Interactive Qibla Compass (GPS)'}</span>
+              <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 border-b border-[#c8a951]/20 pb-3">
+                <span className="font-amiri font-bold text-base sm:text-lg text-[#f3e5ab] flex items-center gap-2 truncate">
+                  <Compass className="w-5 h-5 text-[#c8a951] shrink-0" />
+                  <span>{language === 'ar' ? 'بوصلة اتجاه القبلة' : 'Qibla Compass'}</span>
                 </span>
 
                 <button
                   type="button"
                   onClick={() => onOpenPdfModal({ type: 'imsakiya', prayers, city: cityName, qibla })}
-                  className="cta-button flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 transition cursor-pointer"
+                  className="cta-button flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 transition cursor-pointer shrink-0 ms-auto sm:ms-0"
                 >
                   <FileText className="w-4 h-4" />
                   <span>{language === 'ar' ? 'تصدير الإمساكية PDF' : 'Export Imsakiya PDF'}</span>
