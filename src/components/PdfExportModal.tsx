@@ -156,7 +156,7 @@ export const PdfExportModal: React.FC<PdfModalProps> = ({
               onClick={handleDownload}
               type="button"
               disabled={isGenerating}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold hover:brightness-110 transition shadow-md cursor-pointer disabled:opacity-50"
+              className="cta-button flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold hover:brightness-110 transition shadow-md cursor-pointer disabled:opacity-50"
             >
               <Download className="w-4 h-4" />
               <span>{isGenerating ? (language === 'ar' ? 'جارٍ المعالجة...' : 'Generating...') : t.downloadReport}</span>

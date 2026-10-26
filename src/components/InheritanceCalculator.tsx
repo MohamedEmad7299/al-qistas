@@ -286,12 +286,12 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       if (maxWasiyyah > 0) setWasiyyah(maxWasiyyah);
                     }}
                     disabled={maxWasiyyah <= 0}
-                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#c8a951]/15 hover:bg-[#c8a951]/30 border border-[#c8a951]/40 text-[#f3e5ab] text-[10px] font-bold hover:scale-105 active:scale-95 transition cursor-pointer shadow-xs disabled:opacity-50 disabled:no-underline disabled:cursor-default"
+                    className="wasiyyah-max-btn inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#c8a951]/15 hover:bg-[#c8a951]/30 border border-[#c8a951]/40 text-[#f3e5ab] text-[10px] font-bold hover:scale-105 active:scale-95 transition cursor-pointer shadow-xs disabled:opacity-50 disabled:no-underline disabled:cursor-default"
                     title={language === 'ar' ? 'انقر لتطبيق الحد الأقصى' : 'Click to apply max'}
                   >
                     <span>⚡ Max: {maxWasiyyah.toLocaleString()} {currency}</span>
                     {Number(wasiyyah) >= maxWasiyyah && maxWasiyyah > 0 && (
-                      <span className="text-amber-400 ms-1 font-extrabold">({language === 'ar' ? 'الحد الأقصى' : 'Max'})</span>
+                      <span className="max-tag text-amber-400 ms-1 font-extrabold">({language === 'ar' ? 'الحد الأقصى' : 'Max'})</span>
                     )}
                   </button>
                 </div>
@@ -681,7 +681,7 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
               <button
                 type="button"
                 onClick={() => onOpenPdfModal({ type: 'inheritance', result, currency })}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 transition cursor-pointer"
+                className="cta-button flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 transition cursor-pointer"
               >
                 <FileText className="w-4 h-4" />
                 <span>{t.exportPdf}</span>

@@ -380,7 +380,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
               requestLocation(true);
             }}
             disabled={isRequestingLocation}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 active:scale-95 transition shrink-0 cursor-pointer"
+            className="cta-button w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 active:scale-95 transition shrink-0 cursor-pointer"
           >
             {isRequestingLocation ? <Loader2 className="w-4 h-4 animate-spin" /> : <MapPin className="w-4 h-4 text-[#07261d]" />}
             <span>{isRequestingLocation ? t.prayers.requestingLocation : t.prayers.grantLocationBtn}</span>
@@ -534,7 +534,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
                       requestLocation(true);
                     }}
                     disabled={isRequestingLocation}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-[#c8a951] via-[#e6cb7a] to-[#b39238] text-[#07261d] font-bold text-sm shadow-xl hover:brightness-110 active:scale-95 transition cursor-pointer"
+                    className="cta-button w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-[#c8a951] via-[#e6cb7a] to-[#b39238] text-[#07261d] font-bold text-sm shadow-xl hover:brightness-110 active:scale-95 transition cursor-pointer"
                   >
                     {isRequestingLocation ? (
                       <>
@@ -585,7 +585,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
                 <button
                   type="button"
                   onClick={() => onOpenPdfModal({ type: 'imsakiya', prayers, city: cityName, qibla })}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 transition cursor-pointer"
+                  className="cta-button flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 transition cursor-pointer"
                 >
                   <FileText className="w-4 h-4" />
                   <span>{language === 'ar' ? 'تصدير الإمساكية PDF' : 'Export Imsakiya PDF'}</span>

@@ -146,7 +146,7 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
               <button
                 type="button"
                 onClick={() => onOpenPdfModal({ type: 'iddah', result })}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 transition cursor-pointer"
+                className="cta-button flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] text-xs font-bold shadow-md hover:brightness-110 transition cursor-pointer"
               >
                 <FileText className="w-4 h-4" />
                 <span>{t.exportPdf}</span>
