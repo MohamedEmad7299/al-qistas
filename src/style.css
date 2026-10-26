@@ -709,18 +709,22 @@ html.light .mobile-short-bar {
   border-bottom: 2px solid rgba(200, 169, 81, 0.35) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
 }
-html.light .mobile-short-bar span,
-html.light .mobile-short-bar button {
+html.light .mobile-short-bar .mobile-app-title {
   color: #0f172a !important;
 }
-html.light .mobile-short-bar button {
-  background-color: #ffffff !important;
-  border-color: rgba(200, 169, 81, 0.3) !important;
+html.light .mobile-short-bar .mobile-hijri-date {
+  color: #997424 !important;
 }
 html.light .mobile-header-btn {
   background-color: #ffffff !important;
   border-color: rgba(200, 169, 81, 0.35) !important;
   color: #0f172a !important;
+}
+html.light .mobile-header-btn span {
+  color: #0f172a !important;
+}
+html.light .mobile-header-btn svg {
+  color: #c8a951 !important;
 }
 
 /* ==========================================
@@ -922,3 +926,77 @@ button,
     break-after: avoid !important;
   }
 }
+
+/* ==========================================================================
+   MASTER SELECTION & ACTIVE TAB WHITE TEXT GUARANTEE
+   Placed at the absolute end of stylesheet to ensure 100% cascade win
+   ========================================================================== */
+html.light .nav-tab-active,
+html.light .selection-active,
+html.light [class*="nav-tab-active"],
+html.light [class*="selection-active"],
+html.light .cta-button,
+html.light [class*="cta-button"],
+html.light .next-prayer-badge,
+html.light .mobile-short-bar .nav-tab-active,
+html.light header .nav-tab-active {
+  background: linear-gradient(135deg, #173b6c 0%, #0f2742 100%) !important;
+  background-image: linear-gradient(135deg, #173b6c 0%, #0f2742 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #c8a951 !important;
+  box-shadow: 0 4px 16px rgba(23, 59, 108, 0.35) !important;
+}
+
+html.light .nav-tab-active *,
+html.light .selection-active *,
+html.light [class*="nav-tab-active"] *,
+html.light [class*="selection-active"] *,
+html.light .cta-button *,
+html.light [class*="cta-button"] *,
+html.light .next-prayer-badge *,
+html.light .mobile-short-bar .nav-tab-active *,
+html.light header .nav-tab-active * {
+  color: #ffffff !important;
+}
+
+html.light .nav-tab-active span,
+html.light .selection-active span,
+html.light [class*="nav-tab-active"] span,
+html.light [class*="selection-active"] span,
+html.light .cta-button span,
+html.light [class*="cta-button"] span,
+html.light .next-prayer-badge span,
+html.light .mobile-short-bar .nav-tab-active span,
+html.light header .nav-tab-active span {
+  color: #ffffff !important;
+}
+
+html.light .nav-tab-active svg,
+html.light .selection-active svg,
+html.light [class*="nav-tab-active"] svg,
+html.light [class*="selection-active"] svg,
+html.light .cta-button svg,
+html.light [class*="cta-button"] svg,
+html.light .next-prayer-badge svg,
+html.light .mobile-short-bar .nav-tab-active svg,
+html.light header .nav-tab-active svg,
+html.light .nav-tab-active svg *,
+html.light .selection-active svg *,
+html.light [class*="nav-tab-active"] svg *,
+html.light [class*="selection-active"] svg *,
+html.light .cta-button svg *,
+html.light [class*="cta-button"] svg *,
+html.light .next-prayer-badge svg *,
+html.light .mobile-short-bar .nav-tab-active svg *,
+html.light header .nav-tab-active svg * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: transparent !important;
+}
+
+html.light .nav-tab-active .animate-pulse,
+html.light .mobile-short-bar .nav-tab-active .animate-pulse,
+html.light header .nav-tab-active .animate-pulse {
+  background-color: #ffffff !important;
+}
+

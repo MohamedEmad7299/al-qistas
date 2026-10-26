@@ -191,10 +191,10 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="mobile-header-emblem flex items-center justify-center w-8 h-8 rounded-xl border border-[#c8a951] shadow-sm shrink-0">
               <span className="font-amiri text-lg select-none leading-none">۞</span>
             </div>
-            <span className="font-amiri font-bold text-lg text-[#f3e5ab] leading-none truncate">
+            <span className="mobile-app-title font-amiri font-bold text-lg text-[#f3e5ab] leading-none truncate">
               {t.appName}
             </span>
-            <span className="text-[11px] text-[#e6cb7a]/90 font-medium font-amiri hidden sm:inline truncate">
+            <span className="mobile-hijri-date text-[11px] text-[#e6cb7a]/90 font-medium font-amiri hidden sm:inline truncate">
               {hijriDate}
             </span>
           </div>
@@ -237,12 +237,12 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => setActiveTab(item.id)}
                 className={`flex items-center shrink-0 gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer border ${
                   isActive
-                    ? 'nav-tab-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
+                    ? 'nav-tab-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-white border-transparent shadow-md scale-105'
                     : 'nav-tab-inactive bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
-                <span>{item.label}</span>
+                <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-[#c8a951]'}`} />
+                <span className={isActive ? '!text-white' : ''}>{item.label}</span>
               </button>
             );
           })}
@@ -351,14 +351,14 @@ export const Header: React.FC<HeaderProps> = ({
                     onClick={() => setActiveTab(item.id)}
                     className={`nav-tab-item flex items-center shrink-0 gap-2.5 px-4.5 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-3.5 rounded-2xl text-xs sm:text-sm md:text-base font-bold transition-all whitespace-nowrap cursor-pointer border ${
                       isActive
-                        ? 'nav-tab-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-[0_6px_20px_rgba(200,169,81,0.4)] ring-2 ring-[#c8a951]/50 scale-[1.04]'
+                        ? 'nav-tab-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-white border-transparent shadow-[0_6px_20px_rgba(200,169,81,0.4)] ring-2 ring-[#c8a951]/50 scale-[1.04]'
                         : 'nav-tab-inactive bg-[#0b3d2e]/75 text-slate-200 border-[#c8a951]/25 hover:border-[#c8a951]/70 hover:text-white hover:bg-[#114d3a] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 shadow-sm'
                     }`}
                   >
-                    <Icon className={`w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0 transition-transform ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
-                    <span>{item.label}</span>
+                    <Icon className={`w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0 transition-transform ${isActive ? 'text-white' : 'text-[#c8a951]'}`} />
+                    <span className={isActive ? '!text-white' : ''}>{item.label}</span>
                     {isActive && (
-                      <span className="w-2 h-2 rounded-full bg-[#07261d] inline-block ms-1 animate-pulse" />
+                      <span className="w-2 h-2 rounded-full bg-white inline-block ms-1 animate-pulse" />
                     )}
                   </button>
                 );

@@ -207,22 +207,22 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   onClick={() => setDeceasedGender('male')}
                   className={`py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm active:scale-95 ${
                     deceasedGender === 'male'
-                      ? 'selection-active bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
+                      ? 'selection-active bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-white border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
                       : 'selection-inactive bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
                   }`}
                 >
-                  <span>♂ {t.inheritance.male}</span>
+                  <span className={deceasedGender === 'male' ? '!text-white' : ''}>♂ {t.inheritance.male}</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setDeceasedGender('female')}
                   className={`py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm active:scale-95 ${
                     deceasedGender === 'female'
-                      ? 'selection-active bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
+                      ? 'selection-active bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-white border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
                       : 'selection-inactive bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
                   }`}
                 >
-                  <span>♀ {t.inheritance.female}</span>
+                  <span className={deceasedGender === 'female' ? '!text-white' : ''}>♀ {t.inheritance.female}</span>
                 </button>
               </div>
             </div>
@@ -334,11 +334,11 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                         onClick={() => setWives(count)}
                         className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
                           wives === count
-                            ? 'selection-active bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md scale-110 ring-2 ring-[#c8a951]/40'
+                            ? 'selection-active bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] !text-white border-[#c8a951] shadow-md scale-110 ring-2 ring-[#c8a951]/40'
                             : 'selection-inactive bg-[#0b3d2e] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951] hover:text-white hover:bg-[#114d3a]'
                         }`}
                       >
-                        {count}
+                        <span className={wives === count ? '!text-white' : ''}>{count}</span>
                       </button>
                     ))}
                   </div>
@@ -370,11 +370,11 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   onClick={() => setActiveTabSection(tab.id as any)}
                   className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
                     activeTabSection === tab.id
-                      ? 'selection-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
+                      ? 'selection-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-white border-transparent shadow-md scale-105'
                       : 'selection-inactive bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#0b3d2e] hover:-translate-y-0.5'
                   }`}
                 >
-                  <span>{tab.label}</span>
+                  <span className={activeTabSection === tab.id ? '!text-white' : ''}>{tab.label}</span>
                 </button>
               ))}
             </div>
