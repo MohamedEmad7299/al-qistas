@@ -173,7 +173,7 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                 <div>
                   <div className="flex justify-between text-xs text-slate-300 mb-1">
                     <span>{language === 'ar' ? 'نسبة ربح رب المال' : 'Rabb al-Mal Profit Ratio'}:</span>
-                    <span className="font-bold text-[#e6cb7a]">{rabbAlMalRatio}%</span>
+                    <span className="font-bold text-[#e6cb7a] progress-value">{rabbAlMalRatio}%</span>
                   </div>
                   <input
                     type="range"
@@ -181,7 +181,7 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     max="99"
                     value={rabbAlMalRatio}
                     onChange={(e) => setRabbAlMalRatio(Number(e.target.value))}
-                    className="w-full accent-[#c8a951]"
+                    className="w-full accent-[#c8a951] progress-slider cursor-pointer"
                   />
                   <div className="flex justify-between text-[10px] text-slate-400">
                     <span>{language === 'ar' ? 'رب المال' : 'Capital'}: {rabbAlMalRatio}%</span>
@@ -277,7 +277,7 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                 <div>
                   <div className="flex justify-between text-xs text-slate-300 mb-1">
                     <span>{t.finance.agreedProfitRatio}:</span>
-                    <span className="font-bold text-[#e6cb7a]">{profitRatioA}%</span>
+                    <span className="font-bold text-[#e6cb7a] progress-value">{profitRatioA}%</span>
                   </div>
                   <input
                     type="range"
@@ -285,7 +285,7 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     max="99"
                     value={profitRatioA}
                     onChange={(e) => setProfitRatioA(Number(e.target.value))}
-                    className="w-full accent-[#c8a951]"
+                    className="w-full accent-[#c8a951] progress-slider cursor-pointer"
                   />
                 </div>
 

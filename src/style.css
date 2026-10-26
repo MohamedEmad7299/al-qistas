@@ -1039,3 +1039,33 @@ html.light .\!text-white {
   color: #ffffff !important;
 }
 
+/* ==========================================================================
+   PROGRESS SLIDER & ACCENT ELEMENTS IN LIGHT MODE
+   Royal Blue (#173b6c) for range lines, progress tracks, and thumbs
+   ========================================================================== */
+html.light input[type="range"],
+html.light .progress-slider,
+html.light [class*="accent-[#c8a951]"],
+html.light [class*="accent-"],
+html.light input[type="checkbox"] {
+  accent-color: #173b6c !important;
+  color-scheme: light !important;
+}
+
+html.light input[type="range"]::-moz-range-progress {
+  background-color: #173b6c !important;
+}
+
+html.light input[type="range"]::-moz-range-thumb {
+  background-color: #173b6c !important;
+  border-color: #173b6c !important;
+}
+
+html.light input[type="range"]::-moz-range-track {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .progress-value {
+  color: #173b6c !important;
+}
+
