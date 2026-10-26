@@ -269,7 +269,11 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
   // Countdown to next prayer in HH:MM:SS
   const countdownString = useMemo(() => {
     if (!nextPrayer) return '--:--:--';
-    const diffMs = nextPrayer.timestamp.getTime() - currentTime.getTime();
+    let diffMs = nextPrayer.timestamp.getTime() - currentTime.getTime();
+    if (diffMs <= 0) {
+      // If timestamp is earlier than current time (e.g. past prayer), advance by 24h
+      diffMs += 24 * 60 * 60 * 1000;
+    }
     if (diffMs <= 0) return '00:00:00';
 
     const h = Math.floor(diffMs / (1000 * 60 * 60));

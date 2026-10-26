@@ -174,9 +174,50 @@ export function calculatePrayerTimes(params: PrayerCalcParams): {
   ];
 
   // Determine next prayer relative to current time
-  const now = new Date();
-  let nextPrayer = prayers.find(p => p.timestamp.getTime() > now.getTime()) || prayers[0];
-  nextPrayer.isNext = true;
+  const now = date || new Date();
+
+  // Find next upcoming prayer today (excluding sunrise as an obligatory prayer for countdown)
+  const candidatePrayers = prayers.filter(p => p.id !== 'sunrise');
+  let nextPrayer = candidatePrayers.find(p => p.timestamp.getTime() > now.getTime());
+
+  if (!nextPrayer) {
+    // All prayers today have passed (after Isha).
+    // The next prayer is tomorrow's Fajr!
+    const tomorrow = new Date(date);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowJd = getJulianDay(tomorrow);
+    const tomorrowSolar = computeSolarPosition(tomorrowJd);
+    const tomorrowDhuhr = 12 + timezoneOffsetHours - (lng / 15) - (tomorrowSolar.equationOfTime / 60);
+
+    const latRadT = degToRad(lat);
+    const declRadT = degToRad(tomorrowSolar.declination);
+    const angleRadT = degToRad(fajrAngle);
+    const cosHT = (Math.sin(angleRadT) - Math.sin(latRadT) * Math.sin(declRadT)) /
+                  (Math.cos(latRadT) * Math.cos(declRadT));
+    const tomorrowFajrHA = (cosHT <= 1 && cosHT >= -1) ? (radToDeg(Math.acos(cosHT)) / 15) : 6.2;
+    const tomorrowFajrHours = tomorrowDhuhr - tomorrowFajrHA;
+
+    const tomorrowFajrDate = new Date(tomorrow);
+    const fixedH = fixHour(tomorrowFajrHours);
+    const hour = Math.floor(fixedH);
+    const minutes = Math.floor((fixedH - hour) * 60);
+    const seconds = Math.floor((((fixedH - hour) * 60) - minutes) * 60);
+    tomorrowFajrDate.setHours(hour, minutes, seconds, 0);
+
+    nextPrayer = {
+      id: 'fajr',
+      nameAr: 'الفجر',
+      nameEn: 'Fajr',
+      timeString: formatTime(tomorrowFajrDate),
+      timestamp: tomorrowFajrDate,
+      isNext: true,
+    };
+    prayers[0].isNext = true; // Highlight Fajr card in daily schedule
+  } else {
+    // Mark the matched prayer as next in prayers array
+    const matched = prayers.find(p => p.id === nextPrayer!.id);
+    if (matched) matched.isNext = true;
+  }
 
   // Fasting duration = Maghrib - Fajr
   const fastingDurationMinutes = Math.round((maghribDate.getTime() - fajrDate.getTime()) / (1000 * 60));
