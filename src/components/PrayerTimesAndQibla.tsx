@@ -453,7 +453,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
                   </div>
 
                   {isNext && (
-                    <span className="inline-block mt-2 px-2 py-0.5 rounded-full bg-[#c8a951] text-[#07261d] text-[10px] font-bold">
+                    <span className="next-prayer-badge inline-block mt-2 px-2 py-0.5 rounded-full bg-[#c8a951] text-[#07261d] text-[10px] font-bold">
                       {language === 'ar' ? 'الصلاة القادمة' : 'Next Prayer'}
                     </span>
                   )}

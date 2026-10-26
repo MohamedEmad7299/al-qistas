@@ -370,8 +370,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   onClick={() => setActiveTabSection(tab.id as any)}
                   className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
                     activeTabSection === tab.id
-                      ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
-                      : 'bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#0b3d2e] hover:-translate-y-0.5'
+                      ? 'selection-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
+                      : 'selection-inactive bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#0b3d2e] hover:-translate-y-0.5'
                   }`}
                 >
                   <span>{tab.label}</span>
