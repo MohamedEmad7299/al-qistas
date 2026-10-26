@@ -201,11 +201,11 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
               <label className="block text-xs font-medium text-slate-300 mb-2">
                 {t.inheritance.deceasedGender}
               </label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <button
                   type="button"
                   onClick={() => setDeceasedGender('male')}
-                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${
+                  className={`py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm active:scale-95 ${
                     deceasedGender === 'male'
                       ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
                       : 'bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
@@ -216,7 +216,7 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                 <button
                   type="button"
                   onClick={() => setDeceasedGender('female')}
-                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${
+                  className={`py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm active:scale-95 ${
                     deceasedGender === 'female'
                       ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
                       : 'bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
@@ -324,17 +324,17 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                 {t.inheritance.spouses}
               </span>
               {deceasedGender === 'male' ? (
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-300">{t.inheritance.wives}:</span>
-                  <div className="flex items-center gap-1.5">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <span className="text-xs sm:text-sm font-medium text-slate-300">{t.inheritance.wives}:</span>
+                  <div className="flex items-center gap-2.5 sm:gap-3">
                     {[0, 1, 2, 3, 4].map((count) => (
                       <button
                         key={count}
                         type="button"
                         onClick={() => setWives(count)}
-                        className={`w-7 h-7 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                        className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
                           wives === count
-                            ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-sm scale-110'
+                            ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md scale-110 ring-2 ring-[#c8a951]/40'
                             : 'bg-[#0b3d2e] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951] hover:text-white hover:bg-[#114d3a]'
                         }`}
                       >
@@ -344,20 +344,20 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   </div>
                 </div>
               ) : (
-                <label className="flex items-center justify-between cursor-pointer p-1 rounded-lg hover:bg-[#0b3d2e]/40 transition">
-                  <span className="text-xs text-slate-300">{t.inheritance.husband}</span>
+                <label className="flex items-center justify-between cursor-pointer p-1.5 rounded-xl hover:bg-[#0b3d2e]/40 transition">
+                  <span className="text-xs sm:text-sm text-slate-300">{t.inheritance.husband}</span>
                   <input
                     type="checkbox"
                     checked={husband}
                     onChange={(e) => setHusband(e.target.checked)}
-                    className="w-4 h-4 accent-[#c8a951] rounded cursor-pointer"
+                    className="w-5 h-5 accent-[#c8a951] rounded cursor-pointer"
                   />
                 </label>
               )}
             </div>
 
-            {/* Heirs Category Tabs */}
-            <div className="flex flex-wrap gap-1.5 border-b border-[#c8a951]/20 pb-2">
+            {/* Heirs Category Tabs - Spacious & Comfortable */}
+            <div className="flex flex-wrap gap-2.5 sm:gap-3 border-b border-[#c8a951]/20 pb-3">
               {[
                 { id: 'descendants', label: language === 'ar' ? 'الفروع (الأولاد)' : 'Descendants' },
                 { id: 'ascendants', label: language === 'ar' ? 'الأصول (الآباء)' : 'Ascendants' },
@@ -368,10 +368,10 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTabSection(tab.id as any)}
-                  className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
                     activeTabSection === tab.id
                       ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
-                      : 'bg-[#07261d]/80 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#0b3d2e] hover:-translate-y-0.5'
+                      : 'bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#0b3d2e] hover:-translate-y-0.5'
                   }`}
                 >
                   <span>{tab.label}</span>

@@ -94,7 +94,7 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
               {language === 'ar' ? 'نوع الكفارة أو الدية' : 'Type of Atonement / Compensation'}
             </h3>
 
-            <div className="space-y-2">
+            <div className="space-y-3">
               {[
                 { id: 'oath', label: t.kaffarah.types.oath },
                 { id: 'fast_breach', label: t.kaffarah.types.fastBreach },

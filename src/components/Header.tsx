@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
       }
 
       const currentScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
-      const threshold = headerHeightRef.current || 120;
+      const threshold = headerHeightRef.current || 140;
       const delta = currentScrollY - lastScrollYRef.current;
 
       // While scroll position is still inside the tall header, keep short bar hidden
@@ -186,10 +186,10 @@ export const Header: React.FC<HeaderProps> = ({
         aria-hidden={!isShortBarVisible}
       >
         {/* Top compact row: Logo, App Title, Theme Toggle & Language Toggle */}
-        <div className="px-3 pt-2 pb-1.5 flex items-center justify-between gap-2 border-b border-[#c8a951]/15">
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-[#0b3d2e] to-[#051a14] border border-[#c8a951] shadow-sm shrink-0">
-              <span className="font-amiri text-base text-[#f3e5ab] select-none leading-none">۞</span>
+        <div className="px-3.5 pt-2.5 pb-2 flex items-center justify-between gap-3 border-b border-[#c8a951]/15">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-[#0b3d2e] to-[#051a14] border border-[#c8a951] shadow-sm shrink-0">
+              <span className="font-amiri text-lg text-[#f3e5ab] select-none leading-none">۞</span>
             </div>
             <span className="font-amiri font-bold text-lg text-[#f3e5ab] leading-none truncate">
               {t.appName}
@@ -199,25 +199,25 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             {/* Mobile Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] transition cursor-pointer shadow-sm active:scale-95"
+              className="flex items-center justify-center w-8 h-8 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] transition cursor-pointer shadow-sm active:scale-95"
               title={theme === 'dark' ? t.lightMode : t.darkMode}
               aria-label="Toggle Theme"
             >
               {theme === 'dark' ? (
-                <Sun className="w-3.5 h-3.5 text-amber-400" />
+                <Sun className="w-4 h-4 text-amber-400" />
               ) : (
-                <Moon className="w-3.5 h-3.5 text-cyan-300" />
+                <Moon className="w-4 h-4 text-cyan-300" />
               )}
             </button>
 
             {/* Mobile Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-1 px-2 py-1 rounded-lg bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-semibold cursor-pointer shadow-sm transition active:scale-95"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold cursor-pointer shadow-sm transition active:scale-95"
               title="Change Language"
             >
               <Languages className="w-3.5 h-3.5 text-[#c8a951]" />
@@ -226,8 +226,8 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Compact horizontally scrollable navigation tabs */}
-        <nav className="flex items-center gap-1.5 overflow-x-auto no-scrollbar px-3 py-1.5">
+        {/* Compact horizontally scrollable navigation tabs with comfortable spacing */}
+        <nav className="flex items-center gap-2.5 overflow-x-auto no-scrollbar px-3.5 py-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -235,10 +235,10 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center shrink-0 gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer border ${
+                className={`flex items-center shrink-0 gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer border ${
                   isActive
                     ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
-                    : 'bg-[#07261d]/80 text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/50 hover:text-white'
+                    : 'bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
                 }`}
               >
                 <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
@@ -252,22 +252,22 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Tall Main Header: scrolls away on mobile, sticky on desktop */}
       <header
         ref={tallHeaderRef}
-        className="relative md:sticky md:top-0 z-40 bg-[#07261d]/90 backdrop-blur-md border-b border-[#c8a951]/20 shadow-xl no-print"
+        className="relative md:sticky md:top-0 z-40 bg-[#07261d]/95 backdrop-blur-md border-b border-[#c8a951]/25 shadow-2xl no-print transition-all"
       >
-        {/* Top Banner: Quranic motto, Live Dates, Theme & Language toggles */}
-        <div className="bg-[#051a14]/85 border-b border-[#c8a951]/15 px-4 py-2 text-xs">
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-            {/* Motto */}
-            <div className="flex items-center gap-2 text-[#e6cb7a] font-amiri text-sm">
+        {/* Top Banner: Quranic motto with respectful top space, Live Dates, Theme & Language toggles */}
+        <div className="bg-[#051a14]/90 border-b border-[#c8a951]/15 px-4 sm:px-6 pt-4 sm:pt-5 pb-3 sm:pb-3.5 text-xs">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
+            {/* Motto with spacious, reverent top breathing room */}
+            <div className="flex items-center gap-2.5 text-[#e6cb7a] font-amiri text-sm sm:text-base pt-0.5">
               <Sparkles className="w-4 h-4 text-[#c8a951] shrink-0" />
-              <span className="font-semibold">{t.motto}</span>
-              <span className="text-[11px] opacity-80 hidden lg:inline">({t.mottoSurah})</span>
+              <span className="font-bold tracking-wide">{t.motto}</span>
+              <span className="text-xs opacity-75 hidden xl:inline">({t.mottoSurah})</span>
             </div>
 
             {/* Dates, Theme Toggle & Language Toggle */}
-            <div className="flex items-center gap-3 text-slate-300">
+            <div className="flex flex-wrap items-center gap-3 text-slate-300 self-end md:self-auto">
               {/* Hijri and Gregorian Dates Pill */}
-              <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#07261d]/80 border border-[#c8a951]/20 text-xs font-medium">
+              <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#07261d]/90 border border-[#c8a951]/25 text-xs font-semibold shadow-xs">
                 <Calendar className="w-3.5 h-3.5 text-[#c8a951]" />
                 <span className="text-[#e6cb7a] font-bold font-amiri">{hijriDate}</span>
                 <span className="text-slate-500 hidden sm:inline">|</span>
@@ -278,18 +278,18 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
                 title={theme === 'dark' ? t.lightMode : t.darkMode}
                 aria-label="Toggle Theme"
               >
                 {theme === 'dark' ? (
                   <>
-                    <Sun className="w-3.5 h-3.5 text-amber-400" />
+                    <Sun className="w-4 h-4 text-amber-400" />
                     <span className="hidden sm:inline">{t.lightMode}</span>
                   </>
                 ) : (
                   <>
-                    <Moon className="w-3.5 h-3.5 text-cyan-300" />
+                    <Moon className="w-4 h-4 text-cyan-300" />
                     <span className="hidden sm:inline">{t.darkMode}</span>
                   </>
                 )}
@@ -299,42 +299,47 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
                 title="Change Language"
               >
-                <Languages className="w-3.5 h-3.5 text-[#c8a951]" />
+                <Languages className="w-4 h-4 text-[#c8a951]" />
                 <span>{t.toggleLanguage}</span>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Main Bar: Logo & Navigation */}
-        <div className="max-w-7xl mx-auto px-4 py-3.5">
-          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
-            {/* Logo & Platform Name */}
-            <div className="flex items-center gap-3.5 shrink-0">
-              <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0b3d2e] via-[#07261d] to-[#041410] border-2 border-[#c8a951] shadow-[0_0_20px_rgba(200,169,81,0.35)] group">
+        {/* Main Bar: Prominent Larger Logo & Spacious Navigation */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-6 md:py-7">
+          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6">
+            {/* Logo & Platform Name (Larger & More Regal) */}
+            <div className="flex items-center gap-4 sm:gap-5 shrink-0">
+              <div className="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#0e4d3a] via-[#07261d] to-[#041410] border-2 border-[#c8a951] shadow-[0_0_25px_rgba(200,169,81,0.4)] group shrink-0">
                 {/* Ornate Rub-el-Hizb with inner glow */}
-                <span className="font-amiri text-2xl text-[#f3e5ab] select-none leading-none group-hover:scale-110 transition-transform">۞</span>
+                <span className="font-amiri text-3xl sm:text-4xl text-[#f3e5ab] select-none leading-none group-hover:scale-110 transition-transform">۞</span>
+                {/* Corner ornamental accents */}
+                <div className="absolute top-1 left-1 w-1.5 h-1.5 bg-[#c8a951]/60 rounded-full" />
+                <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#c8a951]/60 rounded-full" />
+                <div className="absolute bottom-1 left-1 w-1.5 h-1.5 bg-[#c8a951]/60 rounded-full" />
+                <div className="absolute bottom-1 right-1 w-1.5 h-1.5 bg-[#c8a951]/60 rounded-full" />
               </div>
               <div>
-                <div className="flex items-center gap-2">
-                  <h1 className="font-amiri font-bold text-2xl md:text-3xl text-[#f3e5ab] tracking-wide leading-tight">
+                <div className="flex items-center gap-3">
+                  <h1 className="font-amiri font-bold text-3xl sm:text-4xl md:text-5xl text-[#f3e5ab] tracking-wide leading-tight">
                     {t.appName}
                   </h1>
-                  <span className="px-2 py-0.5 rounded-full bg-[#c8a951]/20 border border-[#c8a951]/30 text-[#e6cb7a] text-[10px] font-bold">
+                  <span className="px-2.5 py-1 rounded-full bg-[#c8a951]/20 border border-[#c8a951]/40 text-[#e6cb7a] text-xs font-bold shadow-xs">
                     v2.0
                   </span>
                 </div>
-                <p className="text-xs text-slate-300 font-medium mt-1">
+                <p className="text-xs sm:text-sm md:text-base text-slate-300 font-medium mt-1.5 leading-relaxed">
                   {t.appSubtitle}
                 </p>
               </div>
             </div>
 
-            {/* Nav Tabs - Segmented Buttons with Unmistakable Clickability */}
-            <nav className="flex flex-wrap items-center gap-1.5 md:gap-2 justify-start xl:justify-end py-1" role="tablist">
+            {/* Nav Tabs - Larger Segmented Buttons with Comfortable Spacing */}
+            <nav className="flex flex-wrap items-center gap-2.5 sm:gap-3 md:gap-3.5 justify-start xl:justify-end py-1" role="tablist">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -344,16 +349,16 @@ export const Header: React.FC<HeaderProps> = ({
                     role="tab"
                     aria-selected={isActive}
                     onClick={() => setActiveTab(item.id)}
-                    className={`flex items-center shrink-0 gap-2 px-3.5 py-2 rounded-xl text-xs md:text-sm font-bold transition-all whitespace-nowrap cursor-pointer border ${
+                    className={`flex items-center shrink-0 gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl text-xs sm:text-sm md:text-base font-bold transition-all whitespace-nowrap cursor-pointer border ${
                       isActive
-                        ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-[0_4px_15px_rgba(200,169,81,0.35)] ring-2 ring-[#c8a951]/40 scale-[1.03]'
-                        : 'bg-[#0b3d2e]/70 text-slate-200 border-[#c8a951]/20 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#114d3a] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 shadow-sm'
+                        ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-[0_6px_20px_rgba(200,169,81,0.4)] ring-2 ring-[#c8a951]/50 scale-[1.04]'
+                        : 'bg-[#0b3d2e]/75 text-slate-200 border-[#c8a951]/25 hover:border-[#c8a951]/70 hover:text-white hover:bg-[#114d3a] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 shadow-sm'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 shrink-0 transition-transform ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
+                    <Icon className={`w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0 transition-transform ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
                     <span>{item.label}</span>
                     {isActive && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#07261d] inline-block ms-0.5 animate-pulse" />
+                      <span className="w-2 h-2 rounded-full bg-[#07261d] inline-block ms-1 animate-pulse" />
                     )}
                   </button>
                 );

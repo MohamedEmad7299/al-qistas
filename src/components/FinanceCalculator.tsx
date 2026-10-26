@@ -123,7 +123,7 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
       </div>
 
       {/* Contract Category Selection */}
-      <div className="flex flex-wrap border-b border-[#c8a951]/20 gap-2 pb-2">
+      <div className="flex flex-wrap border-b border-[#c8a951]/20 gap-2.5 sm:gap-3.5 pb-3">
         {[
           { id: 'mudarabah', label: t.finance.mudarabah },
           { id: 'musharakah', label: t.finance.musharakah },

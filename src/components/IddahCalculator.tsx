@@ -66,7 +66,7 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
               {language === 'ar' ? 'سبب العدة والحالة' : 'Iddah Reason & Condition'}
             </h3>
 
-            <div className="space-y-2">
+            <div className="space-y-3">
               {[
                 { id: 'widowhood', label: t.iddah.widowhood },
                 { id: 'divorce_cycle', label: t.iddah.divorceCycle },
