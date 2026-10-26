@@ -232,7 +232,7 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
               <span className="text-xs text-[#e6cb7a] font-normal">عام {convertedHijri.year} هـ</span>
             </h3>
 
-            <div className="space-y-3 max-h-[620px] overflow-y-auto pe-1">
+            <div className="space-y-3 max-h-[620px] overflow-y-auto no-scrollbar">
               {occasions.map((occ) => (
                 <div
                   key={occ.id}
