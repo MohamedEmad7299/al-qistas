@@ -60,6 +60,27 @@ input[type="number"] {
   background: #e6cb7a;
 }
 
+/* Hide scrollbars for clean horizontal swipe containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile scroll header animation - 220ms ease-out cubic */
+.mobile-short-bar {
+  transition: transform 220ms cubic-bezier(0.33, 1, 0.68, 1), opacity 220ms cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-short-bar {
+    transition: none !important;
+  }
+}
+
 /* Islamic arabesque border pattern */
 .islamic-border-ornament {
   background-image: radial-gradient(circle at center, #c8a951 1px, transparent 1px);
