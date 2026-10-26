@@ -612,7 +612,7 @@ html.light [class*="text-[#e6cb7a]"] {
   color: #997424 !important; /* High-contrast warm amber gold */
 }
 
-html.light .text-white:not(.selection-active):not(.nav-tab-active):not(.next-prayer-badge):not(.cta-button):not([class*="selection-active"]):not([class*="nav-tab-active"]):not([class*="cta-button"]) {
+html.light .text-white:not(.selection-active):not(.nav-tab-active):not(.next-prayer-badge):not(.cta-button):not([class*="selection-active"]):not([class*="nav-tab-active"]):not([class*="cta-button"]):not(button):not(button *):not([role="button"]):not([role="button"] *):not([class*="bg-rose"]):not([class*="bg-red"]):not([class*="bg-emerald"]):not([class*="bg-green"]):not([class*="bg-[#173b6c]"]):not([class*="badge"]):not(.\!text-white) {
   color: #0f172a !important; /* Crisp dark slate for primary body titles */
 }
 
@@ -1009,5 +1009,33 @@ html.light .nav-tab-active .animate-pulse,
 html.light .mobile-short-bar .nav-tab-active .animate-pulse,
 html.light header .nav-tab-active .animate-pulse {
   background-color: #ffffff !important;
+}
+
+/* Loss / Danger toggles & chips: always clear white font */
+html.light .bg-rose-600,
+html.light [class*="bg-rose"],
+html.light [class*="bg-red"] {
+  background-color: #be123c !important;
+  color: #ffffff !important;
+}
+html.light .bg-rose-600 *,
+html.light [class*="bg-rose"] *,
+html.light [class*="bg-red"] * {
+  color: #ffffff !important;
+}
+
+/* Buttons and explicitly white text guarantee across all light views */
+html.light button.text-white,
+html.light button .text-white,
+html.light button [class*="text-white"],
+html.light button.\!text-white,
+html.light button .\!text-white,
+html.light [role="button"].text-white,
+html.light [role="button"] .text-white,
+html.light [role="button"] [class*="text-white"],
+html.light [role="button"].\!text-white,
+html.light [role="button"] .\!text-white,
+html.light .\!text-white {
+  color: #ffffff !important;
 }
 

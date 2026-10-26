@@ -195,24 +195,28 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     <button
                       type="button"
                       onClick={() => setMudarabahIsLoss(false)}
-                      className={`py-1.5 rounded-lg text-xs font-bold border transition ${
+                      className={`py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
                         !mudarabahIsLoss
-                          ? 'bg-emerald-600 text-white border-emerald-500'
-                          : 'bg-[#07261d] text-slate-400 border-[#c8a951]/20'
+                          ? 'selection-active bg-emerald-600 text-white border-emerald-500 shadow-md scale-[1.02]'
+                          : 'selection-inactive bg-[#07261d] text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/40'
                       }`}
                     >
-                      {language === 'ar' ? 'تحقيق ربح' : 'Profit Incurred'}
+                      <span className={!mudarabahIsLoss ? '!text-white' : ''}>
+                        {language === 'ar' ? 'تحقيق ربح' : 'Profit Incurred'}
+                      </span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setMudarabahIsLoss(true)}
-                      className={`py-1.5 rounded-lg text-xs font-bold border transition ${
+                      className={`py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
                         mudarabahIsLoss
-                          ? 'bg-rose-600 text-white border-rose-500'
-                          : 'bg-[#07261d] text-slate-400 border-[#c8a951]/20'
+                          ? 'bg-rose-600 text-white border-rose-500 shadow-md scale-[1.02]'
+                          : 'selection-inactive bg-[#07261d] text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/40'
                       }`}
                     >
-                      {language === 'ar' ? 'تحقيق خسارة' : 'Loss Incurred'}
+                      <span className={mudarabahIsLoss ? '!text-white' : ''}>
+                        {language === 'ar' ? 'تحقيق خسارة' : 'Loss Incurred'}
+                      </span>
                     </button>
                   </div>
 
@@ -291,24 +295,28 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
                     <button
                       type="button"
                       onClick={() => setMusharakahIsLoss(false)}
-                      className={`py-1.5 rounded-lg text-xs font-bold border transition ${
+                      className={`py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
                         !musharakahIsLoss
-                          ? 'bg-emerald-600 text-white border-emerald-500'
-                          : 'bg-[#07261d] text-slate-400 border-[#c8a951]/20'
+                          ? 'selection-active bg-emerald-600 text-white border-emerald-500 shadow-md scale-[1.02]'
+                          : 'selection-inactive bg-[#07261d] text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/40'
                       }`}
                     >
-                      {language === 'ar' ? 'ربح' : 'Profit'}
+                      <span className={!musharakahIsLoss ? '!text-white' : ''}>
+                        {language === 'ar' ? 'ربح' : 'Profit'}
+                      </span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setMusharakahIsLoss(true)}
-                      className={`py-1.5 rounded-lg text-xs font-bold border transition ${
+                      className={`py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
                         musharakahIsLoss
-                          ? 'bg-rose-600 text-white border-rose-500'
-                          : 'bg-[#07261d] text-slate-400 border-[#c8a951]/20'
+                          ? 'bg-rose-600 text-white border-rose-500 shadow-md scale-[1.02]'
+                          : 'selection-inactive bg-[#07261d] text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/40'
                       }`}
                     >
-                      {language === 'ar' ? 'خسارة' : 'Loss'}
+                      <span className={musharakahIsLoss ? '!text-white' : ''}>
+                        {language === 'ar' ? 'خسارة' : 'Loss'}
+                      </span>
                     </button>
                   </div>
 
