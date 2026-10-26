@@ -188,8 +188,8 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Top compact row: Logo, App Title, Theme Toggle & Language Toggle */}
         <div className="px-4 pt-3 pb-2 flex items-center justify-between gap-3 border-b border-[#c8a951]/15">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-[#0b3d2e] to-[#051a14] border border-[#c8a951] shadow-sm shrink-0">
-              <span className="font-amiri text-lg text-[#f3e5ab] select-none leading-none">۞</span>
+            <div className="mobile-header-emblem flex items-center justify-center w-8 h-8 rounded-xl border border-[#c8a951] shadow-sm shrink-0">
+              <span className="font-amiri text-lg select-none leading-none">۞</span>
             </div>
             <span className="font-amiri font-bold text-lg text-[#f3e5ab] leading-none truncate">
               {t.appName}
@@ -314,7 +314,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 md:gap-8">
             {/* Logo & Platform Name (Larger & Much More Regal) */}
             <div className="flex items-center gap-5 sm:gap-6 shrink-0">
-              <div className="relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#0e4d3a] via-[#07261d] to-[#041410] border-2 sm:border-3 border-[#c8a951] shadow-[0_0_35px_rgba(200,169,81,0.45)] group shrink-0">
+              <div className="header-emblem relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl sm:rounded-3xl border-2 sm:border-3 border-[#c8a951] shadow-[0_0_35px_rgba(200,169,81,0.45)] group shrink-0">
                 {/* Ornate Rub-el-Hizb with inner glow */}
                 <span className="font-amiri text-4xl sm:text-5xl md:text-6xl text-[#f3e5ab] select-none leading-none group-hover:scale-110 transition-transform">۞</span>
                 {/* Corner ornamental accents */}

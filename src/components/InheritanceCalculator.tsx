@@ -207,8 +207,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   onClick={() => setDeceasedGender('male')}
                   className={`py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm active:scale-95 ${
                     deceasedGender === 'male'
-                      ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
-                      : 'bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
+                      ? 'selection-active bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
+                      : 'selection-inactive bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
                   }`}
                 >
                   <span>♂ {t.inheritance.male}</span>
@@ -218,8 +218,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   onClick={() => setDeceasedGender('female')}
                   className={`py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm active:scale-95 ${
                     deceasedGender === 'female'
-                      ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
-                      : 'bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
+                      ? 'selection-active bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
+                      : 'selection-inactive bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
                   }`}
                 >
                   <span>♀ {t.inheritance.female}</span>
@@ -334,8 +334,8 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                         onClick={() => setWives(count)}
                         className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
                           wives === count
-                            ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md scale-110 ring-2 ring-[#c8a951]/40'
-                            : 'bg-[#0b3d2e] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951] hover:text-white hover:bg-[#114d3a]'
+                            ? 'selection-active bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md scale-110 ring-2 ring-[#c8a951]/40'
+                            : 'selection-inactive bg-[#0b3d2e] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951] hover:text-white hover:bg-[#114d3a]'
                         }`}
                       >
                         {count}

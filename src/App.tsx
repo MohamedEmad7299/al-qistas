@@ -59,10 +59,10 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col relative transition-colors duration-300 selection:bg-[#c8a951] ${
+    <div className={`min-h-screen flex flex-col relative transition-colors duration-300 ${
       theme === 'light'
-        ? 'bg-[#f7f5f0] text-slate-900 selection:text-[#07261d]'
-        : 'bg-[#051a14] text-slate-100 selection:text-[#051a14]'
+        ? 'bg-[#f7f5f0] text-slate-900 selection:bg-blue-100 selection:text-blue-950'
+        : 'bg-[#051a14] text-slate-100 selection:bg-[#c8a951] selection:text-[#051a14]'
     }`}>
       {/* Background Islamic SVG geometric pattern */}
       <IslamicBackground />

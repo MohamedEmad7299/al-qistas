@@ -103,6 +103,20 @@ input[type="number"] {
   box-shadow: 0 0 20px rgba(200, 169, 81, 0.25);
 }
 
+.header-emblem {
+  background: linear-gradient(135deg, #0e4d3a 0%, #07261d 50%, #041410 100%);
+}
+.header-emblem span {
+  color: #f3e5ab;
+}
+
+.mobile-header-emblem {
+  background: linear-gradient(135deg, #0b3d2e 0%, #051a14 100%);
+}
+.mobile-header-emblem span {
+  color: #f3e5ab;
+}
+
 /* ==========================================================================
    LIGHT MODE STYLES
    Provides illuminated, warm Islamic parchment & ivory aesthetic with high contrast
@@ -117,6 +131,20 @@ html.light body {
   color: #1e293b !important;
 }
 
+/* Text selection in Light Mode - Soft Sapphire Blue, ZERO green! */
+html.light ::selection {
+  background-color: #dbeafe !important;
+  color: #1e3a8a !important;
+}
+
+/* Background glows in Light Mode - Soft warm amber/gold, ZERO green! */
+html.light .islamic-bg-glow-1 {
+  background-color: rgba(200, 169, 81, 0.05) !important;
+}
+html.light .islamic-bg-glow-2 {
+  background-color: rgba(230, 203, 122, 0.05) !important;
+}
+
 /* Light mode for the main page container */
 html.light .min-h-screen.bg-\[\#051a14\],
 html.light .min-h-screen {
@@ -127,7 +155,7 @@ html.light .min-h-screen {
 /* ==========================================
    CARDS & CONTAINERS (Light Mode)
    ========================================== */
-/* Primary Cards / Panels */
+/* Primary Cards / Panels (Including Title Cards of all calculators) */
 html.light .emerald-card,
 html.light [class*="bg-[#0b3d2e]"]:not(.qibla-compass-dial):not(.qibla-compass-hub),
 html.light [class*="bg-[#09261e]"],
@@ -142,10 +170,19 @@ html.light .bg-\[\#0b3d2e\]\/60,
 html.light .bg-\[\#0b3d2e\]\/40,
 html.light .bg-\[\#09261e\],
 html.light .bg-\[\#041410\]:not(.qibla-compass-dial):not(footer) {
-  background-color: #ffffff !important;
+  background: #ffffff !important;
+  background-image: none !important;
   border-color: rgba(200, 169, 81, 0.35) !important;
   box-shadow: 0 4px 20px -2px rgba(11, 61, 46, 0.07), 0 2px 6px -1px rgba(0, 0, 0, 0.03) !important;
   color: #1e293b !important;
+}
+
+html.light .emerald-card h2,
+html.light .emerald-card .font-amiri {
+  color: #0f172a !important;
+}
+html.light .emerald-card p {
+  color: #475569 !important;
 }
 
 /* Secondary Inner Containers, Sub-boxes, Cards inside Panels */
@@ -165,7 +202,8 @@ html.light .bg-\[\#051a14\]\/80,
 html.light .bg-\[\#051a14\]\/60,
 html.light .bg-\[\#051a14\]\/40,
 html.light .bg-\[\#0f3d2e\] {
-  background-color: #fbf9f4 !important;
+  background: #fbf9f4 !important;
+  background-image: none !important;
   border-color: rgba(200, 169, 81, 0.25) !important;
   color: #1e293b !important;
 }
@@ -173,21 +211,24 @@ html.light .bg-\[\#0f3d2e\] {
 /* Distinctive Sub-box Accents in Light Mode */
 html.light .bg-\[\#051a14\]\/40,
 html.light [class*="bg-[#051a14]/40"] {
-  background-color: #f0fdf4 !important;
+  background: #f0fdf4 !important;
+  background-image: none !important;
   border-color: rgba(16, 185, 129, 0.3) !important;
   color: #065f46 !important;
 }
 
 html.light .bg-\[\#051a14\]\/60,
 html.light [class*="bg-[#051a14]/60"] {
-  background-color: #f4efe6 !important;
+  background: #f4efe6 !important;
+  background-image: none !important;
   border-color: rgba(200, 169, 81, 0.3) !important;
-  color: #07261d !important;
+  color: #0f172a !important;
 }
 
 html.light .bg-\[\#051a14\]\/90,
 html.light [class*="bg-[#051a14]/90"] {
-  background-color: #fdfbf7 !important;
+  background: #fdfbf7 !important;
+  background-image: none !important;
   border-color: #c8a951 !important;
   color: #1e293b !important;
 }
@@ -200,7 +241,8 @@ html.light .bg-emerald-950,
 html.light .bg-emerald-950\/60,
 html.light .bg-emerald-950\/70,
 html.light [class*="bg-emerald-950"] {
-  background-color: #ecfdf5 !important;
+  background: #ecfdf5 !important;
+  background-image: none !important;
   border-color: rgba(16, 185, 129, 0.45) !important;
   color: #047857 !important;
 }
@@ -212,7 +254,8 @@ html.light .bg-amber-950\/40,
 html.light [class*="bg-amber-950"],
 html.light .border-amber-500\/30,
 html.light .border-amber-500\/20 {
-  background-color: #fffbeb !important;
+  background: #fffbeb !important;
+  background-image: none !important;
   border-color: rgba(245, 158, 11, 0.4) !important;
   color: #92400e !important;
 }
@@ -222,7 +265,8 @@ html.light .bg-rose-950,
 html.light .bg-rose-950\/50,
 html.light .bg-rose-950\/40,
 html.light [class*="bg-rose-950"] {
-  background-color: #fff1f2 !important;
+  background: #fff1f2 !important;
+  background-image: none !important;
   border-color: rgba(244, 63, 94, 0.4) !important;
   color: #9f1239 !important;
 }
@@ -230,7 +274,8 @@ html.light [class*="bg-rose-950"] {
 /* GPS Button Granted State */
 html.light .bg-\[\#0f4d39\],
 html.light [class*="bg-[#0f4d39]"] {
-  background-color: #e6f4ea !important;
+  background: #e6f4ea !important;
+  background-image: none !important;
   border-color: #34d399 !important;
   color: #065f46 !important;
 }
@@ -238,7 +283,8 @@ html.light [class*="bg-[#0f4d39]"] {
 /* Hover States on Dark Emerald Buttons */
 html.light .hover\:bg-\[\#114d3a\]:hover,
 html.light [class*="hover:bg-[#114d3a]"]:hover {
-  background-color: #f5f0e4 !important;
+  background: #f5f0e4 !important;
+  background-image: none !important;
   border-color: #c8a951 !important;
 }
 
@@ -246,29 +292,45 @@ html.light [class*="hover:bg-[#114d3a]"]:hover {
    HERO & GRADIENT CARDS (Light Mode)
    ========================================== */
 html.light .bg-gradient-to-r.from-\[\#0b3d2e\].via-\[\#07261d\].to-\[\#041410\],
-html.light [class*="from-[#0b3d2e]"][class*="via-[#07261d]"][class*="to-[#041410]"] {
-  background: linear-gradient(135deg, #ffffff 0%, #fbf9f4 100%) !important;
-  border-color: rgba(200, 169, 81, 0.4) !important;
+html.light [class*="from-[#0b3d2e]"] {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(200, 169, 81, 0.35) !important;
   box-shadow: 0 4px 20px -2px rgba(11, 61, 46, 0.06) !important;
 }
 
-html.light .bg-gradient-to-br.from-\[\#0b3d2e\].to-\[\#07261d\],
-html.light [class*="from-[#0b3d2e]"][class*="to-[#07261d]"] {
-  background: linear-gradient(135deg, #ffffff 0%, #faf8f3 100%) !important;
-  border-color: rgba(200, 169, 81, 0.35) !important;
-  box-shadow: 0 4px 15px -2px rgba(11, 61, 46, 0.05) !important;
+html.light [class*="from-[#07261d]"]:not(.qibla-compass-dial) {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(200, 169, 81, 0.3) !important;
 }
 
-html.light .bg-gradient-to-br.from-\[\#0e4d3a\].to-\[\#07261d\],
-html.light [class*="from-[#0e4d3a]"][class*="to-[#07261d]"] {
-  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%) !important;
+html.light [class*="from-[#0e4d3a]"]:not(.qibla-compass-dial),
+html.light .next-prayer-active {
+  background: #ffffff !important;
+  background-image: none !important;
   border-color: #c8a951 !important;
+  box-shadow: 0 4px 15px -2px rgba(200, 169, 81, 0.25) !important;
 }
 
-html.light .bg-gradient-to-br.from-\[\#07261d\].to-\[\#041410\],
+html.light .qibla-locked-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(200, 169, 81, 0.35) !important;
+}
 html.light .qibla-locked-icon-sphere {
-  background: linear-gradient(135deg, #f7f4ec 0%, #eae3d2 100%) !important;
-  border-color: rgba(200, 169, 81, 0.5) !important;
+  background: #fbf9f4 !important;
+  background-image: none !important;
+  border: 2px solid #c8a951 !important;
+}
+html.light .qibla-locked-icon-sphere svg {
+  color: #c8a951 !important;
+}
+
+html.light .qibla-unlocked-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: rgba(200, 169, 81, 0.35) !important;
 }
 
 html.light [class*="from-[#c8a951]/20"][class*="to-[#07261d]"],
@@ -277,9 +339,38 @@ html.light .from-\[\#c8a951\]\/20.to-\[\#07261d\] {
   border-color: rgba(200, 169, 81, 0.35) !important;
 }
 
-html.light [class*="from-[#0b3d2e]"][class*="to-[#051a14]"] {
-  background: linear-gradient(135deg, #ffffff 0%, #fbf9f4 100%) !important;
-  border-color: rgba(200, 169, 81, 0.35) !important;
+/* ==========================================
+   HEADER LOGO EMBLEM (Light Mode)
+   ========================================== */
+.header-emblem {
+  background: linear-gradient(135deg, #0e4d3a 0%, #07261d 50%, #041410 100%);
+}
+.header-emblem span {
+  color: #f3e5ab;
+}
+html.light .header-emblem {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 2px solid #c8a951 !important;
+  box-shadow: 0 4px 20px -2px rgba(200, 169, 81, 0.25) !important;
+}
+html.light .header-emblem span {
+  color: #c8a951 !important;
+}
+
+.mobile-header-emblem {
+  background: linear-gradient(135deg, #0b3d2e 0%, #051a14 100%);
+}
+.mobile-header-emblem span {
+  color: #f3e5ab;
+}
+html.light .mobile-header-emblem {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #c8a951 !important;
+}
+html.light .mobile-header-emblem span {
+  color: #c8a951 !important;
 }
 
 /* ==========================================
@@ -312,7 +403,7 @@ html.light input::placeholder {
 
 html.light input[type="number"] {
   background-color: #ffffff !important;
-  color: #07261d !important;
+  color: #0f172a !important;
   border: 1px solid rgba(200, 169, 81, 0.45) !important;
 }
 
@@ -323,11 +414,76 @@ html.light input[type="date"] {
 }
 
 /* ==========================================
+   SELECTION COLOR IN LIGHT MODE
+   Royal Lapis Lazuli Navy with Pure White Text & Gold Border
+   NO MURKY MUSTARD, NO DARK GREEN!
+   ========================================== */
+html.light .selection-active,
+html.light .nav-tab-active {
+  background: linear-gradient(135deg, #173b6c 0%, #0f2742 100%) !important;
+  background-image: linear-gradient(135deg, #173b6c 0%, #0f2742 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #c8a951 !important;
+  box-shadow: 0 4px 16px rgba(23, 59, 108, 0.35) !important;
+}
+html.light .selection-active span,
+html.light .nav-tab-active span {
+  color: #ffffff !important;
+}
+html.light .selection-active svg,
+html.light .nav-tab-active svg {
+  color: #f3e5ab !important;
+}
+html.light .nav-tab-active .animate-pulse {
+  background-color: #c8a951 !important;
+}
+
+/* Inactive Selection / Toggle Buttons */
+html.light .selection-inactive,
+html.light .nav-tab-inactive {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: #1e293b !important;
+  border: 1px solid rgba(200, 169, 81, 0.35) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+html.light .selection-inactive:hover,
+html.light .nav-tab-inactive:hover {
+  background: #fbf9f4 !important;
+  border-color: #c8a951 !important;
+  color: #0f172a !important;
+}
+html.light .selection-inactive span,
+html.light .nav-tab-inactive span {
+  color: #1e293b !important;
+}
+html.light .selection-inactive svg,
+html.light .nav-tab-inactive svg {
+  color: #c8a951 !important;
+}
+
+/* CTA Action Buttons (PDF Export, etc.) in Light Mode */
+html.light [class*="from-[#c8a951]"][class*="to-[#b39238]"] {
+  background: linear-gradient(135deg, #173b6c 0%, #0f2742 100%) !important;
+  background-image: linear-gradient(135deg, #173b6c 0%, #0f2742 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #c8a951 !important;
+  box-shadow: 0 4px 14px rgba(23, 59, 108, 0.25) !important;
+}
+html.light [class*="from-[#c8a951]"][class*="to-[#b39238]"] span {
+  color: #ffffff !important;
+}
+html.light [class*="from-[#c8a951]"][class*="to-[#b39238]"] svg {
+  color: #f3e5ab !important;
+}
+
+/* ==========================================
    TYPOGRAPHY & ACCENT COLORS (Light Mode)
+   Crisp, high contrast - ZERO green text!
    ========================================== */
 html.light .text-\[\#f3e5ab\],
 html.light [class*="text-[#f3e5ab]"] {
-  color: #07261d !important; /* Regal deep imperial emerald for headings */
+  color: #0f172a !important; /* Regal crisp charcoal slate */
 }
 
 html.light .text-\[\#e6cb7a\],
@@ -364,7 +520,7 @@ html.light .text-emerald-300,
 html.light .text-emerald-400,
 html.light [class*="text-emerald-200"],
 html.light [class*="text-emerald-300"] {
-  color: #047857 !important;
+  color: #166534 !important; /* Deep readable forest green */
 }
 
 html.light .text-amber-200,
@@ -380,13 +536,6 @@ html.light .text-rose-400,
 html.light [class*="text-rose-200"],
 html.light [class*="text-rose-300"] {
   color: #be123c !important;
-}
-
-/* Keep Gold Buttons High-Contrast in Light Mode */
-html.light .bg-\[\#c8a951\],
-html.light .bg-gradient-to-r.from-\[\#c8a951\],
-html.light [class*="from-[#c8a951]"] {
-  color: #07261d !important;
 }
 
 /* Subtle border tone in Light Mode */
@@ -413,11 +562,11 @@ html.light .header-top-banner {
 
 html.light .ayah-text,
 html.light .ayah-text span {
-  color: #07261d !important;
+  color: #997424 !important; /* Amber gold for Quranic Ayah */
 }
 
 html.light .brand-title {
-  color: #07261d !important;
+  color: #0f172a !important; /* Crisp dark slate */
 }
 
 html.light .brand-badge {
@@ -433,7 +582,7 @@ html.light .brand-subtitle {
 html.light .header-pill-btn {
   background-color: #ffffff !important;
   border-color: rgba(200, 169, 81, 0.35) !important;
-  color: #07261d !important;
+  color: #0f172a !important;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
 }
 html.light .header-pill-btn:hover {
@@ -441,32 +590,7 @@ html.light .header-pill-btn:hover {
   border-color: #c8a951 !important;
 }
 html.light .header-pill-btn span {
-  color: #07261d !important;
-}
-
-html.light .nav-tab-inactive {
-  background-color: #ffffff !important;
-  color: #07261d !important;
-  border-color: rgba(200, 169, 81, 0.35) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-}
-html.light .nav-tab-inactive:hover {
-  background-color: #fbf9f4 !important;
-  border-color: #c8a951 !important;
-  color: #07261d !important;
-}
-html.light .nav-tab-inactive span {
-  color: #07261d !important;
-}
-
-html.light .nav-tab-active {
-  background: linear-gradient(135deg, #e6cb7a 0%, #c8a951 50%, #b39238 100%) !important;
-  color: #07261d !important;
-  border-color: transparent !important;
-  box-shadow: 0 6px 20px rgba(200, 169, 81, 0.4) !important;
-}
-html.light .nav-tab-active span {
-  color: #07261d !important;
+  color: #0f172a !important;
 }
 
 /* Mobile Short Bar */
@@ -477,7 +601,7 @@ html.light .mobile-short-bar {
 }
 html.light .mobile-short-bar span,
 html.light .mobile-short-bar button {
-  color: #07261d !important;
+  color: #0f172a !important;
 }
 html.light .mobile-short-bar button {
   background-color: #ffffff !important;
@@ -486,7 +610,7 @@ html.light .mobile-short-bar button {
 html.light .mobile-header-btn {
   background-color: #ffffff !important;
   border-color: rgba(200, 169, 81, 0.35) !important;
-  color: #07261d !important;
+  color: #0f172a !important;
 }
 
 /* ==========================================
@@ -504,13 +628,13 @@ html.light .pdf-modal-header {
 }
 
 html.light .pdf-modal-header div span {
-  color: #07261d !important;
+  color: #0f172a !important;
 }
 
 html.light .pdf-modal-print-btn {
   background-color: #ffffff !important;
   border-color: rgba(200, 169, 81, 0.4) !important;
-  color: #07261d !important;
+  color: #0f172a !important;
 }
 html.light .pdf-modal-print-btn:hover {
   background-color: #fbf9f4 !important;
@@ -543,7 +667,7 @@ html.light footer p {
   color: #475569 !important;
 }
 html.light footer .text-slate-200 {
-  color: #07261d !important;
+  color: #0f172a !important;
 }
 html.light footer .text-slate-400 {
   color: #64748b !important;

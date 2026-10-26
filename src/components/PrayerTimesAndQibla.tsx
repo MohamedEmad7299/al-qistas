@@ -393,7 +393,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
         {/* Left Column: Countdowns & Times (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Next Prayer Live Countdown Hero */}
-          <div className="p-6 rounded-2xl bg-gradient-to-r from-[#0b3d2e] via-[#07261d] to-[#041410] border-2 border-[#c8a951]/40 shadow-xl relative overflow-hidden">
+          <div className="emerald-card p-6 rounded-2xl border-2 border-[#c8a951]/40 shadow-xl relative overflow-hidden">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <span className="text-xs text-[#e6cb7a] uppercase font-bold tracking-wider flex items-center gap-1.5">
@@ -437,7 +437,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
                   key={prayer.id}
                   className={`p-4 rounded-2xl border transition-all ${
                     isNext
-                      ? 'bg-gradient-to-br from-[#0e4d3a] to-[#07261d] border-[#c8a951] shadow-lg scale-[1.02]'
+                      ? 'next-prayer-active bg-gradient-to-br from-[#0e4d3a] to-[#07261d] border-[#c8a951] shadow-lg scale-[1.02]'
                       : 'bg-[#0b3d2e]/70 border-[#c8a951]/20 hover:border-[#c8a951]/40'
                   }`}
                 >

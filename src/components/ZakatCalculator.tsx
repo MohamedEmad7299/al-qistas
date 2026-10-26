@@ -200,8 +200,8 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
               onClick={() => setActiveCategory(tab.id as any)}
               className={`flex items-center gap-2.5 px-4.5 py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all cursor-pointer whitespace-nowrap border ${
                 isActive
-                  ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-[0_4px_15px_rgba(200,169,81,0.35)] ring-2 ring-[#c8a951]/40 scale-[1.03]'
-                  : 'bg-[#0b3d2e]/70 text-slate-200 border-[#c8a951]/20 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#114d3a] hover:-translate-y-0.5 active:scale-95 shadow-xs'
+                  ? 'selection-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-[0_4px_15px_rgba(200,169,81,0.35)] ring-2 ring-[#c8a951]/40 scale-[1.03]'
+                  : 'selection-inactive bg-[#0b3d2e]/70 text-slate-200 border-[#c8a951]/20 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#114d3a] hover:-translate-y-0.5 active:scale-95 shadow-xs'
               }`}
             >
               <Icon className={`w-4 h-4 ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
