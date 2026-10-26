@@ -134,9 +134,9 @@ export const PdfExportModal: React.FC<PdfModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-[#09261e] border-2 border-[#c8a951] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-4 sm:my-8 flex flex-col max-h-[92vh]">
+      <div className="pdf-modal-container relative w-full max-w-4xl bg-[#09261e] border-2 border-[#c8a951] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-4 sm:my-8 flex flex-col max-h-[92vh]">
         {/* Modal Top Control Bar */}
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-[#07261d] border-b border-[#c8a951]/30 shrink-0 no-print">
+        <div className="pdf-modal-header flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-[#07261d] border-b border-[#c8a951]/30 shrink-0 no-print">
           <div className="flex items-center gap-2 text-[#f3e5ab] font-amiri text-base sm:text-lg font-bold">
             <Sparkles className="w-5 h-5 text-[#c8a951]" />
             <span>{language === 'ar' ? 'معاينة التقرير الشرعي للطباعة و PDF' : 'Official PDF Document Preview'}</span>
@@ -146,7 +146,7 @@ export const PdfExportModal: React.FC<PdfModalProps> = ({
             <button
               onClick={handlePrint}
               type="button"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0b3d2e] border border-[#c8a951]/30 text-white text-xs font-semibold hover:bg-[#114d3a] transition cursor-pointer"
+              className="pdf-modal-print-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0b3d2e] border border-[#c8a951]/30 text-white text-xs font-semibold hover:bg-[#114d3a] transition cursor-pointer"
             >
               <Printer className="w-4 h-4 text-[#c8a951]" />
               <span>{t.print}</span>
@@ -165,7 +165,7 @@ export const PdfExportModal: React.FC<PdfModalProps> = ({
             <button
               onClick={onClose}
               type="button"
-              className="p-1.5 rounded-lg bg-[#07261d] text-slate-400 hover:text-white transition cursor-pointer"
+              className="pdf-modal-close-btn p-1.5 rounded-lg bg-[#07261d] text-slate-400 hover:text-white transition cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -173,7 +173,7 @@ export const PdfExportModal: React.FC<PdfModalProps> = ({
         </div>
 
         {/* Modal Body / Scrollable Certificate Area */}
-        <div className="p-4 sm:p-6 overflow-y-auto bg-slate-950/70 flex-1">
+        <div className="pdf-modal-scroll-area p-4 sm:p-6 overflow-y-auto bg-slate-950/70 flex-1">
           {/* Printable Document Container (Styled like a Royal Islamic Certificate) */}
           <div
             id="pdf-printable-certificate"

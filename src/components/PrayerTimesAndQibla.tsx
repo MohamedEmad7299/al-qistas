@@ -506,12 +506,12 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
         <div className="lg:col-span-5 space-y-6">
           {locationPermission !== 'granted' ? (
             /* LOCKED QIBLA COMPASS CARD */
-            <div className="bg-[#0b3d2e]/85 border-2 border-[#c8a951]/40 rounded-2xl p-6 md:p-8 shadow-2xl text-center relative overflow-hidden backdrop-blur-md">
+            <div className="qibla-locked-card bg-[#0b3d2e]/85 border-2 border-[#c8a951]/40 rounded-2xl p-6 md:p-8 shadow-2xl text-center relative overflow-hidden backdrop-blur-md">
               <div className="absolute top-0 right-0 w-36 h-36 bg-[#c8a951]/10 rounded-full blur-2xl pointer-events-none" />
 
               <div className="relative z-10 space-y-5">
                 {/* Big Lock Icon with animated Kaaba glow */}
-                <div className="relative w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#07261d] to-[#041410] border-2 border-[#c8a951] flex items-center justify-center shadow-[0_0_30px_rgba(200,169,81,0.3)]">
+                <div className="qibla-locked-icon-sphere relative w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#07261d] to-[#041410] border-2 border-[#c8a951] flex items-center justify-center shadow-[0_0_30px_rgba(200,169,81,0.3)]">
                   <div className="absolute inset-2 rounded-full border border-dashed border-[#c8a951]/40 animate-[spin_20s_linear_infinite]" />
                   <Lock className="w-10 h-10 text-[#f3e5ab]" />
                 </div>
@@ -575,7 +575,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
             </div>
           ) : (
             /* UNLOCKED INTERACTIVE QIBLA COMPASS */
-            <div className="bg-[#0b3d2e]/80 border border-[#c8a951]/30 rounded-2xl p-6 shadow-xl space-y-5 text-center relative overflow-hidden backdrop-blur-sm">
+            <div className="qibla-unlocked-card bg-[#0b3d2e]/80 border border-[#c8a951]/30 rounded-2xl p-6 shadow-xl space-y-5 text-center relative overflow-hidden backdrop-blur-sm">
               <div className="flex items-center justify-between border-b border-[#c8a951]/20 pb-3">
                 <span className="font-amiri font-bold text-lg text-[#f3e5ab] flex items-center gap-2">
                   <Compass className="w-5 h-5 text-[#c8a951]" />

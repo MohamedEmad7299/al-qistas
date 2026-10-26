@@ -97,7 +97,7 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
 
             {/* Glowing SVG Moon Graphic */}
             <div className="flex justify-center py-4">
-              <div className="relative w-44 h-44 rounded-full bg-gradient-to-br from-slate-900 to-black border-2 border-[#c8a951]/40 shadow-[0_0_35px_rgba(200,169,81,0.2)] flex items-center justify-center overflow-hidden">
+              <div className="moon-phase-sky relative w-44 h-44 rounded-full bg-gradient-to-br from-slate-900 to-black border-2 border-[#c8a951]/40 shadow-[0_0_35px_rgba(200,169,81,0.2)] flex items-center justify-center overflow-hidden">
                 {/* Moon crater textures */}
                 <div className="absolute w-6 h-6 rounded-full bg-slate-800/40 top-8 left-10" />
                 <div className="absolute w-10 h-10 rounded-full bg-slate-800/30 bottom-8 right-8" />

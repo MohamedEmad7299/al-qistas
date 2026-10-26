@@ -203,7 +203,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="flex items-center justify-center w-8 h-8 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] transition cursor-pointer shadow-sm active:scale-95"
+              className="mobile-header-btn flex items-center justify-center w-8 h-8 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] transition cursor-pointer shadow-sm active:scale-95"
               title={theme === 'dark' ? t.lightMode : t.darkMode}
               aria-label="Toggle Theme"
             >
@@ -217,7 +217,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold cursor-pointer shadow-sm transition active:scale-95"
+              className="mobile-header-btn flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold cursor-pointer shadow-sm transition active:scale-95"
               title="Change Language"
             >
               <Languages className="w-3.5 h-3.5 text-[#c8a951]" />
@@ -237,8 +237,8 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => setActiveTab(item.id)}
                 className={`flex items-center shrink-0 gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer border ${
                   isActive
-                    ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
-                    : 'bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
+                    ? 'nav-tab-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
+                    : 'nav-tab-inactive bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
                 }`}
               >
                 <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
