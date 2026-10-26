@@ -166,7 +166,18 @@ export const translations = {
       fastingDuration: "مدة صيام اليوم",
       imsakCountdown: "الوقت المتبقي حتى الإمساك (الفجر)",
       iftarCountdown: "الوقت المتبقي حتى الإفطار (المغرب)",
-      imsakiyaTitle: "إمساكية الشهر وطباعة جدول الأوقات"
+      imsakiyaTitle: "إمساكية الشهر وطباعة جدول الأوقات",
+      qiblaLockedTitle: "بوصلة القبلة مقفلة (تتطلب إذن الموقع)",
+      qiblaLockedDesc: "وفقاً للضوابط الشرعية، يتطلب تحديد اتجاه القبلة بدقة متناهية معرفة إحداثيات موقعك الجغرافي الحقيقي (GPS). يرجى منح الإذن لتفعيل البوصلة.",
+      grantLocationBtn: "السماح بالوصول لموقعي وتفعيل القبلة (GPS)",
+      locationPermissionDenied: "تم حظر إذن الموقع في المتصفح. لتفعيله: انقر على أيقونة القفل أو الإعدادات بجانب شريط العنوان في المتصفح، واسمح بالوصول للموقع، ثم أعد المحاولة.",
+      requestingLocation: "جارٍ تحديد موقعك الجغرافي بدقة...",
+      facingQibla: "أنت الآن تواجه القبلة مباشرة! تقبل الله 🕋",
+      turnRight: "در يميناً",
+      turnLeft: "در يساراً",
+      enableCompassSensor: "معايرة بوصلة الهاتف",
+      staticCompassNotice: "بوصلة إرشادية ثابتة: السهم يشير للقبلة بالنسبة للشمال الجغرافي. للتوجيه الحي التفاعلي، افتح التطبيق من هاتف ذكي مزود بمستشعر البوصلة.",
+      locationGrantedNotice: "تم تحديد موقعك الجغرافي عبر GPS بنجاح وتفعيل القبلة الدقيقة"
     },
 
     // Calendar
@@ -396,7 +407,18 @@ export const translations = {
       fastingDuration: "Today's Fasting Duration",
       imsakCountdown: "Time until Imsak (Fajr)",
       iftarCountdown: "Time until Iftar (Maghrib)",
-      imsakiyaTitle: "Ramadan Imsakiya & Monthly Schedule"
+      imsakiyaTitle: "Ramadan Imsakiya & Monthly Schedule",
+      qiblaLockedTitle: "Qibla Compass Locked (Location Required)",
+      qiblaLockedDesc: "Accurate Qibla determination requires your exact geographic coordinates (GPS). Please grant location permission to unlock the compass.",
+      grantLocationBtn: "Allow Location Access & Unlock Qibla (GPS)",
+      locationPermissionDenied: "Location permission is blocked or denied. To enable: click the lock or site settings icon in your browser address bar, allow Location, and retry.",
+      requestingLocation: "Detecting precise GPS coordinates...",
+      facingQibla: "You are facing the Qibla directly! 🕋",
+      turnRight: "Turn right",
+      turnLeft: "Turn left",
+      enableCompassSensor: "Calibrate Phone Compass",
+      staticCompassNotice: "Static reference compass: Arrow indicates Qibla relative to True North. For live interactive rotation, open on a mobile phone with a compass sensor.",
+      locationGrantedNotice: "GPS location successfully detected and Qibla calibrated"
     },
 
     // Calendar
