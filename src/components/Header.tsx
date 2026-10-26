@@ -84,15 +84,6 @@ export const Header: React.FC<HeaderProps> = ({
     }
 
     const handleScroll = () => {
-      // Only active on mobile view (< 768px)
-      if (window.innerWidth >= 768) {
-        if (isVisibleRef.current) {
-          isVisibleRef.current = false;
-          setIsShortBarVisible(false);
-        }
-        return;
-      }
-
       const currentScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
       const threshold = headerHeightRef.current || 160;
       const delta = currentScrollY - lastScrollYRef.current;
@@ -176,83 +167,91 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      {/* Floating Short Bar for Mobile View (< 768px) */}
+      {/* Floating Short Bar: appears smoothly when scrolling up across all devices */}
       <div
-        className={`mobile-short-bar fixed top-0 inset-x-0 z-50 md:hidden bg-[#07261d]/95 backdrop-blur-md rounded-b-2xl border-b-2 border-[#c8a951]/30 shadow-2xl pt-[env(safe-area-inset-top,0px)] mobile-short-bar no-print transition-all duration-300 ${
+        className={`mobile-short-bar fixed top-0 inset-x-0 z-50 bg-[#07261d]/95 backdrop-blur-md rounded-b-2xl border-b-2 border-[#c8a951]/30 shadow-2xl pt-[env(safe-area-inset-top,0px)] no-print transition-all duration-300 ${
           isShortBarVisible
             ? 'translate-y-0 opacity-100 pointer-events-auto'
             : '-translate-y-full opacity-0 pointer-events-none'
         }`}
         aria-hidden={!isShortBarVisible}
       >
-        {/* Top compact row: Logo, App Title, Theme Toggle & Language Toggle */}
-        <div className="px-4 pt-3 pb-2 flex items-center justify-between gap-3 border-b border-[#c8a951]/15">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="mobile-header-emblem flex items-center justify-center w-8 h-8 rounded-xl border border-[#c8a951] shadow-sm shrink-0">
-              <span className="font-amiri text-lg select-none leading-none">۞</span>
+        <div className="max-w-7xl mx-auto">
+          {/* Top compact row: Logo, App Title, Theme Toggle & Language Toggle */}
+          <div className="px-4 sm:px-6 md:px-8 pt-3 pb-2 flex items-center justify-between gap-3 border-b border-[#c8a951]/15">
+            <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+              <div className="mobile-header-emblem flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-[#c8a951] shadow-sm shrink-0">
+                <span className="font-amiri text-lg sm:text-xl select-none leading-none">۞</span>
+              </div>
+              <span className="mobile-app-title font-amiri font-bold text-lg sm:text-xl text-[#f3e5ab] leading-none truncate">
+                {t.appName}
+              </span>
+              <span className="mobile-hijri-date text-[11px] sm:text-xs text-[#e6cb7a]/90 font-medium font-amiri hidden sm:inline truncate">
+                {hijriDate}
+              </span>
             </div>
-            <span className="mobile-app-title font-amiri font-bold text-lg text-[#f3e5ab] leading-none truncate">
-              {t.appName}
-            </span>
-            <span className="mobile-hijri-date text-[11px] text-[#e6cb7a]/90 font-medium font-amiri hidden sm:inline truncate">
-              {hijriDate}
-            </span>
-          </div>
 
-          <div className="flex items-center gap-2 shrink-0">
-            {/* Mobile Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="mobile-header-btn flex items-center justify-center w-8 h-8 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] transition cursor-pointer shadow-sm active:scale-95"
-              title={theme === 'dark' ? t.lightMode : t.darkMode}
-              aria-label="Toggle Theme"
-            >
-              {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-400" />
-              ) : (
-                <Moon className="w-4 h-4 text-cyan-300" />
-              )}
-            </button>
-
-            {/* Mobile Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="mobile-header-btn flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold cursor-pointer shadow-sm transition active:scale-95"
-              title="Change Language"
-            >
-              <Languages className="w-3.5 h-3.5 text-[#c8a951]" />
-              <span>{t.toggleLanguage}</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Compact horizontally scrollable navigation tabs with comfortable spacing */}
-        <nav className="flex items-center gap-2.5 overflow-x-auto no-scrollbar px-4 py-2.5">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            return (
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              {/* Theme Toggle */}
               <button
-                key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                className={`flex items-center shrink-0 gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer border ${
-                  isActive
-                    ? 'nav-tab-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-white border-transparent shadow-md scale-105'
-                    : 'nav-tab-inactive bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
-                }`}
+                onClick={toggleTheme}
+                className="mobile-header-btn flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] transition cursor-pointer shadow-sm active:scale-95 text-xs font-bold"
+                title={theme === 'dark' ? t.lightMode : t.darkMode}
+                aria-label="Toggle Theme"
               >
-                <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-[#c8a951]'}`} />
-                <span className={isActive ? '!text-white' : ''}>{item.label}</span>
+                {theme === 'dark' ? (
+                  <>
+                    <Sun className="w-4 h-4 text-amber-400" />
+                    <span className="hidden md:inline">{t.lightMode}</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-4 h-4 text-cyan-300" />
+                    <span className="hidden md:inline">{t.darkMode}</span>
+                  </>
+                )}
               </button>
-            );
-          })}
-        </nav>
+
+              {/* Language Toggle */}
+              <button
+                onClick={toggleLanguage}
+                className="mobile-header-btn flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold cursor-pointer shadow-sm transition active:scale-95"
+                title="Change Language"
+              >
+                <Languages className="w-3.5 h-3.5 text-[#c8a951]" />
+                <span>{t.toggleLanguage}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Compact navigation tabs with comfortable spacing */}
+          <nav className="flex items-center md:justify-center gap-2.5 sm:gap-3.5 overflow-x-auto no-scrollbar px-4 sm:px-6 md:px-8 py-2.5">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveTab(item.id)}
+                  className={`flex items-center shrink-0 gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap cursor-pointer border ${
+                    isActive
+                      ? 'nav-tab-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-white border-transparent shadow-md scale-105'
+                      : 'nav-tab-inactive bg-[#07261d]/85 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 ${isActive ? 'text-white' : 'text-[#c8a951]'}`} />
+                  <span className={isActive ? '!text-white' : ''}>{item.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+        </div>
       </div>
 
-      {/* Tall Main Header: scrolls away on mobile, sticky on desktop */}
+      {/* Tall Main Header: scrolls away naturally on all viewports, leaving content unobstructed */}
       <header
         ref={tallHeaderRef}
-        className="header-container relative md:sticky md:top-0 z-40 bg-[#07261d]/95 backdrop-blur-md border-b-2 border-[#c8a951]/25 shadow-2xl no-print transition-all duration-300"
+        className="header-container relative z-40 bg-[#07261d]/95 backdrop-blur-md border-b-2 border-[#c8a951]/25 shadow-2xl no-print transition-all duration-300"
       >
         {/* Top Banner: Quranic motto with respectful top space, Live Dates, Theme & Language toggles */}
         <div className="header-top-banner bg-[#051a14]/90 border-b border-[#c8a951]/15 px-6 sm:px-8 pt-6 sm:pt-7 pb-4 sm:pb-5 text-xs transition-colors duration-300">
