@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
       }
 
       const currentScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
-      const threshold = headerHeightRef.current || 140;
+      const threshold = headerHeightRef.current || 160;
       const delta = currentScrollY - lastScrollYRef.current;
 
       // While scroll position is still inside the tall header, keep short bar hidden
@@ -178,7 +178,7 @@ export const Header: React.FC<HeaderProps> = ({
     <>
       {/* Floating Short Bar for Mobile View (< 768px) */}
       <div
-        className={`fixed top-0 inset-x-0 z-50 md:hidden bg-[#07261d]/95 backdrop-blur-md rounded-b-2xl border-b border-[#c8a951]/30 shadow-2xl pt-[env(safe-area-inset-top,0px)] mobile-short-bar no-print ${
+        className={`mobile-short-bar fixed top-0 inset-x-0 z-50 md:hidden bg-[#07261d]/95 backdrop-blur-md rounded-b-2xl border-b-2 border-[#c8a951]/30 shadow-2xl pt-[env(safe-area-inset-top,0px)] mobile-short-bar no-print transition-all duration-300 ${
           isShortBarVisible
             ? 'translate-y-0 opacity-100 pointer-events-auto'
             : '-translate-y-full opacity-0 pointer-events-none'
@@ -186,7 +186,7 @@ export const Header: React.FC<HeaderProps> = ({
         aria-hidden={!isShortBarVisible}
       >
         {/* Top compact row: Logo, App Title, Theme Toggle & Language Toggle */}
-        <div className="px-3.5 pt-2.5 pb-2 flex items-center justify-between gap-3 border-b border-[#c8a951]/15">
+        <div className="px-4 pt-3 pb-2 flex items-center justify-between gap-3 border-b border-[#c8a951]/15">
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-[#0b3d2e] to-[#051a14] border border-[#c8a951] shadow-sm shrink-0">
               <span className="font-amiri text-lg text-[#f3e5ab] select-none leading-none">۞</span>
@@ -217,7 +217,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold cursor-pointer shadow-sm transition active:scale-95"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold cursor-pointer shadow-sm transition active:scale-95"
               title="Change Language"
             >
               <Languages className="w-3.5 h-3.5 text-[#c8a951]" />
@@ -227,7 +227,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Compact horizontally scrollable navigation tabs with comfortable spacing */}
-        <nav className="flex items-center gap-2.5 overflow-x-auto no-scrollbar px-3.5 py-2">
+        <nav className="flex items-center gap-2.5 overflow-x-auto no-scrollbar px-4 py-2.5">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -252,23 +252,23 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Tall Main Header: scrolls away on mobile, sticky on desktop */}
       <header
         ref={tallHeaderRef}
-        className="relative md:sticky md:top-0 z-40 bg-[#07261d]/95 backdrop-blur-md border-b border-[#c8a951]/25 shadow-2xl no-print transition-all"
+        className="header-container relative md:sticky md:top-0 z-40 bg-[#07261d]/95 backdrop-blur-md border-b-2 border-[#c8a951]/25 shadow-2xl no-print transition-all duration-300"
       >
         {/* Top Banner: Quranic motto with respectful top space, Live Dates, Theme & Language toggles */}
-        <div className="bg-[#051a14]/90 border-b border-[#c8a951]/15 px-4 sm:px-6 pt-4 sm:pt-5 pb-3 sm:pb-3.5 text-xs">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
+        <div className="header-top-banner bg-[#051a14]/90 border-b border-[#c8a951]/15 px-6 sm:px-8 pt-6 sm:pt-7 pb-4 sm:pb-5 text-xs transition-colors duration-300">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
             {/* Motto with spacious, reverent top breathing room */}
-            <div className="flex items-center gap-2.5 text-[#e6cb7a] font-amiri text-sm sm:text-base pt-0.5">
-              <Sparkles className="w-4 h-4 text-[#c8a951] shrink-0" />
+            <div className="ayah-text flex items-center gap-3 text-[#e6cb7a] font-amiri text-base sm:text-lg md:text-xl">
+              <Sparkles className="w-5 h-5 text-[#c8a951] shrink-0" />
               <span className="font-bold tracking-wide">{t.motto}</span>
-              <span className="text-xs opacity-75 hidden xl:inline">({t.mottoSurah})</span>
+              <span className="text-xs sm:text-sm opacity-80 hidden xl:inline">({t.mottoSurah})</span>
             </div>
 
             {/* Dates, Theme Toggle & Language Toggle */}
             <div className="flex flex-wrap items-center gap-3 text-slate-300 self-end md:self-auto">
               {/* Hijri and Gregorian Dates Pill */}
-              <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#07261d]/90 border border-[#c8a951]/25 text-xs font-semibold shadow-xs">
-                <Calendar className="w-3.5 h-3.5 text-[#c8a951]" />
+              <div className="header-pill-btn flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-[#07261d]/90 border border-[#c8a951]/25 text-xs sm:text-sm font-semibold shadow-xs">
+                <Calendar className="w-4 h-4 text-[#c8a951]" />
                 <span className="text-[#e6cb7a] font-bold font-amiri">{hijriDate}</span>
                 <span className="text-slate-500 hidden sm:inline">|</span>
                 <span className="hidden sm:inline text-slate-300">{gregorianDate}</span>
@@ -278,19 +278,19 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
+                className="header-pill-btn flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/35 text-[#e6cb7a] text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
                 title={theme === 'dark' ? t.lightMode : t.darkMode}
                 aria-label="Toggle Theme"
               >
                 {theme === 'dark' ? (
                   <>
                     <Sun className="w-4 h-4 text-amber-400" />
-                    <span className="hidden sm:inline">{t.lightMode}</span>
+                    <span>{t.lightMode}</span>
                   </>
                 ) : (
                   <>
                     <Moon className="w-4 h-4 text-cyan-300" />
-                    <span className="hidden sm:inline">{t.darkMode}</span>
+                    <span>{t.darkMode}</span>
                   </>
                 )}
               </button>
@@ -299,7 +299,7 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={toggleLanguage}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
+                className="header-pill-btn flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/35 text-[#e6cb7a] text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
                 title="Change Language"
               >
                 <Languages className="w-4 h-4 text-[#c8a951]" />
@@ -310,36 +310,36 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Main Bar: Prominent Larger Logo & Spacious Navigation */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-6 md:py-7">
-          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6">
-            {/* Logo & Platform Name (Larger & More Regal) */}
-            <div className="flex items-center gap-4 sm:gap-5 shrink-0">
-              <div className="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#0e4d3a] via-[#07261d] to-[#041410] border-2 border-[#c8a951] shadow-[0_0_25px_rgba(200,169,81,0.4)] group shrink-0">
+        <div className="header-main-bar max-w-7xl mx-auto px-6 sm:px-8 md:px-10 py-7 sm:py-8 md:py-10 transition-all duration-300">
+          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 md:gap-8">
+            {/* Logo & Platform Name (Larger & Much More Regal) */}
+            <div className="flex items-center gap-5 sm:gap-6 shrink-0">
+              <div className="relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#0e4d3a] via-[#07261d] to-[#041410] border-2 sm:border-3 border-[#c8a951] shadow-[0_0_35px_rgba(200,169,81,0.45)] group shrink-0">
                 {/* Ornate Rub-el-Hizb with inner glow */}
-                <span className="font-amiri text-3xl sm:text-4xl text-[#f3e5ab] select-none leading-none group-hover:scale-110 transition-transform">۞</span>
+                <span className="font-amiri text-4xl sm:text-5xl md:text-6xl text-[#f3e5ab] select-none leading-none group-hover:scale-110 transition-transform">۞</span>
                 {/* Corner ornamental accents */}
-                <div className="absolute top-1 left-1 w-1.5 h-1.5 bg-[#c8a951]/60 rounded-full" />
-                <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#c8a951]/60 rounded-full" />
-                <div className="absolute bottom-1 left-1 w-1.5 h-1.5 bg-[#c8a951]/60 rounded-full" />
-                <div className="absolute bottom-1 right-1 w-1.5 h-1.5 bg-[#c8a951]/60 rounded-full" />
+                <div className="absolute top-1.5 left-1.5 w-2 h-2 bg-[#c8a951]/70 rounded-full" />
+                <div className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#c8a951]/70 rounded-full" />
+                <div className="absolute bottom-1.5 left-1.5 w-2 h-2 bg-[#c8a951]/70 rounded-full" />
+                <div className="absolute bottom-1.5 right-1.5 w-2 h-2 bg-[#c8a951]/70 rounded-full" />
               </div>
               <div>
-                <div className="flex items-center gap-3">
-                  <h1 className="font-amiri font-bold text-3xl sm:text-4xl md:text-5xl text-[#f3e5ab] tracking-wide leading-tight">
+                <div className="flex items-center gap-3.5">
+                  <h1 className="brand-title font-amiri font-bold text-4xl sm:text-5xl md:text-6xl text-[#f3e5ab] tracking-wider leading-tight">
                     {t.appName}
                   </h1>
-                  <span className="px-2.5 py-1 rounded-full bg-[#c8a951]/20 border border-[#c8a951]/40 text-[#e6cb7a] text-xs font-bold shadow-xs">
+                  <span className="brand-badge px-3 py-1 rounded-full bg-[#c8a951]/20 border border-[#c8a951]/40 text-[#e6cb7a] text-xs sm:text-sm font-bold shadow-xs">
                     v2.0
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm md:text-base text-slate-300 font-medium mt-1.5 leading-relaxed">
+                <p className="brand-subtitle text-sm sm:text-base md:text-lg text-slate-300 font-medium mt-2 leading-relaxed">
                   {t.appSubtitle}
                 </p>
               </div>
             </div>
 
             {/* Nav Tabs - Larger Segmented Buttons with Comfortable Spacing */}
-            <nav className="flex flex-wrap items-center gap-2.5 sm:gap-3 md:gap-3.5 justify-start xl:justify-end py-1" role="tablist">
+            <nav className="flex flex-wrap items-center gap-3 sm:gap-3.5 md:gap-4 justify-start xl:justify-end py-1" role="tablist">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -349,10 +349,10 @@ export const Header: React.FC<HeaderProps> = ({
                     role="tab"
                     aria-selected={isActive}
                     onClick={() => setActiveTab(item.id)}
-                    className={`flex items-center shrink-0 gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl text-xs sm:text-sm md:text-base font-bold transition-all whitespace-nowrap cursor-pointer border ${
+                    className={`nav-tab-item flex items-center shrink-0 gap-2.5 px-4.5 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-3.5 rounded-2xl text-xs sm:text-sm md:text-base font-bold transition-all whitespace-nowrap cursor-pointer border ${
                       isActive
-                        ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-[0_6px_20px_rgba(200,169,81,0.4)] ring-2 ring-[#c8a951]/50 scale-[1.04]'
-                        : 'bg-[#0b3d2e]/75 text-slate-200 border-[#c8a951]/25 hover:border-[#c8a951]/70 hover:text-white hover:bg-[#114d3a] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 shadow-sm'
+                        ? 'nav-tab-active bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-[0_6px_20px_rgba(200,169,81,0.4)] ring-2 ring-[#c8a951]/50 scale-[1.04]'
+                        : 'nav-tab-inactive bg-[#0b3d2e]/75 text-slate-200 border-[#c8a951]/25 hover:border-[#c8a951]/70 hover:text-white hover:bg-[#114d3a] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 shadow-sm'
                     }`}
                   >
                     <Icon className={`w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0 transition-transform ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
