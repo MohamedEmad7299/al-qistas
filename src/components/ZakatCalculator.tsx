@@ -19,17 +19,21 @@ interface Props {
   onOpenPdfModal: (data: { type: 'zakat'; result: ZakatResult; currency: string }) => void;
 }
 
-const cleanNumberInput = (val: string, maxDigits = 12): string => {
+const cleanNumberInput = (val: string, maxDigits = 12, maxVal?: number): string => {
   if (!val) return '';
   const cleaned = val.replace(/^0+(?=\d)/, '');
   const parts = cleaned.split('.');
   if (parts[0].length > maxDigits) {
     parts[0] = parts[0].slice(0, maxDigits);
   }
+  let res = parts[0];
   if (parts.length > 1) {
-    return parts[0] + '.' + parts.slice(1).join('').slice(0, 2);
+    res = parts[0] + '.' + parts.slice(1).join('').slice(0, 2);
   }
-  return parts[0];
+  if (maxVal !== undefined && maxVal >= 0 && res !== '' && Number(res) > maxVal) {
+    return String(maxVal);
+  }
+  return res;
 };
 
 export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
@@ -445,7 +449,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     min="1"
                     max="999"
                     value={fitrMembers === 0 || fitrMembers === '0' || fitrMembers === '' ? '' : fitrMembers}
-                    onChange={(e) => setFitrMembers(cleanNumberInput(e.target.value, 3))}
+                    onChange={(e) => setFitrMembers(cleanNumberInput(e.target.value, 3, 999))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-sm"
                   />
@@ -551,7 +555,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     min="0"
                     max="99999"
                     value={camels === 0 || camels === '0' || camels === '' ? '' : camels}
-                    onChange={(e) => setCamels(cleanNumberInput(e.target.value, 5))}
+                    onChange={(e) => setCamels(cleanNumberInput(e.target.value, 5, 99999))}
                     placeholder="0"
                     className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-sm"
                   />
@@ -565,7 +569,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     min="0"
                     max="99999"
                     value={cattle === 0 || cattle === '0' || cattle === '' ? '' : cattle}
-                    onChange={(e) => setCattle(cleanNumberInput(e.target.value, 5))}
+                    onChange={(e) => setCattle(cleanNumberInput(e.target.value, 5, 99999))}
                     placeholder="0"
                     className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-sm"
                   />
@@ -579,7 +583,7 @@ export const ZakatCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     min="0"
                     max="99999"
                     value={sheep === 0 || sheep === '0' || sheep === '' ? '' : sheep}
-                    onChange={(e) => setSheep(cleanNumberInput(e.target.value, 5))}
+                    onChange={(e) => setSheep(cleanNumberInput(e.target.value, 5, 99999))}
                     placeholder="0"
                     className="w-full bg-[#0b3d2e] rounded-lg px-2 py-1 text-center font-bold text-white text-sm"
                   />

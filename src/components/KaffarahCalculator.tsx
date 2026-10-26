@@ -9,17 +9,21 @@ interface Props {
   onOpenPdfModal: (data: any) => void;
 }
 
-const cleanNumberInput = (val: string, maxDigits = 12): string => {
+const cleanNumberInput = (val: string, maxDigits = 12, maxVal?: number): string => {
   if (!val) return '';
   const cleaned = val.replace(/^0+(?=\d)/, '');
   const parts = cleaned.split('.');
   if (parts[0].length > maxDigits) {
     parts[0] = parts[0].slice(0, maxDigits);
   }
+  let res = parts[0];
   if (parts.length > 1) {
-    return parts[0] + '.' + parts.slice(1).join('').slice(0, 2);
+    res = parts[0] + '.' + parts.slice(1).join('').slice(0, 2);
   }
-  return parts[0];
+  if (maxVal !== undefined && maxVal >= 0 && res !== '' && Number(res) > maxVal) {
+    return String(maxVal);
+  }
+  return res;
 };
 
 export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
@@ -142,7 +146,7 @@ export const KaffarahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }
                     min="1"
                     max="9999"
                     value={missedDays === 0 || missedDays === '0' || missedDays === '' ? '' : missedDays}
-                    onChange={(e) => setMissedDays(cleanNumberInput(e.target.value, 4))}
+                    onChange={(e) => setMissedDays(cleanNumberInput(e.target.value, 4, 9999))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />

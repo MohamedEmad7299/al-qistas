@@ -9,10 +9,13 @@ interface Props {
   onOpenPdfModal: (data: any) => void;
 }
 
-const cleanNumberInput = (val: string, maxDigits = 2): string => {
+const cleanNumberInput = (val: string, maxDigits = 2, maxVal?: number): string => {
   if (!val) return '';
-  const cleaned = val.replace(/^0+(?=\d)/, '');
-  return cleaned.slice(0, maxDigits);
+  const cleaned = val.replace(/^0+(?=\d)/, '').slice(0, maxDigits);
+  if (maxVal !== undefined && maxVal >= 0 && cleaned !== '' && Number(cleaned) > maxVal) {
+    return String(maxVal);
+  }
+  return cleaned;
 };
 
 export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) => {
@@ -108,7 +111,7 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                     min="20"
                     max="45"
                     value={cycleDays === 0 || cycleDays === '0' || cycleDays === '' ? '' : cycleDays}
-                    onChange={(e) => setCycleDays(cleanNumberInput(e.target.value))}
+                    onChange={(e) => setCycleDays(cleanNumberInput(e.target.value, 2, 45))}
                     placeholder="0"
                     className="w-full bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-3 py-2 text-white font-bold text-xs"
                   />

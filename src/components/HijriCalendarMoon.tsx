@@ -23,10 +23,13 @@ interface Props {
   language: Language;
 }
 
-const cleanNumberInput = (val: string, maxDigits = 4): string => {
+const cleanNumberInput = (val: string, maxDigits = 4, maxVal?: number): string => {
   if (!val) return '';
-  const cleaned = val.replace(/^0+(?=\d)/, '');
-  return cleaned.slice(0, maxDigits);
+  const cleaned = val.replace(/^0+(?=\d)/, '').slice(0, maxDigits);
+  if (maxVal !== undefined && maxVal >= 0 && cleaned !== '' && Number(cleaned) > maxVal) {
+    return String(maxVal);
+  }
+  return cleaned;
 };
 
 export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
@@ -174,7 +177,7 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
                   min="1"
                   max="30"
                   value={hDayInput === 0 || hDayInput === '0' || hDayInput === '' ? '' : hDayInput}
-                  onChange={(e) => setHDayInput(cleanNumberInput(e.target.value, 2))}
+                  onChange={(e) => setHDayInput(cleanNumberInput(e.target.value, 2, 30))}
                   className="bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2 py-1.5 text-center text-white font-bold text-xs"
                   placeholder="1"
                 />
@@ -197,7 +200,7 @@ export const HijriCalendarMoon: React.FC<Props> = ({ language }) => {
                   min="1300"
                   max="1600"
                   value={hYearInput === 0 || hYearInput === '0' || hYearInput === '' ? '' : hYearInput}
-                  onChange={(e) => setHYearInput(cleanNumberInput(e.target.value, 4))}
+                  onChange={(e) => setHYearInput(cleanNumberInput(e.target.value, 4, 1600))}
                   className="bg-[#07261d] border border-[#c8a951]/30 rounded-xl px-2 py-1.5 text-center text-white font-bold text-xs"
                   placeholder="1448"
                 />
