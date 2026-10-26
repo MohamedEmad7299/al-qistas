@@ -4,13 +4,13 @@ export const IslamicBackground: React.FC = () => {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden no-print">
       {/* Radial soft emerald & gold glow */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl" />
-      <div className="absolute top-1/3 -right-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-700/10 rounded-full blur-3xl" />
+      <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl islamic-bg-glow-1" />
+      <div className="absolute top-1/3 -right-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl islamic-bg-glow-2" />
+      <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-700/10 rounded-full blur-3xl islamic-bg-glow-1" />
 
       {/* Repeating 8-fold Islamic Star Geometric Pattern */}
       <svg
-        className="absolute inset-0 w-full h-full opacity-[0.035] text-[#c8a951]"
+        className="absolute inset-0 w-full h-full opacity-[0.035] text-[#c8a951] islamic-bg-star"
         xmlns="http://www.w3.org/2000/svg"
         width="80"
         height="80"

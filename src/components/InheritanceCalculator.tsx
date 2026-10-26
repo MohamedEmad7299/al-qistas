@@ -205,24 +205,24 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                 <button
                   type="button"
                   onClick={() => setDeceasedGender('male')}
-                  className={`py-2 px-3 rounded-xl text-xs font-semibold border transition cursor-pointer flex items-center justify-center gap-2 ${
+                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${
                     deceasedGender === 'male'
-                      ? 'bg-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md'
-                      : 'bg-[#07261d] text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/50'
+                      ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
+                      : 'bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
                   }`}
                 >
-                  <span>{t.inheritance.male}</span>
+                  <span>♂ {t.inheritance.male}</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setDeceasedGender('female')}
-                  className={`py-2 px-3 rounded-xl text-xs font-semibold border transition cursor-pointer flex items-center justify-center gap-2 ${
+                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${
                     deceasedGender === 'female'
-                      ? 'bg-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md'
-                      : 'bg-[#07261d] text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/50'
+                      ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-md ring-2 ring-[#c8a951]/40 scale-[1.02]'
+                      : 'bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white'
                   }`}
                 >
-                  <span>{t.inheritance.female}</span>
+                  <span>♀ {t.inheritance.female}</span>
                 </button>
               </div>
             </div>
@@ -286,12 +286,12 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                       if (maxWasiyyah > 0) setWasiyyah(maxWasiyyah);
                     }}
                     disabled={maxWasiyyah <= 0}
-                    className="text-[10px] text-[#e6cb7a] hover:text-[#f3e5ab] hover:underline cursor-pointer disabled:opacity-50 disabled:no-underline disabled:cursor-default transition font-medium"
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#c8a951]/15 hover:bg-[#c8a951]/30 border border-[#c8a951]/40 text-[#f3e5ab] text-[10px] font-bold hover:scale-105 active:scale-95 transition cursor-pointer shadow-xs disabled:opacity-50 disabled:no-underline disabled:cursor-default"
                     title={language === 'ar' ? 'انقر لتطبيق الحد الأقصى' : 'Click to apply max'}
                   >
-                    Max: {maxWasiyyah.toLocaleString()} {currency}
+                    <span>⚡ Max: {maxWasiyyah.toLocaleString()} {currency}</span>
                     {Number(wasiyyah) >= maxWasiyyah && maxWasiyyah > 0 && (
-                      <span className="text-amber-400 ms-1 font-bold">({language === 'ar' ? 'الحد الأقصى' : 'Max'})</span>
+                      <span className="text-amber-400 ms-1 font-extrabold">({language === 'ar' ? 'الحد الأقصى' : 'Max'})</span>
                     )}
                   </button>
                 </div>
@@ -326,16 +326,16 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
               {deceasedGender === 'male' ? (
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-slate-300">{t.inheritance.wives}:</span>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5">
                     {[0, 1, 2, 3, 4].map((count) => (
                       <button
                         key={count}
                         type="button"
                         onClick={() => setWives(count)}
-                        className={`w-7 h-7 rounded-lg text-xs font-bold transition ${
+                        className={`w-7 h-7 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
                           wives === count
-                            ? 'bg-[#c8a951] text-[#07261d]'
-                            : 'bg-[#0b3d2e] text-slate-300 hover:bg-[#114d3a]'
+                            ? 'bg-gradient-to-r from-[#e6cb7a] to-[#c8a951] text-[#07261d] border-[#c8a951] shadow-sm scale-110'
+                            : 'bg-[#0b3d2e] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951] hover:text-white hover:bg-[#114d3a]'
                         }`}
                       >
                         {count}
@@ -344,37 +344,37 @@ export const InheritanceCalculator: React.FC<Props> = ({ language, onOpenPdfModa
                   </div>
                 </div>
               ) : (
-                <label className="flex items-center justify-between cursor-pointer">
+                <label className="flex items-center justify-between cursor-pointer p-1 rounded-lg hover:bg-[#0b3d2e]/40 transition">
                   <span className="text-xs text-slate-300">{t.inheritance.husband}</span>
                   <input
                     type="checkbox"
                     checked={husband}
                     onChange={(e) => setHusband(e.target.checked)}
-                    className="w-4 h-4 accent-[#c8a951] rounded"
+                    className="w-4 h-4 accent-[#c8a951] rounded cursor-pointer"
                   />
                 </label>
               )}
             </div>
 
             {/* Heirs Category Tabs */}
-            <div className="flex flex-wrap border-b border-[#c8a951]/20 text-xs gap-1 pb-1">
+            <div className="flex flex-wrap gap-1.5 border-b border-[#c8a951]/20 pb-2">
               {[
-                { id: 'descendants', label: language === 'ar' ? 'الفروع' : 'Descendants' },
-                { id: 'ascendants', label: language === 'ar' ? 'الأصول' : 'Ascendants' },
-                { id: 'siblings', label: language === 'ar' ? 'الإخوة' : 'Siblings' },
-                { id: 'extended', label: language === 'ar' ? 'العصبات' : 'Agnates' },
+                { id: 'descendants', label: language === 'ar' ? 'الفروع (الأولاد)' : 'Descendants' },
+                { id: 'ascendants', label: language === 'ar' ? 'الأصول (الآباء)' : 'Ascendants' },
+                { id: 'siblings', label: language === 'ar' ? 'الإخوة والأخوات' : 'Siblings' },
+                { id: 'extended', label: language === 'ar' ? 'باقي العصبات' : 'Agnates' },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTabSection(tab.id as any)}
-                  className={`px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
+                  className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
                     activeTabSection === tab.id
-                      ? 'bg-[#c8a951]/20 text-[#f3e5ab] border border-[#c8a951]/40'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
+                      : 'bg-[#07261d]/80 text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#0b3d2e] hover:-translate-y-0.5'
                   }`}
                 >
-                  {tab.label}
+                  <span>{tab.label}</span>
                 </button>
               ))}
             </div>

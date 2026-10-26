@@ -77,10 +77,10 @@ export const IddahCalculator: React.FC<Props> = ({ language, onOpenPdfModal }) =
                   key={opt.id}
                   type="button"
                   onClick={() => setType(opt.id as any)}
-                  className={`w-full p-3 rounded-xl text-xs md:text-sm font-semibold border transition text-start cursor-pointer flex items-center justify-between ${
+                  className={`w-full p-3.5 rounded-xl text-xs md:text-sm font-bold border transition-all text-start cursor-pointer flex items-center justify-between active:scale-95 ${
                     type === opt.id
-                      ? 'bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] border-[#c8a951] font-bold shadow-md'
-                      : 'bg-[#07261d] text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/40'
+                      ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent font-bold shadow-md ring-2 ring-[#c8a951]/40 scale-[1.01]'
+                      : 'bg-[#07261d] text-slate-300 border-[#c8a951]/25 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#0b3d2e] hover:-translate-y-0.5'
                   }`}
                 >
                   <span>{opt.label}</span>

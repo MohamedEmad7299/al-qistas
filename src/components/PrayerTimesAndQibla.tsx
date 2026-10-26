@@ -616,7 +616,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
               {/* Compass Visualization */}
               <div className="flex justify-center py-4">
                 <div
-                  className={`relative w-64 h-64 rounded-full bg-gradient-to-br from-[#07261d] via-[#051a14] to-[#041410] border-4 transition-all duration-300 flex items-center justify-center ${
+                  className={`qibla-compass-dial relative w-64 h-64 rounded-full bg-gradient-to-br from-[#07261d] via-[#051a14] to-[#041410] border-4 transition-all duration-300 flex items-center justify-center ${
                     isFacingQibla
                       ? 'border-emerald-400 shadow-[0_0_35px_rgba(52,211,153,0.5)]'
                       : 'border-[#c8a951] shadow-[0_0_25px_rgba(200,169,81,0.25)]'
@@ -670,7 +670,7 @@ export const PrayerTimesAndQibla: React.FC<Props> = ({ language, onOpenPdfModal 
 
                   {/* Center Hub */}
                   <div
-                    className={`w-14 h-14 rounded-full bg-[#0b3d2e] border-2 flex flex-col items-center justify-center z-10 shadow-md transition-colors ${
+                    className={`qibla-compass-hub w-14 h-14 rounded-full bg-[#0b3d2e] border-2 flex flex-col items-center justify-center z-10 shadow-md transition-colors ${
                       isFacingQibla ? 'border-emerald-400 bg-[#063324]' : 'border-[#c8a951]'
                     }`}
                   >

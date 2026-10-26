@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Language } from './types';
+import React, { useState, useEffect } from 'react';
+import { Language, Theme } from './types';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { IslamicBackground } from './components/IslamicBackground';
@@ -15,6 +15,34 @@ import { PdfExportModal } from './components/PdfExportModal';
 export const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('ar');
   const [activeTab, setActiveTab] = useState<string>('inheritance');
+
+  // Theme state: defaults to 'dark' as requested ("let that as dark")
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('alqistas_theme') as Theme;
+      if (saved === 'light' || saved === 'dark') return saved;
+    }
+    return 'dark';
+  });
+
+  // Apply theme class to document root
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'light') {
+      root.classList.remove('dark');
+      root.classList.add('light');
+      root.setAttribute('data-theme', 'light');
+    } else {
+      root.classList.remove('light');
+      root.classList.add('dark');
+      root.setAttribute('data-theme', 'dark');
+    }
+    try {
+      localStorage.setItem('alqistas_theme', theme);
+    } catch (e) {
+      // ignore
+    }
+  }, [theme]);
 
   // PDF Modal State
   const [isPdfOpen, setIsPdfOpen] = useState<boolean>(false);
@@ -35,10 +63,12 @@ export const App: React.FC = () => {
       {/* Background Islamic SVG geometric pattern */}
       <IslamicBackground />
 
-      {/* Header with Navigation and Language Toggle */}
+      {/* Header with Navigation, Theme Toggle, and Language Toggle */}
       <Header
         language={language}
         setLanguage={setLanguage}
+        theme={theme}
+        setTheme={setTheme}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />

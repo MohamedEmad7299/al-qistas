@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Language } from '../types';
+import { Language, Theme } from '../types';
 import { translations } from '../translations/translations';
 import { gregorianToHijri } from '../utils/calendarEngine';
 import { 
@@ -7,6 +7,7 @@ import {
   Coins, 
   Compass, 
   Moon, 
+  Sun,
   ShieldAlert, 
   Hourglass, 
   TrendingUp, 
@@ -18,6 +19,8 @@ import {
 interface HeaderProps {
   language: Language;
   setLanguage: (lang: Language) => void;
+  theme: Theme;
+  setTheme: React.Dispatch<React.SetStateAction<Theme>>;
   activeTab: string;
   setActiveTab: (tab: string) => void;
 }
@@ -25,6 +28,8 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   language,
   setLanguage,
+  theme,
+  setTheme,
   activeTab,
   setActiveTab,
 }) => {
@@ -155,6 +160,10 @@ export const Header: React.FC<HeaderProps> = ({
     document.documentElement.lang = nextLang;
   };
 
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   const navItems = [
     { id: 'inheritance', label: t.tabs.inheritance, icon: Scale },
     { id: 'zakat', label: t.tabs.zakat, icon: Coins },
@@ -176,7 +185,7 @@ export const Header: React.FC<HeaderProps> = ({
         }`}
         aria-hidden={!isShortBarVisible}
       >
-        {/* Top compact row: Logo, App Title, Hijri Date, Language Toggle */}
+        {/* Top compact row: Logo, App Title, Theme Toggle & Language Toggle */}
         <div className="px-3 pt-2 pb-1.5 flex items-center justify-between gap-2 border-b border-[#c8a951]/15">
           <div className="flex items-center gap-2 min-w-0">
             <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-[#0b3d2e] to-[#051a14] border border-[#c8a951] shadow-sm shrink-0">
@@ -190,13 +199,25 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="text-[11px] text-[#e6cb7a]/90 font-medium font-amiri sm:hidden">
-              {hijriDate}
-            </span>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* Mobile Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] transition cursor-pointer shadow-sm active:scale-95"
+              title={theme === 'dark' ? t.lightMode : t.darkMode}
+              aria-label="Toggle Theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-3.5 h-3.5 text-amber-400" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-cyan-300" />
+              )}
+            </button>
+
+            {/* Mobile Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-medium cursor-pointer shadow-sm transition"
+              className="flex items-center gap-1 px-2 py-1 rounded-lg bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-semibold cursor-pointer shadow-sm transition active:scale-95"
               title="Change Language"
             >
               <Languages className="w-3.5 h-3.5 text-[#c8a951]" />
@@ -214,10 +235,10 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center shrink-0 gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition whitespace-nowrap cursor-pointer ${
+                className={`flex items-center shrink-0 gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer border ${
                   isActive
-                    ? 'bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] font-bold shadow-sm'
-                    : 'text-slate-300 hover:text-white hover:bg-[#0b3d2e]/60'
+                    ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-md scale-105'
+                    : 'bg-[#07261d]/80 text-slate-300 border-[#c8a951]/20 hover:border-[#c8a951]/50 hover:text-white'
                 }`}
               >
                 <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
@@ -231,30 +252,54 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Tall Main Header: scrolls away on mobile, sticky on desktop */}
       <header
         ref={tallHeaderRef}
-        className="relative md:sticky md:top-0 z-40 bg-[#07261d]/90 backdrop-blur-md border-b border-[#c8a951]/20 shadow-lg no-print"
+        className="relative md:sticky md:top-0 z-40 bg-[#07261d]/90 backdrop-blur-md border-b border-[#c8a951]/20 shadow-xl no-print"
       >
-        {/* Top Banner: Quranic motto & Live Dates */}
-        <div className="bg-[#051a14]/80 border-b border-[#c8a951]/10 px-4 py-1.5 text-xs">
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+        {/* Top Banner: Quranic motto, Live Dates, Theme & Language toggles */}
+        <div className="bg-[#051a14]/85 border-b border-[#c8a951]/15 px-4 py-2 text-xs">
+          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
             {/* Motto */}
             <div className="flex items-center gap-2 text-[#e6cb7a] font-amiri text-sm">
-              <Sparkles className="w-3.5 h-3.5 text-[#c8a951]" />
-              <span>{t.motto}</span>
-              <span className="text-[11px] opacity-75 hidden sm:inline">({t.mottoSurah})</span>
+              <Sparkles className="w-4 h-4 text-[#c8a951] shrink-0" />
+              <span className="font-semibold">{t.motto}</span>
+              <span className="text-[11px] opacity-80 hidden lg:inline">({t.mottoSurah})</span>
             </div>
 
-            {/* Dates & Language toggle */}
-            <div className="flex items-center gap-4 text-slate-300">
-              <div className="flex items-center gap-1.5 text-xs font-medium">
+            {/* Dates, Theme Toggle & Language Toggle */}
+            <div className="flex items-center gap-3 text-slate-300">
+              {/* Hijri and Gregorian Dates Pill */}
+              <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#07261d]/80 border border-[#c8a951]/20 text-xs font-medium">
                 <Calendar className="w-3.5 h-3.5 text-[#c8a951]" />
-                <span className="text-[#e6cb7a]">{hijriDate}</span>
-                <span className="text-slate-500">|</span>
-                <span className="hidden md:inline">{gregorianDate}</span>
+                <span className="text-[#e6cb7a] font-bold font-amiri">{hijriDate}</span>
+                <span className="text-slate-500 hidden sm:inline">|</span>
+                <span className="hidden sm:inline text-slate-300">{gregorianDate}</span>
               </div>
 
+              {/* Theme Toggle Button */}
               <button
+                type="button"
+                onClick={toggleTheme}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
+                title={theme === 'dark' ? t.lightMode : t.darkMode}
+                aria-label="Toggle Theme"
+              >
+                {theme === 'dark' ? (
+                  <>
+                    <Sun className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="hidden sm:inline">{t.lightMode}</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-3.5 h-3.5 text-cyan-300" />
+                    <span className="hidden sm:inline">{t.darkMode}</span>
+                  </>
+                )}
+              </button>
+
+              {/* Language Switcher Button */}
+              <button
+                type="button"
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-medium transition cursor-pointer shadow-sm"
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0b3d2e] hover:bg-[#114d3a] border border-[#c8a951]/30 text-[#e6cb7a] text-xs font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
                 title="Change Language"
               >
                 <Languages className="w-3.5 h-3.5 text-[#c8a951]" />
@@ -265,43 +310,51 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Main Bar: Logo & Navigation */}
-        <div className="max-w-7xl mx-auto px-4 py-3">
+        <div className="max-w-7xl mx-auto px-4 py-3.5">
           <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
             {/* Logo & Platform Name */}
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#0b3d2e] to-[#051a14] border-2 border-[#c8a951] shadow-[0_0_15px_rgba(200,169,81,0.3)]">
-                {/* Ornate Rub-el-Hizb */}
-                <span className="font-amiri text-2xl text-[#f3e5ab] select-none">۞</span>
+            <div className="flex items-center gap-3.5 shrink-0">
+              <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0b3d2e] via-[#07261d] to-[#041410] border-2 border-[#c8a951] shadow-[0_0_20px_rgba(200,169,81,0.35)] group">
+                {/* Ornate Rub-el-Hizb with inner glow */}
+                <span className="font-amiri text-2xl text-[#f3e5ab] select-none leading-none group-hover:scale-110 transition-transform">۞</span>
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="font-amiri font-bold text-2xl md:text-3xl text-[#f3e5ab] tracking-wide leading-tight">
                     {t.appName}
                   </h1>
+                  <span className="px-2 py-0.5 rounded-full bg-[#c8a951]/20 border border-[#c8a951]/30 text-[#e6cb7a] text-[10px] font-bold">
+                    v2.0
+                  </span>
                 </div>
-                <p className="text-xs text-slate-400 font-medium mt-1.5 pt-0.5">
+                <p className="text-xs text-slate-300 font-medium mt-1">
                   {t.appSubtitle}
                 </p>
               </div>
             </div>
 
-            {/* Nav Tabs - flex-wrap ensures no tabs are cut off on any screen size */}
-            <nav className="flex flex-wrap items-center gap-1.5 md:gap-2 justify-start xl:justify-end py-1">
+            {/* Nav Tabs - Segmented Buttons with Unmistakable Clickability */}
+            <nav className="flex flex-wrap items-center gap-1.5 md:gap-2 justify-start xl:justify-end py-1" role="tablist">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
                 return (
                   <button
                     key={item.id}
+                    role="tab"
+                    aria-selected={isActive}
                     onClick={() => setActiveTab(item.id)}
-                    className={`flex items-center shrink-0 gap-2 px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition whitespace-nowrap cursor-pointer ${
+                    className={`flex items-center shrink-0 gap-2 px-3.5 py-2 rounded-xl text-xs md:text-sm font-bold transition-all whitespace-nowrap cursor-pointer border ${
                       isActive
-                        ? 'bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] font-bold shadow-md shadow-[#c8a951]/20'
-                        : 'text-slate-300 hover:text-white hover:bg-[#0b3d2e]/60'
+                        ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-[0_4px_15px_rgba(200,169,81,0.35)] ring-2 ring-[#c8a951]/40 scale-[1.03]'
+                        : 'bg-[#0b3d2e]/70 text-slate-200 border-[#c8a951]/20 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#114d3a] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 shadow-sm'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
+                    <Icon className={`w-4 h-4 shrink-0 transition-transform ${isActive ? 'text-[#07261d]' : 'text-[#c8a951]'}`} />
                     <span>{item.label}</span>
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#07261d] inline-block ms-0.5 animate-pulse" />
+                    )}
                   </button>
                 );
               })}

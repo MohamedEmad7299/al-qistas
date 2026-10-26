@@ -103,6 +103,234 @@ input[type="number"] {
   box-shadow: 0 0 20px rgba(200, 169, 81, 0.25);
 }
 
+/* ==========================================================================
+   LIGHT MODE STYLES
+   Provides illuminated, warm Islamic parchment & ivory aesthetic with high contrast
+   ========================================================================== */
+html.light {
+  color-scheme: light;
+}
+
+html.light body {
+  background-color: #f7f5f0 !important;
+  color: #1e293b !important;
+}
+
+/* Light mode for the main page container */
+html.light .min-h-screen.bg-\[\#051a14\] {
+  background-color: #f7f5f0 !important;
+  color: #1e293b !important;
+}
+
+/* Cards in Light Mode */
+html.light .emerald-card {
+  background: #ffffff !important;
+  border-color: rgba(200, 169, 81, 0.4) !important;
+  box-shadow: 0 4px 20px -2px rgba(11, 61, 46, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04) !important;
+  color: #1e293b !important;
+}
+
+html.light .bg-\[\#0b3d2e\]\/80,
+html.light .bg-\[\#0b3d2e\]\/85,
+html.light .bg-\[\#0b3d2e\]\/70,
+html.light .bg-\[\#0b3d2e\]\/60,
+html.light .bg-\[\#0b3d2e\]\/90,
+html.light .bg-\[\#0b3d2e\] {
+  background-color: #ffffff !important;
+  border-color: rgba(200, 169, 81, 0.35) !important;
+  box-shadow: 0 4px 16px -2px rgba(11, 61, 46, 0.06) !important;
+}
+
+/* Sub-containers, inner boxes, and secondary cards in Light Mode */
+html.light .bg-\[\#07261d\],
+html.light .bg-\[\#07261d\]\/80,
+html.light .bg-\[\#07261d\]\/90,
+html.light .bg-\[\#07261d\]\/60 {
+  background-color: #fbf9f4 !important;
+  border-color: rgba(200, 169, 81, 0.25) !important;
+}
+
+/* Hero / Gradient cards in Light Mode */
+html.light .bg-gradient-to-r.from-\[\#0b3d2e\].via-\[\#07261d\].to-\[\#041410\],
+html.light .bg-gradient-to-br.from-\[\#0b3d2e\].to-\[\#07261d\] {
+  background: linear-gradient(135deg, #ffffff 0%, #fcfbf8 100%) !important;
+  border-color: rgba(200, 169, 81, 0.4) !important;
+  box-shadow: 0 4px 15px -2px rgba(11, 61, 46, 0.06) !important;
+}
+
+/* Summary boxes inside Hero in Light Mode */
+html.light .bg-\[\#051a14\]\/80,
+html.light .bg-\[\#051a14\] {
+  background-color: #f4efe6 !important;
+  border-color: rgba(200, 169, 81, 0.3) !important;
+}
+
+/* Next Prayer card highlighted gradient */
+html.light .bg-gradient-to-br.from-\[\#0e4d3a\].to-\[\#07261d\] {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%) !important;
+  border-color: #c8a951 !important;
+}
+
+/* Form Inputs, Selects, and Textareas in Light Mode */
+html.light input:not([type="checkbox"]):not([type="radio"]),
+html.light select,
+html.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+html.light input:not([type="checkbox"]):not([type="radio"]):focus,
+html.light select:focus,
+html.light textarea:focus {
+  border-color: #c8a951 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(200, 169, 81, 0.25) !important;
+}
+html.light input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Typography & Headings in Light Mode */
+html.light .text-\[\#f3e5ab\] {
+  color: #07261d !important; /* Royal deep emerald for primary headings */
+}
+html.light .text-\[\#e6cb7a\] {
+  color: #997424 !important; /* Rich readable amber gold */
+}
+html.light .text-white {
+  color: #0f172a !important; /* Crisp dark slate for body titles */
+}
+html.light .text-slate-100 {
+  color: #1e293b !important;
+}
+html.light .text-slate-200 {
+  color: #334155 !important;
+}
+html.light .text-slate-300 {
+  color: #475569 !important;
+}
+html.light .text-slate-400 {
+  color: #64748b !important;
+}
+html.light .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* Keep Gold Buttons & Accents High-Contrast in Light Mode */
+html.light .bg-\[\#c8a951\],
+html.light .bg-gradient-to-r.from-\[\#c8a951\] {
+  color: #07261d !important;
+}
+
+/* Header & Short Bar in Light Mode - Preserves royal Islamic aesthetic */
+html.light header {
+  background-color: rgba(7, 38, 29, 0.98) !important;
+  border-bottom-color: rgba(200, 169, 81, 0.3) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.15) !important;
+}
+html.light header .text-\[\#f3e5ab\] {
+  color: #f3e5ab !important;
+}
+html.light header .text-\[\#e6cb7a\] {
+  color: #e6cb7a !important;
+}
+html.light header .text-slate-300 {
+  color: #e2e8f0 !important;
+}
+html.light header .text-slate-400 {
+  color: #94a3b8 !important;
+}
+html.light header .text-white {
+  color: #ffffff !important;
+}
+html.light header input,
+html.light header select {
+  background-color: #07261d !important;
+  color: #ffffff !important;
+  border-color: rgba(200, 169, 81, 0.4) !important;
+}
+
+/* Mobile Short Bar in Light Mode */
+html.light .mobile-short-bar {
+  background-color: rgba(7, 38, 29, 0.98) !important;
+  border-bottom-color: rgba(200, 169, 81, 0.3) !important;
+}
+html.light .mobile-short-bar .text-\[\#f3e5ab\] {
+  color: #f3e5ab !important;
+}
+html.light .mobile-short-bar .text-\[\#e6cb7a\] {
+  color: #e6cb7a !important;
+}
+html.light .mobile-short-bar .text-slate-300 {
+  color: #e2e8f0 !important;
+}
+
+/* Qibla Compass Dial in Light Mode - Preserves deep astronomical instrument aesthetic */
+html.light .qibla-compass-dial {
+  background: linear-gradient(135deg, #07261d 0%, #051a14 50%, #041410 100%) !important;
+}
+html.light .qibla-compass-dial span {
+  color: #f3e5ab !important;
+}
+html.light .qibla-compass-dial .text-rose-400 {
+  color: #fb7185 !important;
+}
+html.light .qibla-compass-dial .text-slate-400 {
+  color: #cbd5e1 !important;
+}
+html.light .qibla-compass-hub {
+  background-color: #0b3d2e !important;
+}
+html.light .qibla-compass-hub span {
+  color: #f3e5ab !important;
+}
+
+/* Footer in Light Mode */
+html.light footer {
+  background-color: #ffffff !important;
+  border-top-color: rgba(200, 169, 81, 0.35) !important;
+  box-shadow: 0 -4px 20px -2px rgba(11, 61, 46, 0.05) !important;
+}
+html.light footer p {
+  color: #475569 !important;
+}
+html.light footer .text-slate-200 {
+  color: #07261d !important;
+}
+html.light footer .text-slate-400 {
+  color: #64748b !important;
+}
+html.light footer .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* Table rows in Light Mode */
+html.light tr:hover {
+  background-color: rgba(200, 169, 81, 0.08) !important;
+}
+
+/* ==========================================================================
+   INTERACTIVE AFFORDANCES & UI/UX POLISH
+   ========================================================================== */
+button, 
+[role="button"],
+.cursor-pointer {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Interactive button lift */
+.interactive-tap {
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+.interactive-tap:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+.interactive-tap:active {
+  transform: translateY(0) scale(0.97);
+}
+
 /* Print styling for PDF / Single-Page A4 Print view */
 @media print {
   @page {

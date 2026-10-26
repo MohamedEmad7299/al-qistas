@@ -1,4 +1,5 @@
 export type Language = 'ar' | 'en';
+export type Theme = 'dark' | 'light';
 
 export interface HeirsInput {
   husband?: boolean;

@@ -133,13 +133,13 @@ export const FinanceCalculator: React.FC<Props> = ({ language, onOpenPdfModal })
             key={tab.id}
             type="button"
             onClick={() => setContractType(tab.id as any)}
-            className={`px-4 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition cursor-pointer ${
+            className={`px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all cursor-pointer border ${
               contractType === tab.id
-                ? 'bg-gradient-to-r from-[#c8a951] to-[#b39238] text-[#07261d] font-bold shadow-md'
-                : 'bg-[#0b3d2e]/60 text-slate-300 hover:text-white border border-[#c8a951]/20'
+                ? 'bg-gradient-to-r from-[#e6cb7a] via-[#c8a951] to-[#b39238] text-[#07261d] border-transparent shadow-[0_4px_15px_rgba(200,169,81,0.35)] ring-2 ring-[#c8a951]/40 scale-[1.03]'
+                : 'bg-[#0b3d2e]/70 text-slate-200 border-[#c8a951]/20 hover:border-[#c8a951]/60 hover:text-white hover:bg-[#114d3a] hover:-translate-y-0.5 active:scale-95 shadow-xs'
             }`}
           >
-            {tab.label}
+            <span>{tab.label}</span>
           </button>
         ))}
       </div>
